@@ -96,76 +96,76 @@ Empowering Education with Agentic AI
 
 ```mermaid
 graph TD
-    %% --- Client Side ---
-    subgraph Client_Layer ["💻 Client Layer"]
-        VueApp["Vue 3 Frontend SPA<br>(Vite + Pinia + Vue Router)"]
+    %% --- 客户端 ---
+    subgraph Client_Layer ["💻 客户端层"]
+        VueApp["Vue 3 前端 SPA<br>(Vite + Pinia + Vue 路由器)"]
     end
 
-    %% --- Backend Layer (Microservices) ---
-    subgraph Backend_Layer ["⚙️ Backend Microservices (Flask)"]
+    %% --- 后端层（微服务） ---
+    subgraph Backend_Layer ["⚙️ 后端微服务 (Flask)"]
         direction LR
         
-        %% Service 1: Auth
-        AuthService["🔐 Auth Service<br>(Port 5000)<br>Basic Login"]
+        %% 服务 1：身份验证
+        AuthService["🔐 身份验证服务<br>(端口 5000)<br>基本登录"]
         
-        %% Service 2: Grading
-        GradingService["📝 Grading & Review Service<br>(Port 5001)<br>Multi-modal AI"]
+        %% 服务 2：评分
+        GradingService["📝 评分与审核服务<br>(端口 5001)<br>多模态 AI"]
         
-        %% Service 3: Quiz Agent (The Core)
-        QuizService["🧠 Quiz Generation Agent<br>(Port 5002)<br>LangGraph Orchestrator"]
+        %% 服务 3：测验代理（核心）
+        QuizService["🧠 测验生成代理<br>(端口 5002)<br>LangGraph Orchestrator"]
         
-        %% Service 4: Data Analysis
-        DataService["📊 Data Analysis Service<br>(Port 5003)<br>Pandas + Matplotlib"]
+        %% 服务 4：数据分析
+        DataService["📊 数据分析服务<br>(端口 5003)<br>Pandas + Matplotlib"]
     end
 
-    %% --- MCP & Tool Layer ---
-    subgraph MCP_Layer ["🔌 MCP & Tool Ecosystem"]
-        %% MCP Client Logic inside Quiz Service
-        MCP_Client["MCP Client<br>(MultiServerMCPClient)"]
+    %% --- MCP 和工具层 ---
+    subgraph MCP_Layer ["🔌 MCP 和工具生态系统"]
+        %% MCP 客户端逻辑位于测验服务中
+        MCP_Client["MCP 客户端<br>(MultiServerMCPClient)"]
         
-        %% Tool 1: Web Search
-        WebSearch["🌐 Aliyun WebSearch<br>(Protocol: SSE)"]
+        %% 工具 1：网络搜索
+        WebSearch["🌐 阿里云网络搜索<br>(协议：SSE)"]
         
-        %% Tool 2: PDF
-        PDFTool["📄 PDF/Docx Agent<br>(Protocol: HTTP Stream)"]
+        %% 工具 2：PDF
+        PDFTool["📄 PDF/Docx 代理<br>(协议：HTTP 流)"]
         
-        %% Tool 3: Local RAG
-        LocalRAG["📚 Local RAG Server<br>(Protocol: Stdio)<br>FastMCP + VectorStore"]
+        %% 工具 3：本地 RAG
+        LocalRAG["📚 本地 RAG 服务器<br>(协议：Stdio)<br>FastMCP + VectorStore"]
     end
 
-    %% --- Model Layer ---
-    subgraph Model_Layer ["☁️ Model Provider (Aliyun DashScope)"]
-        QwenVL["👁️ Qwen-VL-OCR<br>(Visual Grading)"]
-        QwenMax["🤖 Qwen-Plus/Flash<br>(Reasoning & Generation)"]
+    %% --- 模型层 ---
+    subgraph Model_Layer ["☁️ 模型提供商 (阿里云 DashScope)"]
+        QwenVL["👁️ Qwen-VL-OCR<br>(视觉分级)"]
+        QwenMax["🤖 Qwen-Plus/Flash<br>(推理与生成)"]
         Emb["🔢 Text-Embedding-V2"]
     end
 
-    %% --- Connections ---
+    %% --- 连接 ---
     
-    %% Frontend to Backend
+    %% 前端到后端
     VueApp -->|POST /login| AuthService
-    VueApp -->|POST /correct (Image/Docx)| GradingService
+    VueApp -->|POST /correct Image/Docx| GradingService
     VueApp -->|POST /review_code| GradingService
     VueApp -->|POST /generate_quiz| QuizService
-    VueApp -->|POST /analyze (CSV/JSON)| DataService
+    VueApp -->|POST /analyze CSV/JSON| DataService
 
-    %% Grading Service Flows
-    GradingService -->|Image Analysis| QwenVL
-    GradingService -->|Code Logic| QwenMax
+    %% 分级服务流程
+    GradingService -->|图像分析| QwenVL
+    GradingService -->|代码逻辑| QwenMax
 
-    %% Quiz Service Flows (The Complex Part)
-    QuizService -->|Orchestrates| MCP_Client
-    MCP_Client <-->|SSE Connection| WebSearch
-    MCP_Client <-->|HTTP Request| PDFTool
-    MCP_Client <-->|Stdio Pipe| LocalRAG
+    %% 测验服务流程（复杂部分）
+    QuizService -->|编排| MCP_Client
+    MCP_Client <-->|SSE 连接| WebSearch
+    MCP_Client <-->|HTTP 请求| PDFTool
+    MCP_Client <-->|Stdio 管道| LocalRAG
     
-    %% RAG Internal
-    LocalRAG -->|Embed Documents| Emb
-    LocalRAG -.->|Retrieve Context| QwenMax
+    %% RAG 内部
+    LocalRAG -->|嵌入文档| Emb
+    LocalRAG -.->|检索上下文| QwenMax
 
-    %% Data Service Flows
-    DataService -->|Generate Plots| LocalFS["📂 Local File System<br>(Charts & Images)"]
-    DataService -->|Insight Analysis| QwenMax
+    %% 数据服务流
+    DataService -->|生成图表| LocalFS["📂 本地文件系统<br>(图表和图像)"]
+    DataService -->|洞察分析| QwenMax
 ```
 ## 📂 项目结构 (Project Structure)
 
@@ -342,6 +342,7 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
