@@ -206,7 +206,7 @@ teacher-assistant/
 ```bash
 
 # 克隆仓库
-git clone https://github.com/your-username/teacher-assistant.git
+git clone https://github.com/abaiar/Teacher_Assistant_AI.git
 cd teacher-assistant
 
 # 创建并激活虚拟环境 (推荐)
@@ -370,6 +370,7 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
