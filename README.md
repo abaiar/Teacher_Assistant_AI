@@ -358,8 +358,8 @@ npm run dev
 ### 🤖 v0.3: 模型与工具扩展
 - [ ] **本地大模型支持**：利用 Ollama/vLLM 接入 Llama 3、DeepSeek 等本地模型，降低 Token 成本。
 - [ ] **MCP 工具生态**：
-    - [ ] 新增 `Calculator` 工具提高理科计算准确度。
-    - [ ] 新增 `Email` 工具支持一键发送分析报告给家长。
+- [ ] 新增 `Calculator` 工具提高理科计算准确度。
+- [ ] 新增 `Email` 工具支持一键发送分析报告给家长。
 - [ ] **RAG 增强**：支持 PDF/Excel 文件批量上传并在本地建立索引。
 
 ### 💻 v1.0: 体验升级与多端适配
@@ -370,6 +370,7 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
