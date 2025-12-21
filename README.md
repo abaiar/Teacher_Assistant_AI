@@ -5,7 +5,7 @@ Empowering Education with Agentic AI
 一个基于 LangChain、LangGraph 和 MCP 协议构建的全能型 AI 助教系统。
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![Vue](https://img.shields.io/badge/vue-3.x-green)](https://vuejs.org/)
 [![LangChain](https://img.shields.io/badge/AI-LangChain-orange)](https://www.langchain.com/)
 [![MCP](https://img.shields.io/badge/Protocol-MCP-purple)](https://modelcontextprotocol.io/)
@@ -278,6 +278,7 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
