@@ -335,13 +335,12 @@ npm run dev
 
 - [ ] **移动端适配**：开发移动端友好的 H5 界面
 
-## 📄 许可证 (License)
-
 ## 🗺️ 路线图 (Roadmap)
 
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
