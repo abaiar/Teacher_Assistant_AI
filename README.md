@@ -1,7 +1,5 @@
 # Teacher Assistant (师小助) 
 
-[English](README_EN.md) | [中文](README.md)
-
 Empowering Education with Agentic AI
 
 一个基于 LangChain、LangGraph 和 MCP 协议构建的全能型 AI 助教系统。
@@ -282,3 +280,4 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
