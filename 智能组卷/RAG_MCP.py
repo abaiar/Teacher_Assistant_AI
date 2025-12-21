@@ -29,7 +29,7 @@ def log(message: str):
 log("正在初始化 RAG 知识库，请稍候...")  # 使用 log 替代 print
 
 # 检查 API KEY
-api_key = "sk-e970b82e9c064d7f822ddc9e5618b13e"
+api_key = "输入你的DashScope API Key"
 if not api_key:
     log("❌ 严重警告: 环境变量 DASHSCOPE_API_KEY 未找到！")
     # 即使没有Key，也不要直接抛出异常退出，先让 Server 跑起来，

@@ -12,7 +12,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 # ================= 2. 配置大模型 (通义千问) =================
 # 建议将 API Key 放入环境变量，或者在此处填入你的 Key
-DASHSCOPE_API_KEY = os.getenv("DASHSCOPE_API_KEY", "sk-e970b82e9c064d7f822ddc9e5618b13e")
+DASHSCOPE_API_KEY = os.getenv("DASHSCOPE_API_KEY", "输入你的DashScope API Key")
 
 # 初始化模型
 chatLLM = ChatTongyi(

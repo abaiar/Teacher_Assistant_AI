@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # 【配置 Key】建议放入环境变量，此处演示直接赋值
-dashscope.api_key = "sk-e970b82e9c064d7f822ddc9e5618b13e"
+dashscope.api_key = "输入你的DashScope API Key"
 
 def extract_text_from_docx(file_stream):
     """
