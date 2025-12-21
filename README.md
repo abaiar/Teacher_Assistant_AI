@@ -70,7 +70,7 @@ Empowering Education with Agentic AI
 
 ### Backend (Python/Flask)
 
-- **Framework**: Flask (Microservices on ports 5000-5003).
+- **Framework**: Flask (Microservices on ports 5000-5004).
 
 - **AI Orchestration**: LangChain, LangGraph.
 
@@ -370,6 +370,7 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
