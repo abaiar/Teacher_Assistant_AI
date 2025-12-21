@@ -133,7 +133,7 @@ teacher-assistant/
 
 ### 前置要求
 
-- Python 3.9+
+- Python 3.10+
 
 - Node.js 16+
 
@@ -280,4 +280,5 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
