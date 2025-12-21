@@ -207,10 +207,10 @@ teacher-assistant/
 
 # 克隆仓库
 git clone https://github.com/your-username/teacher-assistant.git
-cd teacher-assistant/backend
+cd teacher-assistant
 
 # 创建并激活虚拟环境 (推荐)
-conda create -n ai_assistant python=3.9
+conda create -n ai_assistant python=3.10
 conda activate ai_assistant
 
 # 安装依赖
@@ -253,8 +253,8 @@ export DASHSCOPE_API_KEY="sk-xxxxxxxxxxxxxxxx"
 # 终端 1: 用户认证服务 (Port 5000)
 python app.py
 
-# 终端 2: 批改服务 (Port 5001)
-python 智能批改.py  # 或 python 代码批改.py
+# 终端 2: 智能批改服务 (Port 5001)
+python 智能批改.py  
 
 # 终端 3: 智能组卷 Agent (Port 5002)
 # 注意：此服务会根据需要自动唤起 RAG_MCP.py 子进程
@@ -262,13 +262,16 @@ python main.py
 
 # 终端 4: 数据分析服务 (Port 5003)
 python data_analyzer.py
+
+# 终端 5: 代码批改服务 (Port 5004)
+python 代码批改.py
 ```
 
 ### 2. 前端设置
 
 ```bash
 
-cd ../frontend
+cd ../项目前端/src
 
 # 安装依赖
 npm install
@@ -340,6 +343,7 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
