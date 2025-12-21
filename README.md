@@ -177,7 +177,7 @@ teacher-assistant/
 ├── backend/
 │   ├── app.py                 # 用户认证服务 (Port 5000)
 │   ├── 智能批改.py             # 视觉批改服务 (Port 5001)
-│   ├── 代码批改.py             # 代码审查服务 (Port 5001)
+│   ├── 代码批改.py             # 代码审查服务 (Port 5004)
 │   ├── main.py                # 智能组卷主入口 (Port 5002)
 │   ├── RAG_MCP.py             # 本地 RAG MCP 服务器
 │   ├── data_analyzer.py       # 学情分析服务 (Port 5003)
@@ -370,6 +370,7 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
