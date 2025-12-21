@@ -20,7 +20,77 @@ Empowering Education with Agentic AI
 
 核心能力包括利用 RAG 技术进行智能组卷、基于 Qwen-VL 的多模态作业批改、以及自动化的学情数据分析。
 
-![在此处插入 Demo截图/GIF - 建议：高清动图展示智能组卷的流式输出或成绩分析图表；若暂未准备好，可放置架构全景图或核心功能拼图]
+graph TD
+    %% --- Client Side ---
+    subgraph Client_Layer ["💻 Client Layer"]
+        VueApp["Vue 3 Frontend SPA<br>(Vite + Pinia + Vue Router)"]
+    end
+
+    %% --- Backend Layer (Microservices) ---
+    subgraph Backend_Layer ["⚙️ Backend Microservices (Flask)"]
+        direction LR
+        
+        %% Service 1: Auth
+        AuthService["🔐 Auth Service<br>(Port 5000)<br>Basic Login"]
+        
+        %% Service 2: Grading
+        GradingService["📝 Grading & Review Service<br>(Port 5001)<br>Multi-modal AI"]
+        
+        %% Service 3: Quiz Agent (The Core)
+        QuizService["🧠 Quiz Generation Agent<br>(Port 5002)<br>LangGraph Orchestrator"]
+        
+        %% Service 4: Data Analysis
+        DataService["📊 Data Analysis Service<br>(Port 5003)<br>Pandas + Matplotlib"]
+    end
+
+    %% --- MCP & Tool Layer ---
+    subgraph MCP_Layer ["🔌 MCP & Tool Ecosystem"]
+        %% MCP Client Logic inside Quiz Service
+        MCP_Client["MCP Client<br>(MultiServerMCPClient)"]
+        
+        %% Tool 1: Web Search
+        WebSearch["🌐 Aliyun WebSearch<br>(Protocol: SSE)"]
+        
+        %% Tool 2: PDF
+        PDFTool["📄 PDF/Docx Agent<br>(Protocol: HTTP Stream)"]
+        
+        %% Tool 3: Local RAG
+        LocalRAG["📚 Local RAG Server<br>(Protocol: Stdio)<br>FastMCP + VectorStore"]
+    end
+
+    %% --- Model Layer ---
+    subgraph Model_Layer ["☁️ Model Provider (Aliyun DashScope)"]
+        QwenVL["👁️ Qwen-VL-OCR<br>(Visual Grading)"]
+        QwenMax["🤖 Qwen-Plus/Flash<br>(Reasoning & Generation)"]
+        Emb["🔢 Text-Embedding-V2"]
+    end
+
+    %% --- Connections ---
+    
+    %% Frontend to Backend
+    VueApp -->|POST /login| AuthService
+    VueApp -->|POST /correct (Image/Docx)| GradingService
+    VueApp -->|POST /review_code| GradingService
+    VueApp -->|POST /generate_quiz| QuizService
+    VueApp -->|POST /analyze (CSV/JSON)| DataService
+
+    %% Grading Service Flows
+    GradingService -->|Image Analysis| QwenVL
+    GradingService -->|Code Logic| QwenMax
+
+    %% Quiz Service Flows (The Complex Part)
+    QuizService -->|Orchestrates| MCP_Client
+    MCP_Client <-->|SSE Connection| WebSearch
+    MCP_Client <-->|HTTP Request| PDFTool
+    MCP_Client <-->|Stdio Pipe| LocalRAG
+    
+    %% RAG Internal
+    LocalRAG -->|Embed Documents| Emb
+    LocalRAG -.->|Retrieve Context| QwenMax
+
+    %% Data Service Flows
+    DataService -->|Generate Plots| LocalFS["📂 Local File System<br>(Charts & Images)"]
+    DataService -->|Insight Analysis| QwenMax
 
 ---
 
@@ -280,5 +350,6 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
