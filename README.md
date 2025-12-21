@@ -340,9 +340,37 @@ npm run dev
 
 ## 🗺️ 路线图 (Roadmap)
 
+我们致力于将 **Teacher Assistant** 打造成最先进的开源 AI 助教平台。以下是我们未来的开发计划：
+
+### ✅ v0.1: 核心功能 MVP (已完成)
+- [x] **架构搭建**：基于 Flask 的微服务架构与 Vue 3 前端。
+- [x] **智能组卷**：集成 LangGraph + MCP，实现联网搜索与本地 RAG 混合出题。
+- [x] **多模态批改**：接入 Qwen-VL，支持手写试卷识别与语义评分。
+- [x] **代码审查**：支持多语言代码分析与优化建议。
+- [x] **数据分析**：基于 Pandas 的学情分析与 Matplotlib 图表生成。
+
+### 🛠️ v0.2: 工程化与部署 (进行中)
+- [ ] **Docker 化**：提供 `docker-compose.yml`，实现一键启动所有微服务（Auth, Grading, Quiz, Data）。
+- [ ] **数据库持久化**：将当前 Mock 的用户系统迁移至 SQLite/MySQL，支持真正的用户注册与历史记录保存。
+- [ ] **向量库升级**：将 `InMemoryVectorStore` 升级为 ChromaDB 或 Milvus，实现知识库持久化。
+- [ ] **配置管理**：全面移除硬编码的 API Key，统一使用 `.env` 环境配置。
+
+### 🤖 v0.3: 模型与工具扩展
+- [ ] **本地大模型支持**：利用 Ollama/vLLM 接入 Llama 3、DeepSeek 等本地模型，降低 Token 成本。
+- [ ] **MCP 工具生态**：
+    - [ ] 新增 `Calculator` 工具提高理科计算准确度。
+    - [ ] 新增 `Email` 工具支持一键发送分析报告给家长。
+- [ ] **RAG 增强**：支持 PDF/Excel 文件批量上传并在本地建立索引。
+
+### 💻 v1.0: 体验升级与多端适配
+- [ ] **UI/UX 重构**：引入 Element Plus 或 Ant Design Vue，优化移动端响应式布局。
+- [ ] **语音交互**：增加 STT/TTS 模块，支持口语考试模拟与语音指令。
+- [ ] **班级管理系统**：增加教师端 Dashboard，支持批量导入学生名单与作业。
+
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
