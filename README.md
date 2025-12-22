@@ -11,7 +11,7 @@ Empowering Education with Agentic AI
 [![MCP](https://img.shields.io/badge/Protocol-MCP-purple)](https://modelcontextprotocol.io/)
 
 ---
-![Uploading 屏幕截图 2025-12-20 121757.png…]()
+<img width="564" height="101" alt="image" src="https://github.com/user-attachments/assets/b35738e5-7faa-4d91-9c31-280736ac329f" />
 ## ✨ 项目简介 (Introduction)
 
 **Teacher Assistant (师小助)** 是一个现代化的教育辅助平台，旨在通过人工智能技术解放教师的生产力。
@@ -370,6 +370,7 @@ npm run dev
 本项目基于 MIT 许可证开源 - 详情请参阅 LICENSE 文件。
 
 Made with ❤️ by the Teacher Assistant Team.
+
 
 
 
