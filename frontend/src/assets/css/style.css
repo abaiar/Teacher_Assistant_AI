@@ -59,7 +59,7 @@ a:focus {
 
 
 html[data-theme="Dark"] {
-    
+    --main_bg_color: url(../black_background.png);
     --main_text_color: #fff;
     --gradient:linear-gradient(120deg, rgb(133, 62, 255), #f76cc6 30%, rgb(255, 255, 255) 60%);
     --purple_text_color: #747bff;
@@ -92,10 +92,12 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    transition: color 0.1s ease;
+    transition: color 0.1s ease, background 0.3s ease;
     color: var(--main_text_color);
 
 }
+
+
 
 #zyyo-loading {
     background: radial-gradient(white, #d8eaff);
@@ -807,10 +809,6 @@ footer {
     -ms-user-select: none;
 }
 
-.onoffswitch-checkbox {
-    display: none;
-}
-
 .onoffswitch-label {
     display: block;
     overflow: hidden;
@@ -825,7 +823,6 @@ footer {
     align-items: center;
     width: 200%;
     height: 100%;
-    margin-left: -100%;
     transition: margin 0.2s ease-in 0s;
 }
 
@@ -868,15 +865,11 @@ footer {
     top: 12.5%;
     bottom: 12.5%;
     right: 5px;
-
     border-radius: 20px;
     transition: right 0.2s ease-in 0s;
 }
 
-.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-
-.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
-    right: 50%;
+/* 适配夜间模式背景：强制覆盖原有背景图为纯黑色 */
+html[data-theme="Dark"] body {
+    background: #000000 !important;
 }
