@@ -55,6 +55,12 @@
     </div>
     <div class="zyyo-right">
       <header>
+        <button class="logout-btn" @click="handleLogout" title="退出登录">
+          <svg viewBox="0 0 1024 1024" width="16" height="16">
+            <circle cx="512" cy="512" r="450" fill="currentColor"/>
+          </svg>
+          退出
+        </button>
         <div class="index-logo" style="background-image: url('../../static/img/logo.png');">
           <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
         </div>
@@ -95,13 +101,6 @@
             </svg>
             <div class="iconTip">QQ</div>
           </a>
-          <a class="iconItem" @click="handleLogout" href="javascript:void(0)">
-            <svg t="1712319361023" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1861">
-              <path d="M512 128C264.6 128 64 328.6 64 576s200.6 448 448 448 448-200.6 448-448S759.4 128 512 128zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" p-id="1862"></path>
-              <path d="M732.1 374.8c12.6-12.6 12.6-33.2 0-45.8l-104-104c-6.3-6.3-14.5-9.4-22.6-9.4s-16.3 3.1-22.6 9.4c-12.6 12.6-12.6 33.2 0 45.8l66.3 66.3H372c-17.7 0-32 14.3-32 32s14.3 32 32 32h279.1l-66.3 66.3c-12.6 12.6-12.6 33.2 0 45.8s33.2 12.6 45.8 0l104-104z" p-id="1863"></path>
-            </svg>
-            <div class="iconTip">退出登录</div>
-          </a>  
           <a class="switch" href="javascript:void(0)">
             <div class="onoffswitch">
               <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
@@ -234,11 +233,13 @@ export default {
       tc.style.display = 'block'
     },
     handleLogout() {
-      // 退出登录
-      const userStore = useUserStore()
-      const router = useRouter()
-      userStore.logout()
-      router.push('/login')
+      // 确认是否退出登录
+      if (confirm('确定要退出登录吗？')) {
+        // 退出登录
+        const userStore = useUserStore()
+        userStore.logout()
+        this.$router.push('/login')
+      }
     }
   },
   mounted() {
@@ -250,4 +251,46 @@ export default {
 
 <style scoped>
 /* 页面特定的样式可以在这里添加 */
+
+/* 确保 header 能够作为定位基准 */
+header {
+  position: relative;
+}
+
+/* 退出登录按钮样式 - 红色调 */
+.logout-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #dc3545; /* 红色主题 */
+  border: 1px solid #dc3545;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+.logout-btn svg {
+  fill: currentColor;
+  margin-top: -2px;
+}
+
+.logout-btn:hover {
+  background-color: #dc3545;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
 </style>
