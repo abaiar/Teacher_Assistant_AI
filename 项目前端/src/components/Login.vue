@@ -2,7 +2,10 @@
   <div class="login-container">
     <div class="login-box">
       <div class="login-header">
-        <img src="../../static/img/logokuang.png" alt="Logo" class="logo">
+        <div class="logo-container">
+          <div class="logo-bg" style="background-image: url('../../static/img/touxiang.png');"></div>
+          <img src="../../static/img/logokuang.png" alt="Logo" class="logo-frame">
+        </div>
         <h2>教师助手系统</h2>
         <p class="subtitle">{{ isLoginMode ? '账号登录' : '新用户注册' }}</p>
       </div>
@@ -189,11 +192,29 @@ const handleSubmit = async () => {
   margin-top: 0.5rem;
 }
 
-.logo {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 1rem;
-  border-radius: 12px;
+.logo-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1rem auto;
+}
+
+.logo-bg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.logo-frame {
+  position: absolute;
+  top: -15%;
+  left: -10%;
+  width: 120%;
+  aspect-ratio: 1/1;
+  pointer-events: none;
 }
 
 .login-header h2 {
