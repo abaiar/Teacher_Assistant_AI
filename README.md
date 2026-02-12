@@ -499,7 +499,7 @@ pm2 start ecosystem.config.js
 pm2 status
 
 # 查看日志
-pm2 logs
+npm run logs
 ```
 
 **方式三:Docker Compose(即将支持)**
@@ -529,7 +529,7 @@ curl http://localhost:5003/health
 #### 3.1 进入前端目录
 
 ```bash
-cd 项目前端/src
+cd 项目前端
 ```
 
 #### 3.2 安装依赖

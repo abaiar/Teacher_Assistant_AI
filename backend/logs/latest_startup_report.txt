@@ -1,28 +1,31 @@
 ============================================================
 Teacher Assistant AI 启动报告
 ============================================================
-生成时间: 2026-02-12 14:57:47
+生成时间: 2026-02-12 16:14:48
 Python版本: 3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]
 ------------------------------------------------------------
 
 服务状态:
 服务名称                 端口       PID        状态         启动时间
 ----------------------------------------------------------------------
-登录服务               5000     18724      running    14:57:46
-试卷批改服务             5001     17508      running    14:57:46
-智能组卷服务             5002     29548      running    14:57:46
-成绩分析服务             5003     28488      running    14:57:46
-代码批改服务             5004     29788      running    14:57:46
+登录服务               5000     193508     running    16:14:47
+试卷批改服务             5001     191424     running    16:14:47
+智能组卷服务             5002     192844     running    16:14:47
+成绩分析服务             5003     184236     failed     16:14:47
+代码批改服务             5004     191900     running    16:14:47
 
 ------------------------------------------------------------
 详细日志:
-[14:57:46] [登录服务] STARTING: Port: 5000
-[14:57:46] [试卷批改服务] STARTING: Port: 5001
-[14:57:46] [智能组卷服务] STARTING: Port: 5002
-[14:57:46] [成绩分析服务] STARTING: Port: 5003
-[14:57:46] [代码批改服务] STARTING: Port: 5004
-[14:57:47] [智能组卷服务] RUNNING: PID: 29548, Port: 5002
-[14:57:47] [试卷批改服务] RUNNING: PID: 17508, Port: 5001
-[14:57:47] [登录服务] RUNNING: PID: 18724, Port: 5000
-[14:57:47] [成绩分析服务] RUNNING: PID: 28488, Port: 5003
-[14:57:47] [代码批改服务] RUNNING: PID: 29788, Port: 5004
+[16:14:47] [登录服务] STARTING: Port: 5000
+[16:14:47] [智能组卷服务] STARTING: Port: 5002
+[16:14:47] [试卷批改服务] STARTING: Port: 5001
+[16:14:47] [成绩分析服务] STARTING: Port: 5003
+[16:14:47] [代码批改服务] STARTING: Port: 5004
+[16:14:48] [代码批改服务] RUNNING: PID: 191900, Port: 5004
+[16:14:48] [试卷批改服务] RUNNING: PID: 191424, Port: 5001
+[16:14:48] [登录服务] RUNNING: PID: 193508, Port: 5000
+[16:14:48] [智能组卷服务] RUNNING: PID: 192844, Port: 5002
+[16:14:48] [成绩分析服务] FAILED: Traceback (most recent call last):
+  File "d:\Teacher_Assistant_AI\backend\achievement_analysis\data_analyzer.py", line 8, in <module>
+    import matplotlib
+ModuleNotFoundError: No module named 'matplotlib'
