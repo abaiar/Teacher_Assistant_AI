@@ -45,6 +45,7 @@ class ServiceConfig:
     start_time: Optional[datetime] = None
     pid: Optional[int] = None
     error_message: Optional[str] = None
+    log_file: Optional[str] = None  # 服务日志文件路径
 
 
 @dataclass
@@ -99,6 +100,8 @@ class ServiceLauncher:
         self.services: Dict[str, ServiceConfig] = {}
         self.logs: List[StartupLog] = []
         self.shutdown_event = threading.Event()
+        # 在设置日志记录器之前执行日志清理，确保保留最近两次运行的日志
+        self._cleanup_old_logs()
         self.logger = self._setup_logger()
         self._setup_signal_handlers()
         self._init_services()
@@ -160,6 +163,80 @@ class ServiceLauncher:
         for config in self.SERVICES_CONFIG:
             self.services[config.name] = config
 
+    def _cleanup_old_logs(self):
+        """
+        日志轮转清理机制
+        
+        功能说明:
+            在每次程序启动时自动清理历史日志文件，仅保留最近两次运行产生的日志记录。
+            此机制防止日志文件无限增长占用磁盘空间，同时保留足够的历史记录用于问题排查。
+        
+        清理范围:
+            1. 主启动日志文件 (startup_*.log) - 位于 logs/ 目录
+            2. 服务日志文件 (*_YYYYMMDD_HHMMSS.log) - 位于 logs/services/ 目录
+        
+        保留策略:
+            - 根据文件名中的时间戳排序，保留最新的两个时间批次
+            - 删除所有更早的日志文件
+            - 不会删除当前正在写入的日志文件（因为此函数在日志初始化前执行）
+        
+        错误处理:
+            - 文件删除失败时记录警告信息，不会中断程序运行
+            - 目录不存在时静默跳过
+        """
+        log_dir = Path(__file__).parent / "logs"
+        if not log_dir.exists():
+            return
+
+        try:
+            # 收集所有带时间戳的日志文件并按时间分组
+            # 文件名格式: startup_YYYYMMDD_HHMMSS.log 或 {service}_YYYYMMDD_HHMMSS.log
+            from collections import defaultdict
+            time_groups = defaultdict(list)
+
+            # 扫描主日志目录中的 startup_*.log 文件
+            for log_file in log_dir.glob("startup_*.log"):
+                # 提取时间戳部分 (startup_YYYYMMDD_HHMMSS.log -> YYYYMMDD_HHMMSS)
+                parts = log_file.stem.split('_')
+                if len(parts) >= 3:
+                    timestamp = f"{parts[1]}_{parts[2]}"
+                    time_groups[timestamp].append(log_file)
+
+            # 扫描服务日志目录中的服务日志文件
+            services_dir = log_dir / "services"
+            if services_dir.exists():
+                for log_file in services_dir.glob("*.log"):
+                    # 提取时间戳部分 ({service}_YYYYMMDD_HHMMSS.log -> YYYYMMDD_HHMMSS)
+                    parts = log_file.stem.split('_')
+                    if len(parts) >= 3:
+                        timestamp = f"{parts[-2]}_{parts[-1]}"
+                        time_groups[timestamp].append(log_file)
+
+            # 如果没有找到日志文件或不足3个时间批次，无需清理
+            if len(time_groups) <= 2:
+                return
+
+            # 按时间戳降序排序，保留最新的两个时间批次
+            sorted_timestamps = sorted(time_groups.keys(), reverse=True)
+            timestamps_to_delete = sorted_timestamps[2:]  # 删除第3个及更早的
+
+            deleted_count = 0
+            for timestamp in timestamps_to_delete:
+                for log_file in time_groups[timestamp]:
+                    try:
+                        log_file.unlink()
+                        deleted_count += 1
+                    except OSError as e:
+                        # 文件删除失败时记录警告，但不中断程序
+                        print(f"[日志清理警告] 无法删除文件 {log_file}: {e}", file=sys.stderr)
+
+            if deleted_count > 0:
+                print(f"[日志清理] 已删除 {deleted_count} 个旧日志文件，保留最近两次运行的日志")
+
+        except Exception as e:
+            # 清理过程中的任何异常都不应影响程序启动
+            print(f"[日志清理警告] 日志清理过程中发生错误: {e}", file=sys.stderr)
+
     def _log_event(self, service_name: str, event: str, details: str = ""):
         """记录启动事件"""
         log_entry = StartupLog(
@@ -209,41 +286,58 @@ class ServiceLauncher:
             # 构建启动命令
             cmd = [python_exe, config.file_path]
 
-            # 启动子进程
-            process = subprocess.Popen(
-                cmd,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True,
-                encoding='utf-8',
-                errors='replace',
-                creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if sys.platform == 'win32' else 0
-            )
+            # 为每个服务创建独立的日志文件，避免管道阻塞问题
+            log_dir = Path(__file__).parent / "logs" / "services"
+            log_dir.mkdir(parents=True, exist_ok=True)
+            service_log_file = log_dir / f"{config.name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 
-            config.process = process
-            config.pid = process.pid
-            config.status = "running"
+            # 打开日志文件用于写入子进程输出
+            with open(service_log_file, 'w', encoding='utf-8') as log_file:
+                # 启动子进程，将输出重定向到文件而非管道
+                process = subprocess.Popen(
+                    cmd,
+                    stdout=log_file,
+                    stderr=subprocess.STDOUT,  # 将stderr也重定向到stdout
+                    text=True,
+                    encoding='utf-8',
+                    errors='replace',
+                    creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if sys.platform == 'win32' else 0
+                )
 
-            # 等待一小段时间检查进程是否立即崩溃
-            time.sleep(1)
-            if process.poll() is not None:
-                # 进程已退出
-                stdout, stderr = process.communicate()
-                error_msg = stderr.strip() if stderr else "进程立即退出，无错误输出"
-                config.status = "failed"
-                config.error_message = error_msg
-                self.logger.error(f"[{service_name}] 启动失败: {error_msg}")
-                self._log_event(service_name, "FAILED", error_msg)
-                return config
+                config.process = process
+                config.pid = process.pid
+                config.status = "running"
 
-            elapsed = (datetime.now() - config.start_time).total_seconds()
-            self.logger.info(
-                f"[{service_name}] 启动成功 - PID: {config.pid}, Port: {config.port}, 耗时: {elapsed:.2f}s"
-            )
-            self._log_event(service_name, "RUNNING", f"PID: {config.pid}, Port: {config.port}")
+                # 等待一小段时间检查进程是否立即崩溃
+                time.sleep(1)
+                if process.poll() is not None:
+                    # 进程已退出，读取日志文件获取错误信息
+                    error_msg = "进程立即退出，请检查日志文件"
+                    try:
+                        with open(service_log_file, 'r', encoding='utf-8') as f:
+                            log_content = f.read()
+                            if log_content:
+                                error_msg = log_content[-500:]  # 获取最后500字符
+                    except:
+                        pass
+                    config.status = "failed"
+                    config.error_message = error_msg
+                    self.logger.error(f"[{service_name}] 启动失败: {error_msg}")
+                    self._log_event(service_name, "FAILED", error_msg)
+                    return config
 
-            # 启动输出监控线程
-            self._start_output_monitor(config)
+                elapsed = (datetime.now() - config.start_time).total_seconds()
+                self.logger.info(
+                    f"[{service_name}] 启动成功 - PID: {config.pid}, Port: {config.port}, 耗时: {elapsed:.2f}s"
+                )
+                self.logger.info(f"[{service_name}] 日志文件: {service_log_file}")
+                self._log_event(service_name, "RUNNING", f"PID: {config.pid}, Port: {config.port}, Log: {service_log_file}")
+
+                # 保存日志文件路径供后续查看
+                config.log_file = str(service_log_file)
+
+                # 启动进程监控线程
+                self._start_output_monitor(config)
 
         except Exception as e:
             config.status = "failed"
@@ -254,32 +348,22 @@ class ServiceLauncher:
         return config
 
     def _start_output_monitor(self, config: ServiceConfig):
-        """启动输出监控线程"""
-        def monitor_output():
+        """启动输出监控线程
+        
+        注意：现在输出已重定向到日志文件，此方法仅用于监控进程状态
+        """
+        def monitor_process():
             if not config.process:
                 return
 
             try:
                 while config.process.poll() is None and not self.shutdown_event.is_set():
-                    # 非阻塞读取输出
-                    import select
-                    if sys.platform != 'win32':
-                        readable, _, _ = select.select(
-                            [config.process.stdout, config.process.stderr],
-                            [], [], 0.1
-                        )
-                        for stream in readable:
-                            line = stream.readline()
-                            if line:
-                                prefix = "[OUT]" if stream == config.process.stdout else "[ERR]"
-                                self.logger.debug(f"[{config.display_name}] {prefix} {line.strip()}")
-                    else:
-                        # Windows 简单轮询
-                        time.sleep(0.5)
+                    # 仅监控进程状态，不再读取管道输出
+                    time.sleep(2)
             except Exception as e:
-                self.logger.debug(f"[{config.display_name}] 输出监控结束: {e}")
+                self.logger.debug(f"[{config.display_name}] 进程监控结束: {e}")
 
-        monitor_thread = threading.Thread(target=monitor_output, daemon=True)
+        monitor_thread = threading.Thread(target=monitor_process, daemon=True)
         monitor_thread.start()
 
     def start_all_services(self) -> bool:
@@ -337,7 +421,7 @@ class ServiceLauncher:
         """打印服务状态表格"""
         self.logger.info("服务状态详情:")
         self.logger.info(f"{'服务名称':<20} {'端口':<8} {'PID':<10} {'状态':<10}")
-        self.logger.info("-" * 50)
+        self.logger.info("-" * 60)
 
         for config in self.services.values():
             status_icon = "✓" if config.status == "running" else "✗"
@@ -346,6 +430,8 @@ class ServiceLauncher:
                 f"{config.display_name:<18} {config.port:<8} {pid_str:<10} {status_icon} {config.status}"
             )
 
+            if config.log_file and config.status == "running":
+                self.logger.info(f"  日志: {config.log_file}")
             if config.error_message:
                 self.logger.info(f"  错误: {config.error_message}")
 
@@ -363,15 +449,16 @@ class ServiceLauncher:
                 f.write("-" * 60 + "\n\n")
 
                 f.write("服务状态:\n")
-                f.write(f"{'服务名称':<20} {'端口':<8} {'PID':<10} {'状态':<10} {'启动时间'}\n")
-                f.write("-" * 70 + "\n")
+                f.write(f"{'服务名称':<20} {'端口':<8} {'PID':<10} {'状态':<10} {'日志文件'}\n")
+                f.write("-" * 80 + "\n")
 
                 for config in self.services.values():
                     time_str = config.start_time.strftime('%H:%M:%S') if config.start_time else "N/A"
                     pid_str = str(config.pid) if config.pid else "N/A"
+                    log_str = config.log_file if config.log_file else "N/A"
                     f.write(
                         f"{config.display_name:<18} {config.port:<8} {pid_str:<10} "
-                        f"{config.status:<10} {time_str}\n"
+                        f"{config.status:<10} {log_str}\n"
                     )
 
                 f.write("\n" + "-" * 60 + "\n")

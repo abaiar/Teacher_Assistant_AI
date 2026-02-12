@@ -28,16 +28,22 @@ warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # ============= 全局配置 =============
-RAG_SERVER_PATH = r"D:\Teacher_Assistant_AI\backend\Paper_composition\RAG_MCP.py"
+# LightRAG MCP Server 路径
+LIGHTRAG_SERVER_PATH = r"D:\Teacher_Assistant_AI\backend\Paper_composition\RAG_MCP_LightRAG.py"
+# 旧版 RAG Server 路径（保留作为备份）
+LEGACY_RAG_SERVER_PATH = r"D:\Teacher_Assistant_AI\backend\Paper_composition\RAG_MCP.py"
 
 # 从环境变量读取API配置
 DASHSCOPE_API_KEY = os.getenv("DASHSCOPE_API_KEY")
 ALI_MODEL_NAME = os.getenv("ALI_MODEL_NAME", "qwen-plus")
+# 是否使用 LightRAG (默认启用)
+USE_LIGHTRAG = os.getenv("USE_LIGHTRAG", "true").lower() == "true"
 
 if not DASHSCOPE_API_KEY:
     raise ValueError("未找到 DASHSCOPE_API_KEY，请检查 .env 文件")
 
-CLIENT = MultiServerMCPClient({
+# 构建 MCP Client 配置
+mcp_servers = {
     # 1. 阿里云 WebSearch
     "WebSearch": {
         "transport": "sse",
@@ -50,14 +56,25 @@ CLIENT = MultiServerMCPClient({
         "transport": "streamable_http",
         "url": "https://mcp.api-inference.modelscope.net/b16a0cecccc149/mcp"
     },
+}
 
-    # 3. 本地 RAG 工具
-    "LocalLangChainRAG": {
-        "transport": "stdio",           # 本地通信模式
-        "command": sys.executable,      # 自动使用当前环境的 python.exe
-        "args": [RAG_SERVER_PATH],      # 使用修正后的绝对路径
+# 3. 本地 RAG 工具 - 根据配置选择 LightRAG 或旧版 RAG
+if USE_LIGHTRAG:
+    print("✅ 使用 LightRAG 作为本地知识库引擎")
+    mcp_servers["LightRAG"] = {
+        "transport": "stdio",
+        "command": sys.executable,
+        "args": [LIGHTRAG_SERVER_PATH],
     }
-})
+else:
+    print("⚠️ 使用旧版 RAG 作为本地知识库引擎")
+    mcp_servers["LocalLangChainRAG"] = {
+        "transport": "stdio",
+        "command": sys.executable,
+        "args": [LEGACY_RAG_SERVER_PATH],
+    }
+
+CLIENT = MultiServerMCPClient(mcp_servers)
 
 # ============= 定义工作流State =============
 class QuizWorkflowState(TypedDict):
@@ -105,14 +122,26 @@ async def mcp_fetch_node(state: QuizWorkflowState) -> dict:
         agent_app = build_agent_graph(_MODEL, tools)
         
         # 2. 优化提示词：允许模型自由选择工具
-        # 如果用户问的是 LangChain 相关，模型应当选择本地 RAG；如果是高考题，选择 WebSearch
-        system_content = (
-            "你是一个智能教育资源助手。你拥有以下工具："
-            "1. WebSearch: 用于搜索互联网上的最新信息、真题和时事。"
-            "2. query_langchain_docs (或类似名称): 用于查询本地知识库中关于 LangChain 的技术文档。"
-            "\n请根据用户的输入，智能选择最合适的工具。"
-            "如果用户请求具体的试题，请尽量提供包含题干和答案的完整内容。"
-        )
+        # LightRAG 支持多种检索模式：local(知识点查询), global(综合查询), hybrid(混合), mix(混合+重排序), naive(简单)
+        if USE_LIGHTRAG:
+            system_content = (
+                "你是一个智能教育资源助手。你拥有以下工具：\n"
+                "1. WebSearch: 用于搜索互联网上的最新信息、真题和时事。\n"
+                "2. query_knowledge_base: 用于查询本地知识库，支持知识图谱检索和向量检索。\n"
+                "   - 对于具体知识点查询（如'什么是导数'），使用 mode='local'\n"
+                "   - 对于综合性问题（如'总结高中数学重点'），使用 mode='hybrid'\n"
+                "   - 对于需要关联分析的问题（如'导数和微分的关系'），使用 mode='mix'\n"
+                "\n请根据用户的输入，智能选择最合适的工具和参数。"
+                "如果用户请求具体的试题，请尽量提供包含题干和答案的完整内容。"
+            )
+        else:
+            system_content = (
+                "你是一个智能教育资源助手。你拥有以下工具："
+                "1. WebSearch: 用于搜索互联网上的最新信息、真题和时事。"
+                "2. query_langchain_docs (或类似名称): 用于查询本地知识库中关于 LangChain 的技术文档。"
+                "\n请根据用户的输入，智能选择最合适的工具。"
+                "如果用户请求具体的试题，请尽量提供包含题干和答案的完整内容。"
+            )
 
         inputs = {
             "messages": [
@@ -121,8 +150,11 @@ async def mcp_fetch_node(state: QuizWorkflowState) -> dict:
             ]
         }
 
-        # 3. 执行 Agent
-        result = await asyncio.wait_for(agent_app.ainvoke(inputs), timeout=180)
+        # 3. 执行 Agent，设置递归限制防止无限循环
+        result = await asyncio.wait_for(
+            agent_app.ainvoke(inputs, config={"recursion_limit": 50}),
+            timeout=180
+        )
         
         last_message = result["messages"][-1]
         content = last_message.content
@@ -217,8 +249,11 @@ async def markdown_to_pdf_node(state: QuizWorkflowState) -> dict:
             ]
         }
         
-        result = await asyncio.wait_for(agent_app.ainvoke(inputs), timeout=180)
-        
+        result = await asyncio.wait_for(
+            agent_app.ainvoke(inputs, config={"recursion_limit": 50}),
+            timeout=180
+        )
+
         # 【核心修改开始】 ------------------------------------------------
         raw_content = result["messages"][-1].content
         print(f"原始模型返回: {raw_content}") # 调试用，看看模型到底说了啥
@@ -310,8 +345,17 @@ def generate_quiz():
 # ============= 主函数 =============
 async def main():
     # 测试提示：
-    # 1. 输入 "LangChain怎么安装" -> 应该调用 LocalLangChainRAG
-    # 2. 输入 "2024高考数学导数真题" -> 应该调用 WebSearch
+    # 1. 输入 "导数的定义是什么" -> 应该调用 LightRAG (mode='local')
+    # 2. 输入 "总结高中数学导数章节的重点" -> 应该调用 LightRAG (mode='hybrid')
+    # 3. 输入 "2024高考数学导数真题" -> 应该调用 WebSearch
+    print("\n" + "="*50)
+    if USE_LIGHTRAG:
+        print("🚀 当前使用 LightRAG 知识库引擎")
+        print("   支持模式: local(知识点) / hybrid(综合) / mix(关联分析)")
+    else:
+        print("📚 当前使用传统 RAG 引擎")
+    print("="*50 + "\n")
+    
     query = input("请输入出题主题 (或技术查询): ")
     
     result = await generate_quiz_async(query)
