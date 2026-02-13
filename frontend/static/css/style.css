@@ -876,3 +876,8 @@ footer {
 .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
     right: 50%;
 }
+
+/* 适配夜间模式背景：强制覆盖原有背景图为纯黑色 */
+html[data-theme="Dark"] body {
+    background: #000000 !important;
+}

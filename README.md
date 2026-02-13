@@ -523,8 +523,36 @@ python backend/Paper_composition/main.py
 # 终端 4: 数据分析服务 (Port 5003)
 python backend/Achievement_analysis/data_analyzer.py
 
+<<<<<<< HEAD
+# 终端 5: 代码审查 (Port 5004)
+python 代码批改.py
+```
+
+**方式二:使用 PM2(生产环境推荐)**
+
+```bash
+# 安装 PM2
+npm install -g pm2
+
+# 启动所有服务
+pm2 start ecosystem.config.js
+
+# 查看状态
+pm2 status
+
+# 查看日志
+npm run logs
+```
+
+**方式三:Docker Compose(即将支持)**
+
+```bash
+# 一键启动所有服务(开发中)
+docker-compose up -d
+=======
 # 终端 5: 代码审查服务 (Port 5004)
 python backend/Code_correction/Code_correction.py
+>>>>>>> 234c34fa9492d98e2a36b629168c3649eab63af5
 ```
 
 #### 2.5 验证后端服务
@@ -544,7 +572,11 @@ curl http://localhost:5003/health
 #### 3.1 进入前端目录
 
 ```bash
+<<<<<<< HEAD
+cd 项目前端
+=======
 cd frontend
+>>>>>>> 234c34fa9492d98e2a36b629168c3649eab63af5
 ```
 
 #### 3.2 安装依赖
