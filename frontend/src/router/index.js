@@ -4,10 +4,11 @@ import { useUserStore } from '../store/user'
 // 导入组件
 import Login from '../components/Login.vue'
 import Index from '../components/Index.vue'
-import IntelligentCorrection from '../components/智能批改的前端页面.vue'
-import IntelligentQuiz from '../components/智能组卷的前端页面.vue'
-import ScoreAnalysis from '../components/成绩分析的前端页面.vue'
-import CodeReview from '../components/代码批改的前端页面.vue'
+import IntelligentCorrection from '../components/intelligent-correction.vue'
+import IntelligentQuiz from '../components/intelligent-quiz.vue'
+import ScoreAnalysis from '../components/score-analysis.vue'
+import CodeReview from '../components/code-review.vue'
+import PromptArena from '../components/PromptArena.vue'
 
 const routes = [
   {
@@ -19,31 +20,37 @@ const routes = [
     path: '/',
     name: 'Index',
     component: Index,
-    meta: { requiresAuth: true } // 需要登录才能访问
+    meta: { requiresAuth: true }
   },
   {
     path: '/intelligent-correction',
     name: 'IntelligentCorrection',
     component: IntelligentCorrection,
-    meta: { requiresAuth: true } // 需要登录才能访问
+    meta: { requiresAuth: true }
   },
   {
     path: '/intelligent-quiz',
     name: 'IntelligentQuiz',
     component: IntelligentQuiz,
-    meta: { requiresAuth: true } // 需要登录才能访问
+    meta: { requiresAuth: true }
   },
   {
     path: '/score-analysis',
     name: 'ScoreAnalysis',
     component: ScoreAnalysis,
-    meta: { requiresAuth: true } // 需要登录才能访问
+    meta: { requiresAuth: true }
   },
   {
     path: '/code-review',
     name: 'CodeReview',
     component: CodeReview,
-    meta: { requiresAuth: true } // 需要登录才能访问
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/prompt-arena',
+    name: 'PromptArena',
+    component: PromptArena,
+    meta: { requiresAuth: true }
   },
   {
     path: '/:pathMatch(.*)*',

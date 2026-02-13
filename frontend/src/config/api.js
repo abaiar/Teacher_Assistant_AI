@@ -26,6 +26,15 @@ const API_CONFIG = {
       RESET: '/api/mentor/reset',
       HEALTH: '/health'
     }
+  },
+  PROMPT_ARENA_SERVICE: {
+    BASE_URL: 'http://127.0.0.1:5005',
+    ENDPOINTS: {
+      NEW_QUEST: '/api/prompt_arena/new_quest',
+      SIMULATE: '/api/prompt_arena/simulate',
+      JUDGE: '/api/prompt_arena/judge',
+      HEALTH: '/api/prompt_arena/health'
+    }
   }
 }
 

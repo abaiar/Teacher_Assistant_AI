@@ -27,6 +27,7 @@
         <router-link to="/intelligent-quiz" class="left-tag-item">智能组卷</router-link>
         <router-link to="/score-analysis" class="left-tag-item">成绩分析</router-link>
         <router-link to="/intelligent-correction" class="left-tag-item">智能批改</router-link>
+        <router-link to="/prompt-arena" class="left-tag-item">提示词竞技场</router-link>
       </div>
     </div>
     <div class="zyyo-right">
@@ -41,7 +42,7 @@
           <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
         </div>
         <div class="welcome">
-          Hello I' m <span class="gradientText">小助老师 </span>
+          Hello I' m <span class="gradientText">师小助 </span>
         </div>
         <div class="description">
           ✨ <span class="purpleText">AI 编程思维导师</span> 采用苏格拉底式教学法，引导你发现代码中的问题！

@@ -27,6 +27,7 @@
         <router-link to="/intelligent-quiz" class="left-tag-item">智能组卷</router-link>
         <router-link to="/score-analysis" class="left-tag-item active">成绩分析</router-link>
         <router-link to="/intelligent-correction" class="left-tag-item">智能批改</router-link>
+        <router-link to="/prompt-arena" class="left-tag-item">提示词竞技场</router-link>
       </div>
     </div>
     <div class="zyyo-right">

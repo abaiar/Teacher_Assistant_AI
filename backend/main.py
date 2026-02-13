@@ -97,6 +97,12 @@ class ServiceLauncher:
             file_path=_get_service_path.__func__("Code_correction", "Code_correction.py"),
             port=5004
         ),
+        ServiceConfig(
+            name="prompt_arena",
+            display_name="提示词竞技场服务",
+            file_path=_get_service_path.__func__("Prompt_arena", "main.py"),
+            port=5005
+        ),
     ]
 
     def __init__(self, log_level: str = "INFO", sequential: bool = False):

@@ -27,6 +27,7 @@
           <router-link to="/intelligent-quiz" class="left-tag-item">智能组卷</router-link>
           <router-link to="/score-analysis" class="left-tag-item">成绩分析</router-link>
           <router-link to="/intelligent-correction" class="left-tag-item">智能批改</router-link>
+          <router-link to="/prompt-arena" class="left-tag-item">提示词竞技场</router-link>
         </div>
       <div class="left-div left-time">
         <ul id="line">
@@ -192,6 +193,16 @@
             </div>
             <div class="projectItemRight">
               <img src="../../static/img/i4.png" alt="">
+            </div>
+          </router-link>
+          <!-- 提示词竞技场项目 - 使用Vue Router跳转 -->
+          <router-link class="projectItem a" to="/prompt-arena">
+            <div class="projectItemLeft">
+              <h1>提示词竞技场</h1>
+              <p>训练提示词编写能力，提升AI交互效果</p>
+            </div>
+            <div class="projectItemRight">
+              <img src="../../static/img/i5.png" alt="">
             </div>
           </router-link>
         </div>
