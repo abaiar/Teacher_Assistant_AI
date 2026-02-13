@@ -171,7 +171,7 @@
           <router-link class="projectItem a" to="/intelligent-correction">
             <div class="projectItemLeft">
               <h1>智能批改</h1>
-              <p></p>
+              <p>一键批改学生试题并给出分析结果</p>
             </div>
             <div class="projectItemRight">
               <img src="../../static/img/i1.png" alt="">
@@ -181,7 +181,7 @@
           <router-link class="projectItem b" to="/score-analysis">
             <div class="projectItemLeft">
               <h1>成绩分析</h1>
-              <p></p>
+              <p>分析学生成绩，给出建议及发展规划</p>
             </div>
             <div class="projectItemRight">
               <img src="../../static/img/i2.png" alt="">
@@ -191,7 +191,7 @@
           <router-link class="projectItem a" to="/intelligent-quiz">
             <div class="projectItemLeft">
               <h1>智能组卷</h1>
-              <p></p>
+              <p>根据用户需求，自动组卷</p>
             </div>
             <div class="projectItemRight">
               <img src="../../static/img/i3.png" alt="">
@@ -201,7 +201,7 @@
           <router-link class="projectItem b" to="/code-review">
             <div class="projectItemLeft">
               <h1>代码批改</h1>
-              <p></p>
+              <p>评测学生代码，进行打分</p>
             </div>
             <div class="projectItemRight">
               <img src="../../static/img/i4.png" alt="">
