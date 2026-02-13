@@ -102,39 +102,36 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { getServiceUrl } from '../config/api';
 
 const router = useRouter();
+const PAPER_COMPOSITION_URL = getServiceUrl('PAPER_COMPOSITION_SERVICE');
+
 const goHome = () => {
   router.push('/');
 };
 
-// 生成试卷相关
 const query = ref('');
 const isProcessing = ref(false);
 const quizResult = ref('');
 const pdfUrl = ref('');
 
-// 将Markdown转换为HTML显示
 const formattedQuizResult = computed(() => {
   if (!quizResult.value) return '';
   
   let html = quizResult.value;
   
-  // 转换标题
   html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
   html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
   
-  // 转换列表
   html = html.replace(/^- (.*$)/gm, '<li>$1</li>');
   html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
   
-  // 转换换行
   html = html.replace(/\n/g, '<br>');
   
   return html;
 });
 
-// 开始生成
 const startGeneration = async () => {
   if (!query.value.trim()) {
     alert('请输入出题主题');
@@ -146,7 +143,7 @@ const startGeneration = async () => {
   pdfUrl.value = '';
 
   try {
-    const response = await fetch('http://localhost:5002/generate_quiz', {
+    const response = await fetch(`${PAPER_COMPOSITION_URL}/generate_quiz`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -237,20 +237,18 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { getServiceUrl } from '../config/api';
 
-// ... (Script 部分保持不变，只需在 export default 或 setup 中确保代码逻辑正确即可)
-// 提示：可以直接复制之前的 script setup 部分，不需要修改逻辑
 const router = useRouter();
+const ACHIEVEMENT_ANALYSIS_URL = getServiceUrl('ACHIEVEMENT_ANALYSIS_SERVICE');
+
 const goHome = () => {
   router.push('/');
 };
-// 输入方法选择
 const inputMethod = ref('manual');
 
-// 科目列表
 const subjects = ['语文', '数学', '英语', '物理', '化学', '生物'];
 
-// 当前输入的学生信息
 const currentStudent = ref({
   name: '',
   examType: '',
@@ -258,28 +256,23 @@ const currentStudent = ref({
   interests: ''
 });
 
-// 已添加的学生列表
 const students = ref([]);
 
-// CSV文件相关
 const csvFileInput = ref(null);
 const csvFile = ref(null);
 const csvFileName = ref('');
 
-// 分析相关
 const isProcessing = ref(false);
 const analysisResults = ref([]);
 const selectedStudent = ref('');
 const selectedStudentResults = ref(null);
 
-// 检查当前学生信息是否有效
 const isCurrentStudentValid = computed(() => {
   return currentStudent.value.name && 
          currentStudent.value.examType &&
          Object.values(currentStudent.value.scores).some(score => score !== undefined && score !== null && score !== '');
 });
 
-// 检查是否可以开始分析
 const canAnalyze = computed(() => {
   if (inputMethod.value === 'manual') {
     return students.value.length > 0;
@@ -288,7 +281,6 @@ const canAnalyze = computed(() => {
   }
 });
 
-// 添加学生
 const addStudent = () => {
   if (!isCurrentStudentValid.value) return;
   
@@ -301,7 +293,6 @@ const addStudent = () => {
   
   students.value.push(studentData);
   
-  // 重置表单
   currentStudent.value = {
     name: '',
     examType: '',
@@ -310,17 +301,14 @@ const addStudent = () => {
   };
 };
 
-// 删除学生
 const deleteStudent = (index) => {
   students.value.splice(index, 1);
 };
 
-// 触发CSV文件上传
 const triggerCsvUpload = () => {
   csvFileInput.value?.click();
 };
 
-// 处理CSV文件上传
 const handleCsvUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -329,7 +317,6 @@ const handleCsvUpload = (event) => {
   }
 };
 
-// 开始分析
 const startAnalysis = async () => {
   if (!canAnalyze.value || isProcessing.value) return;
   
@@ -349,7 +336,7 @@ const startAnalysis = async () => {
       formData.append('file', csvFile.value);
     }
     
-    const response = await fetch('http://localhost:5003/analyze', {
+    const response = await fetch(`${ACHIEVEMENT_ANALYSIS_URL}/analyze`, {
       method: 'POST',
       body: formData
     });

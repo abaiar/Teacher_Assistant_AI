@@ -4,6 +4,7 @@ import asyncio
 import traceback
 import warnings
 import dotenv
+from pathlib import Path
 from typing import TypedDict, Annotated, List
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -28,10 +29,13 @@ warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # ============= 全局配置 =============
+PROJECT_ROOT = Path(__file__).parent.parent.parent.resolve()
+BACKEND_ROOT = Path(__file__).parent.parent.resolve()
+
 # LightRAG MCP Server 路径
-LIGHTRAG_SERVER_PATH = r"D:\Teacher_Assistant_AI\backend\Paper_composition\RAG_MCP_LightRAG.py"
+LIGHTRAG_SERVER_PATH = str(BACKEND_ROOT / "Paper_composition" / "RAG_MCP_LightRAG.py")
 # 旧版 RAG Server 路径（保留作为备份）
-LEGACY_RAG_SERVER_PATH = r"D:\Teacher_Assistant_AI\backend\Paper_composition\RAG_MCP.py"
+LEGACY_RAG_SERVER_PATH = str(BACKEND_ROOT / "Paper_composition" / "RAG_MCP.py")
 
 # 从环境变量读取API配置
 DASHSCOPE_API_KEY = os.getenv("DASHSCOPE_API_KEY")

@@ -60,36 +60,41 @@ class StartupLog:
 class ServiceLauncher:
     """服务启动管理器"""
 
+    @staticmethod
+    def _get_service_path(*path_parts: str) -> str:
+        """获取基于当前文件目录的服务路径"""
+        return str(Path(__file__).parent.joinpath(*path_parts).resolve())
+
     # 服务配置列表
     SERVICES_CONFIG: List[ServiceConfig] = [
         ServiceConfig(
             name="login",
             display_name="登录服务",
-            file_path=r"d:\Teacher_Assistant_AI\backend\Login\login.py",
+            file_path=_get_service_path.__func__("Login", "login.py"),
             port=5000
         ),
         ServiceConfig(
             name="paper_marking",
             display_name="试卷批改服务",
-            file_path=r"d:\Teacher_Assistant_AI\backend\Paper_marking\marking.py",
+            file_path=_get_service_path.__func__("Paper_marking", "marking.py"),
             port=5001
         ),
         ServiceConfig(
             name="paper_composition",
             display_name="智能组卷服务",
-            file_path=r"d:\Teacher_Assistant_AI\backend\Paper_composition\main.py",
+            file_path=_get_service_path.__func__("Paper_composition", "main.py"),
             port=5002
         ),
         ServiceConfig(
             name="achievement_analysis",
             display_name="成绩分析服务",
-            file_path=r"d:\Teacher_Assistant_AI\backend\achievement_analysis\data_analyzer.py",
+            file_path=_get_service_path.__func__("Achievement_analysis", "data_analyzer.py"),
             port=5003
         ),
         ServiceConfig(
             name="code_correction",
             display_name="代码批改服务",
-            file_path=r"d:\Teacher_Assistant_AI\backend\Code_correction\Code_correction.py",
+            file_path=_get_service_path.__func__("Code_correction", "Code_correction.py"),
             port=5004
         ),
     ]

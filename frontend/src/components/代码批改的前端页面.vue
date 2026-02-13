@@ -138,30 +138,27 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { getServiceUrl } from '../config/api';
 
 const router = useRouter();
+const CODE_CORRECTION_URL = getServiceUrl('CODE_CORRECTION_SERVICE');
+
 const goHome = () => {
   router.push('/');
 };
-// 输入方法选择
 const inputMethod = ref('manual');
 
-// 代码内容
 const codeContent = ref('');
 
-// 文件上传相关
 const codeFileInput = ref(null);
 const codeFile = ref(null);
 const fileName = ref('');
 
-// 额外问题
 const question = ref('');
 
-// 批改相关
 const isProcessing = ref(false);
 const reviewResult = ref('');
 
-// 检查是否可以开始批改
 const canReview = computed(() => {
   if (inputMethod.value === 'manual') {
     return codeContent.value.trim() !== '';
@@ -170,12 +167,10 @@ const canReview = computed(() => {
   }
 });
 
-// 触发文件选择
 const triggerFileUpload = () => {
   codeFileInput.value?.click();
 };
 
-// 处理文件上传
 const handleFileUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
@@ -184,30 +179,24 @@ const handleFileUpload = (event) => {
   }
 };
 
-// 将Markdown转换为HTML显示
 const formattedReviewResult = computed(() => {
   if (!reviewResult.value) return '';
   
   let html = reviewResult.value;
   
-  // 转换标题
   html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
   html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
   
-  // 转换列表
   html = html.replace(/^- (.*$)/gm, '<li>$1</li>');
   html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
   
-  // 转换代码块
   html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
   
-  // 转换换行
   html = html.replace(/\n/g, '<br>');
   
   return html;
 });
 
-// 开始批改
 const startReview = async () => {
   if (!canReview.value || isProcessing.value) return;
   
@@ -218,19 +207,16 @@ const startReview = async () => {
     const formData = new FormData();
     
     if (inputMethod.value === 'manual') {
-      // 手动输入模式，发送代码内容
       formData.append('code', codeContent.value.trim());
     } else {
-      // 文件上传模式，发送文件
       formData.append('file', codeFile.value);
     }
     
-    // 添加额外问题
     if (question.value.trim()) {
       formData.append('question', question.value.trim());
     }
     
-    const response = await fetch('http://localhost:5004/review_code', {
+    const response = await fetch(`${CODE_CORRECTION_URL}/review_code`, {
       method: 'POST',
       body: formData
     });

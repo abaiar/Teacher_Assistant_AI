@@ -78,24 +78,24 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../store/user'
 import axios from 'axios'
+import { getServiceUrl } from '../config/api'
 
 const router = useRouter()
 const userStore = useUserStore()
 
-// 状态控制
-const isLoginMode = ref(true) // true为登录模式，false为注册模式
+const LOGIN_BASE_URL = getServiceUrl('LOGIN_SERVICE')
+
+const isLoginMode = ref(true)
 const isLoading = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
 
-// 表单数据
 const form = reactive({
   username: '',
   password: '',
   confirmPassword: ''
 })
 
-// 切换模式重置数据
 const toggleMode = () => {
   isLoginMode.value = !isLoginMode.value
   errorMessage.value = ''
@@ -104,7 +104,6 @@ const toggleMode = () => {
   form.confirmPassword = ''
 }
 
-// 提交处理
 const handleSubmit = async () => {
   errorMessage.value = ''
   successMessage.value = ''
@@ -116,31 +115,25 @@ const handleSubmit = async () => {
 
   isLoading.value = true
 
-  // 构建 FormData (为了配合后端 request.form)
   const formData = new FormData()
   formData.append('username', form.username)
   formData.append('password', form.password)
 
-  const url = isLoginMode.value ? 'http://127.0.0.1:5000/login' : 'http://127.0.0.1:5000/register'
+  const url = isLoginMode.value ? `${LOGIN_BASE_URL}/login` : `${LOGIN_BASE_URL}/register`
 
   try {
     const response = await axios.post(url, formData)
     
     if (response.data.success) {
       if (isLoginMode.value) {
-        // --- 登录成功逻辑 ---
         console.log('登录成功:', response.data.user)
-        // 1. 更新 Pinia 状态
         userStore.login(response.data.user)
-        // 2. 跳转到主页 (根据你的项目结构，主页通常是 '/' 或 '/index')
         router.push('/') 
       } else {
-        // --- 注册成功逻辑 ---
         successMessage.value = '注册成功！请登录。'
-        // 延迟一秒自动切换到登录页
         setTimeout(() => {
           toggleMode()
-          form.password = '' // 清空密码框
+          form.password = ''
         }, 1000)
       }
     }

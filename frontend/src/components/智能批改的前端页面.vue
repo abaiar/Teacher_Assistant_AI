@@ -119,13 +119,15 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { getServiceUrl } from '../config/api';
 
 const router = useRouter();
+const PAPER_MARKING_URL = getServiceUrl('PAPER_MARKING_SERVICE');
+
 const goHome = () => {
   router.push('/');
 };
 
-// 文件上传相关
 const standardFileInput = ref(null);
 const studentFileInput = ref(null);
 const standardFile = ref(null);
@@ -134,11 +136,9 @@ const standardFileName = ref('');
 const studentFileName = ref('');
 const studentImagePreview = ref('');
 
-// 批改相关
 const isProcessing = ref(false);
 const correctionResult = ref('');
 
-// 触发文件选择
 const triggerFileInput = (type) => {
   if (type === 'standard') {
     standardFileInput.value?.click();
@@ -147,7 +147,6 @@ const triggerFileInput = (type) => {
   }
 };
 
-// 处理标准答案文件上传
 const handleStandardFileUpload = (event) => {
   const file = event.target.files[0];
   if (file && file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
@@ -155,17 +154,15 @@ const handleStandardFileUpload = (event) => {
     standardFileName.value = file.name;
   } else {
     alert('请上传 .docx 格式的文件');
-    event.target.value = ''; // 清空选择
+    event.target.value = '';
   }
 };
 
-// 处理学生答案图片上传
 const handleStudentFileUpload = (event) => {
   const file = event.target.files[0];
   if (file) {
     studentFile.value = file;
     studentFileName.value = file.name;
-    // 生成预览图
     const reader = new FileReader();
     reader.onload = (e) => {
       studentImagePreview.value = e.target.result;
@@ -174,7 +171,6 @@ const handleStudentFileUpload = (event) => {
   }
 };
 
-// 开始批改
 const startCorrection = async () => {
   if (!standardFile.value || !studentFile.value) {
     alert('请上传所有必要文件');
@@ -189,7 +185,7 @@ const startCorrection = async () => {
     formData.append('standard_answer', standardFile.value);
     formData.append('student_answer', studentFile.value);
 
-    const response = await fetch('http://localhost:5001/correct', {
+    const response = await fetch(`${PAPER_MARKING_URL}/correct`, {
       method: 'POST',
       body: formData,
     });
