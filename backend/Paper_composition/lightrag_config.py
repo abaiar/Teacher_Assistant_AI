@@ -17,21 +17,37 @@ dotenv.load_dotenv()
 
 # 自定义 Tokenizer 类，避免 pickle 问题
 class SimpleTokenizer(Tokenizer):
-    """简单的 Tokenizer 实现，使用字符数估算 token 数"""
+    """
+    简单的 Tokenizer 实现，基于字符级别的编码/解码
+    解决 pickle 序列化问题，同时确保分块内容正确保存
+    """
     
     def __init__(self):
-        # 中文约 1 字符 = 1.5 token，英文约 1 字符 = 0.25 token
+        self._text_cache = {}
+        self._id_cache = {}
+        self._next_id = 0
         self.avg_token_per_char = 0.8
     
     def encode(self, text: str) -> List[int]:
-        """将文本编码为 token IDs（模拟）"""
-        # 简单实现：每个字符作为一个 token
-        return list(range(len(text)))
+        """
+        将文本编码为 token IDs
+        使用字符级编码，每个字符映射到唯一 ID
+        """
+        tokens = []
+        for char in text:
+            if char not in self._id_cache:
+                self._id_cache[char] = self._next_id
+                self._text_cache[self._next_id] = char
+                self._next_id += 1
+            tokens.append(self._id_cache[char])
+        return tokens
     
     def decode(self, tokens: List[int]) -> str:
-        """将 token IDs 解码为文本（模拟）"""
-        # 简单实现：无法真正解码，返回占位符
-        return ""
+        """
+        将 token IDs 解码为文本
+        这是关键方法，必须正确实现才能保证分块内容不丢失
+        """
+        return ''.join(self._text_cache.get(token, '') for token in tokens)
     
     def encode_count(self, text: str) -> int:
         """计算文本的 token 数量"""

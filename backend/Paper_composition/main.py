@@ -113,16 +113,12 @@ async def mcp_fetch_node(state: QuizWorkflowState) -> dict:
     print(f"\n[Step 1] 正在调用 MCP 工具检索关于 '{query}' 的信息...")
     
     try:
-        # 1. 动态获取所有连接的工具 (包括 WebSearch 和 RAG)
         tools = await CLIENT.get_tools()
-        # 打印一下工具名称，确认 RAG 是否加载成功
         tool_names = [t.name for t in tools]
         print(f"   >>> 已加载工具: {tool_names}")
 
         agent_app = build_agent_graph(_MODEL, tools)
         
-        # 2. 优化提示词：允许模型自由选择工具
-        # LightRAG 支持多种检索模式：local(知识点查询), global(综合查询), hybrid(混合), mix(混合+重排序), naive(简单)
         if USE_LIGHTRAG:
             system_content = (
                 "你是一个智能教育资源助手。你拥有以下工具：\n"
@@ -150,44 +146,82 @@ async def mcp_fetch_node(state: QuizWorkflowState) -> dict:
             ]
         }
 
-        # 3. 执行 Agent，设置递归限制防止无限循环
-        result = await asyncio.wait_for(
-            agent_app.ainvoke(inputs, config={"recursion_limit": 50}),
-            timeout=180
-        )
+        try:
+            result = await asyncio.wait_for(
+                agent_app.ainvoke(inputs, config={"recursion_limit": 50}),
+                timeout=180
+            )
+        except asyncio.TimeoutError:
+            print("⚠️ Agent 执行超时 (180s)，尝试降级策略...")
+            return await _fallback_fetch(query, tools, inputs)
         
         last_message = result["messages"][-1]
         content = last_message.content
         
+        if not content or len(str(content).strip()) < 10:
+            print("⚠️ 检索结果为空，尝试降级策略...")
+            return await _fallback_fetch(query, tools, inputs)
+        
+        if "no-result" in str(content).lower() or "not able to provide" in str(content).lower():
+            print("⚠️ 知识库无匹配结果，尝试降级策略...")
+            return await _fallback_fetch(query, tools, inputs)
+        
         print(f"✓ Step 1 完成，获取到 {len(content)} 字符")
         return {"topic_content": content, "messages": result["messages"]}
 
+    except asyncio.TimeoutError:
+        print(f"✗ Step 1 超时: MCP 工具调用超时")
+        return {"topic_content": f"检索超时，请稍后重试或简化查询关键词。", "messages": []}
     except Exception as e:
         print(f"\n✗ Step 1 严重异常: {type(e).__name__}")
         
-        # 【核心调试代码】 尝试拆解 TaskGroup 异常
-        # TaskGroup 会把子任务的错误包装成 ExceptionGroup，我们需要拆开看
         if hasattr(e, 'exceptions'):
             print("🔍 发现 ExceptionGroup，正在拆解子错误...")
             for i, sub_exc in enumerate(e.exceptions):
                 print(f"\n--- 子错误 [{i+1}] ---")
                 print(f"类型: {type(sub_exc).__name__}")
                 print(f"内容: {str(sub_exc)}")
-                # 如果是 Validation Error，通常意味着收到的不是 JSON
                 if "validation error" in str(sub_exc).lower():
                     print("👉 分析: 主程序收到了无法解析的数据。可能是 Server 打印了非 JSON 内容。")
                 traceback.print_exception(type(sub_exc), sub_exc, sub_exc.__traceback__)
         else:
-            # 普通错误直接打印堆栈
             traceback.print_exception(type(e), e, e.__traceback__)
             
         return {"topic_content": f"检索失败: {str(e)}", "messages": []}
-    # except Exception as e:
+
+
+async def _fallback_fetch(query: str, tools: list, inputs: dict) -> dict:
+    """
+    降级策略：当主流程失败时，仅使用 WebSearch 工具
+    """
+    print("   >>> 执行降级策略：仅使用 WebSearch...")
+    
+    try:
+        websearch_tools = [t for t in tools if "WebSearch" in t.name or "web" in t.name.lower()]
         
-        # print(f"✗ Step 1 异常: {str(e)}")
-        # if "index out of range" in str(e):
-        #     print("提示: 请检查 ChatTongyi 是否设置了 streaming=False")
-        # return {"topic_content": f"检索失败: {str(e)}", "messages": []}
+        if not websearch_tools:
+            print("   >>> 无可用降级工具，返回提示信息")
+            return {"topic_content": f"未找到关于 '{query}' 的相关资料，请尝试其他关键词或检查知识库数据。", "messages": []}
+        
+        fallback_app = build_agent_graph(_MODEL, websearch_tools)
+        
+        result = await asyncio.wait_for(
+            fallback_app.ainvoke(inputs, config={"recursion_limit": 20}),
+            timeout=60
+        )
+        
+        last_message = result["messages"][-1]
+        content = last_message.content
+        
+        print(f"✓ 降级策略成功，获取到 {len(content)} 字符")
+        return {"topic_content": content, "messages": result["messages"]}
+        
+    except asyncio.TimeoutError:
+        print("   >>> 降级策略也超时")
+        return {"topic_content": f"检索超时，请稍后重试。", "messages": []}
+    except Exception as e:
+        print(f"   >>> 降级策略失败: {str(e)}")
+        return {"topic_content": f"检索失败: {str(e)}", "messages": []}
 
 # ============= 第二步：出卷生成试题 =============
 async def quiz_generation_node(state: QuizWorkflowState) -> dict:

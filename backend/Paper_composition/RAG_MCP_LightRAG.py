@@ -12,26 +12,36 @@ LightRAG MCP Server for "师小助"智能组卷项目
 import os
 import sys
 import asyncio
+import logging
 from pathlib import Path
 from typing import Literal, Optional
 from fastmcp import FastMCP
 from lightrag import LightRAG, QueryParam
 from lightrag.utils import setup_logger
 
-# 导入配置
 from lightrag_config import LIGHT_RAG_CONFIG, log
 from lightrag.kg.shared_storage import initialize_pipeline_status
 
-# 设置 LightRAG 日志路径为 backend/logs 目录
-# 避免在项目根目录创建 lightrag.log
 log_dir = Path(__file__).parent.parent / "logs"
 log_dir.mkdir(exist_ok=True)
-os.chdir(log_dir)
+log_file_path = str(log_dir / "lightrag.log")
 
-# 可选：设置 LightRAG 日志
-setup_logger("lightrag", level="INFO")
+setup_logger(
+    "lightrag", 
+    level="INFO",
+    log_file_path=log_file_path,
+    enable_file_logging=True
+)
 
-# 恢复原始工作目录
+lightrag_logger = logging.getLogger("lightrag")
+for handler in lightrag_logger.handlers[:]:
+    if isinstance(handler, logging.StreamHandler) and not isinstance(handler, logging.FileHandler):
+        lightrag_logger.removeHandler(handler)
+
+stderr_handler = logging.StreamHandler(sys.stderr)
+stderr_handler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
+lightrag_logger.addHandler(stderr_handler)
+
 os.chdir(Path(__file__).parent)
 
 # 全局 RAG 实例
