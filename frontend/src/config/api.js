@@ -18,7 +18,14 @@ const API_CONFIG = {
   },
   CODE_CORRECTION_SERVICE: {
     BASE_URL: 'http://127.0.0.1:5004',
-    REVIEW_CODE: '/review_code'
+    REVIEW_CODE: '/review_code',
+    ENDPOINTS: {
+      CHAT: '/api/mentor/chat',
+      EXPLAIN: '/api/mentor/explain',
+      PROMPT_CHECK: '/api/mentor/prompt_check',
+      RESET: '/api/mentor/reset',
+      HEALTH: '/health'
+    }
   }
 }
 

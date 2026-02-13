@@ -1,5 +1,6 @@
 dashscope==1.24.7
 docx==0.2.4
+fastapi==0.115.0
 fastmcp==2.13.3
 Flask==3.1.2
 flask_cors==6.0.2
@@ -15,3 +16,4 @@ pandas==2.1.4
 pydantic==2.12.3
 python-dotenv==1.2.1
 python_docx==1.0.1
+uvicorn==0.32.0

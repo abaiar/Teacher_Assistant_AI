@@ -165,8 +165,7 @@ body {
     width: 100%;
     margin: 0 auto;
     transition: transform 0.5s ease;
-    /* max-width: 1150px;  <-- 注释掉或删除这一行 */
-    max-width: 100%;    /* <-- 或者改为 100% */
+    max-width: 100%;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -175,15 +174,16 @@ body {
 
 .zyyo-left {
     overflow-y: scroll;
-    width: 230px;
+    width: 180px;
     height: 100vh;
     display: flex;
-    padding: 0 15px;
+    padding: 0 10px;
     position: sticky;
     top: 0;
     left: 0;
     align-items: center;
     flex-direction: column;
+    transform: translateX(-20px);
 }
 
 
@@ -300,10 +300,10 @@ body {
 
 
 .zyyo-right {
-    width: calc(100% - 230px);
+    width: calc(100% - 160px);
     display: flex;
     padding: 20px;
-  position: relative;
+    position: relative;
     padding-bottom: 50px;
     flex-direction: column;
 }
