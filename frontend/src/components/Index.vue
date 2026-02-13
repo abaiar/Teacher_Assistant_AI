@@ -33,11 +33,31 @@
           <li>
             <div class="focus"></div>
             <div>敬请期待</div>
-            <div>2025.10</div>
+            <div>2026.3</div>
           </li>
           <li>
             <div class="focus"></div>
-            <div>开始进行全面升级</div>
+            <div>进军人工智能通识教育</div>
+            <div>2026.2</div>
+          </li>
+          <li>
+            <div class="focus"></div>
+            <div>服务器部署</div>
+            <div>2026.1</div>
+          </li>
+          <li>
+            <div class="focus"></div>
+            <div>Langchain版本V2.0</div>
+            <div>2025.12</div>
+          </li>
+          <li>
+            <div class="focus"></div>
+            <div>Langchain版本V1.0</div>
+            <div>2025.11</div>
+          </li>
+          <li>
+            <div class="focus"></div>
+            <div>进行全面升级</div>
             <div>2025.9</div>
           </li>
           <li>
@@ -120,51 +140,18 @@
           <svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1891">
             <path d="M629.333333 202.666667v213.333333h277.333334v448h-512v-213.333333h-277.333334v-448h512z m213.333334 277.333333h-213.333334v170.666667h-170.666666v149.333333h384v-320z m-277.333334-213.333333h-384v320h213.333334v-170.666667h170.666666v-149.333333z m0 213.333333h-106.666666v106.666667h106.666666v-106.666667z"  p-id="1892"></path>
           </svg>
-          使用教程 
+          人工智能通识教育 
         </div>
         <div class="projectList">
-          <a class="projectItem a" target="_self" href="https://www.bilibili.com/video/BV1Je44zFEtJ/?spm_id_from=333.1387.homepage.video_card.click&vd_source=d0a9d0769d591135f53266e046b649ff">
-            <div class="projectItemLeft">
-              <h1>智能批改</h1>
-              <p>一键批改学生试题并给出分析结果</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../../static/img/i1.png" alt="">
-            </div>
-          </a>
-          <a class="projectItem a" target="_self" href="https://www.bilibili.com/video/BV1LJ4xzSEA3/?spm_id_from=333.1387.homepage.video_card.click">
-            <div class="projectItemLeft">
-              <h1>成绩分析</h1>
-              <p>分析学生成绩，给出建议及发展规划</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../../static/img/i2.png" alt="">
-            </div>
-          </a>
-          <a class="projectItem a" target="_self" href="https://www.bilibili.com/video/BV17D4czHEHe/?spm_id_from=333.1387.homepage.video_card.click&vd_source=d0a9d0769d591135f53266e046b649ff">
-            <div class="projectItemLeft">
-              <h1>智能组卷</h1>
-              <p>根据用户需求，及模板试题，自动组卷</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../../static/img/i3.png" alt="">
-            </div>
-          </a>
-          <a class="projectItem a" target="_self" href="https://www.bilibili.com/video/BV1614czREVj/?spm_id_from=333.1387.upload.video_card.click">
-            <div class="projectItemLeft">
-              <h1>代码分析</h1>
-              <p>评测学生的C程序代码，进行打分，可视化排名</p>
-            </div>
-            <div class="projectItemRight">
-              <img src="../../static/img/i4.png" alt="">
-            </div>
+          <a class="projectItem ai-course-item" target="_self" href="https://www.bilibili.com/video/BV1Je44zFEtJ/?spm_id_from=333.1387.homepage.video_card.click&vd_source=d0a9d0769d591135f53266e046b649ff">
+            <div class="ai-course-content gradientText">The Future Is Now, Step In</div>
           </a>
         </div>
         <div class="title">
           <svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1891">
             <path d="M629.333333 202.666667v213.333333h277.333334v448h-512v-213.333333h-277.333334v-448h512z m213.333334 277.333333h-213.333334v170.666667h-170.666666v149.333333h384v-320z m-277.333334-213.333333h-384v320h213.333334v-170.666667h170.666666v-149.333333z m0 213.333333h-106.666666v106.666667h106.666666v-106.666667z" p-id="1892"></path>
           </svg>
-          开始使用 
+          基础功能 
         </div>
         <div class="projectList">
           <!-- 智能批改项目 - 使用Vue Router跳转 -->
@@ -314,5 +301,80 @@ header {
 
 .logout-btn:active {
   transform: translateY(0);
+}
+
+/* AI Literacy 大图标样式 - 与师小助标题风格一致 */
+.ai-course-item {
+  width: calc(100% - 15px) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  height: 120px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.4s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-course-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.ai-course-item:hover::before {
+  left: 100%;
+}
+
+.ai-course-item:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+.ai-course-content {
+  font-size: 42px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 2px;
+  font-family: "title", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* gradientText 样式由全局 CSS 提供 */
+}
+
+.ai-course-item:hover .ai-course-content {
+  transform: scale(1.05);
+  transition: transform 0.4s ease;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .ai-course-content {
+    font-size: 32px;
+    letter-spacing: 1px;
+  }
+  
+  .ai-course-item {
+    height: 100px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-course-content {
+    font-size: 24px;
+    letter-spacing: 0.5px;
+  }
+  
+  .ai-course-item {
+    height: 80px !important;
+  }
 }
 </style>
