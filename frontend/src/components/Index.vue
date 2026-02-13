@@ -102,13 +102,13 @@
             <div class="iconTip">QQ</div>
           </a>
           <a class="switch" href="javascript:void(0)">
-            <div class="onoffswitch">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-              <label class="onoffswitch-label" for="myonoffswitch">
+                    <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" @click="toggleMode">
+            <label class="onoffswitch-label" for="myonoffswitch">
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>
-              </label>
-            </div>
+            </label>
+        </div>
           </a>
         </div>
         <div class="tanChiShe">
@@ -231,6 +231,28 @@ export default {
       const tcImg = document.querySelector('.tc-img')
       tcImg.src = imagePath
       tc.style.display = 'block'
+    },
+    toggleMode() {
+      const html = document.documentElement;
+      const tanChiSheImg = document.getElementById('tanChiShe');
+      // 判断当前是否已经是夜间模式
+      if (html.getAttribute('data-theme') === 'Dark') {
+        // 如果是，切换回白天模式
+        html.removeAttribute('data-theme');
+        html.classList.remove('Dark');
+        // 切换为白天模式图片
+        if (tanChiSheImg) {
+          tanChiSheImg.src = '../../static/svg/snake-Light.svg';
+        }
+      } else {
+        // 如果不是，切换到夜间模式
+        html.setAttribute('data-theme', 'Dark');
+        html.classList.add('Dark');
+        // 切换为夜间模式图片
+        if (tanChiSheImg) {
+          tanChiSheImg.src = '../../static/svg/snake-Dark.svg';
+        }
+      }
     },
     handleLogout() {
       // 确认是否退出登录
