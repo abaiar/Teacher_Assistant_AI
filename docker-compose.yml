@@ -1,0 +1,44 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: teacher-assistant-backend
+    restart: unless-stopped
+    # 移除 ports 映射，不再暴露端口到宿主机
+    env_file:
+      - .env
+    volumes:
+      - ./Files:/app/Files   # 挂载数据（可选）
+    networks:
+      - app-network
+
+  gateway:
+    image: nginx:alpine
+    container_name: teacher-assistant-gateway
+    restart: unless-stopped
+    ports:
+      - "8001:80"                # 对外统一端口
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: teacher-assistant-frontend
+    restart: unless-stopped
+    ports:
+      - "8081:80"                 # 前端端口（可根据需要修改）
+    depends_on:
+      - gateway                    # 前端依赖网关（仅用于启动顺序）
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

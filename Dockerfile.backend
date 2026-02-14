@@ -1,0 +1,36 @@
+# 使用 Python 3.11 轻量镜像（兼容 requirements 中的包）
+FROM python:3.11-slim
+
+# 设置工作目录
+WORKDIR /app
+
+RUN set -ex \
+    && if [ -f /etc/apt/sources.list ]; then \
+        sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list; \
+        sed -i 's/security.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list; \
+    fi \
+    && if [ -f /etc/apt/sources.list.d/debian.sources ]; then \
+        sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/debian.sources; \
+        sed -i 's/security.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/debian.sources; \
+    fi
+# 安装系统依赖（如有需要可添加，如 gcc、libpq-dev 等）
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制依赖文件并安装 Python 包（使用清华源加速）
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 复制后端代码
+COPY backend/ .
+
+# 设置环境变量（可选）
+ENV PYTHONUNBUFFERED=1
+ENV PORT=8000
+
+# 暴露端口
+EXPOSE 8000
+
+# 启动命令（根据你的入口文件调整，假设为 main.py）
+CMD ["python", "main.py"]

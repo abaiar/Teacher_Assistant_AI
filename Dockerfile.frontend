@@ -1,0 +1,13 @@
+# 构建阶段
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY frontend/package*.json ./
+RUN npm ci
+COPY frontend/ .
+RUN npm run build
+
+# 运行阶段
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+# 如有自定义 nginx 配置，可在此复制
+EXPOSE 80

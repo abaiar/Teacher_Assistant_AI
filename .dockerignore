@@ -1,0 +1,32 @@
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+env/
+venv/
+teacher_ai*/
+*.egg-info/
+
+# Node
+node_modules
+npm-debug.log
+frontend/node_modules
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+
+# Test data (可选，根据需要排除)
+Files/
