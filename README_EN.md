@@ -1,20 +1,29 @@
 <div align="center">
 
+<img src="frontend/static/img/touxiang.png" alt="Teacher Assistant AI Logo" width="120" height="120" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+
 # 🎓 Teacher Assistant AI (师小助)
 
-### Next-Generation Intelligent Teaching Assistant Platform Based on Agentic AI Architecture
+### Next-Generation Intelligent Teaching Assistant Platform | Powered by Agentic AI Architecture
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
-[![Vue](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://vuejs.org/)
-[![LangChain](https://img.shields.io/badge/AI-LangChain-orange.svg)](https://www.langchain.com/)
-[![LangGraph](https://img.shields.io/badge/Workflow-LangGraph-red.svg)](https://www.langchain.com/langgraph)
-[![MCP](https://img.shields.io/badge/Protocol-MCP-purple.svg)](https://modelcontextprotocol.io/)
-[![DashScope](https://img.shields.io/badge/LLM-Aliyun_DashScope-00c1de.svg)](https://dashscope.aliyun.com/)
+<p align="center">
+  <a href="#-core-features">Features</a> •
+  <a href="#-system-architecture">Architecture</a> •
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-api-documentation">API</a> •
+  <a href="#-development-guide">Development</a> •
+  <a href="#-contributing">Contributing</a>
+</p>
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Vue](https://img.shields.io/badge/Vue-3.x-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![LangChain](https://img.shields.io/badge/LangChain-1.0+-orange?style=for-the-badge)](https://www.langchain.com/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Workflow-red?style=for-the-badge)](https://www.langchain.com/langgraph)
+[![MCP](https://img.shields.io/badge/MCP-Protocol-purple?style=for-the-badge)](https://modelcontextprotocol.io/)
+[![DashScope](https://img.shields.io/badge/DashScope-Qwen-00c1de?style=for-the-badge)](https://dashscope.aliyun.com/)
 
 English | [简体中文](README.md)
-
-[Features](#-core-features) • [Architecture](#-system-architecture) • [Quick Start](#-quick-start) • [Documentation](#-project-documentation) • [Contributing](#-contributing)
 
 </div>
 
@@ -22,24 +31,51 @@ English | [简体中文](README.md)
 
 ## 📖 Project Overview
 
-**Teacher Assistant AI (师小助)** is a revolutionary educational technology platform dedicated to liberating teacher productivity and improving teaching quality through cutting-edge artificial intelligence technologies. The project adopts an **Agentic AI** architecture, deeply integrating LangChain, LangGraph, LightRAG, and Model Context Protocol (MCP) to create a truly "thinking" intelligent teaching assistant system.
+**Teacher Assistant AI (师小助)** is a revolutionary educational technology platform dedicated to liberating teacher productivity and improving teaching quality through cutting-edge artificial intelligence. The project adopts an **Agentic AI** architecture, deeply integrating LangChain, LangGraph, LightRAG, and Model Context Protocol (MCP) to create a truly "thinking" intelligent teaching assistant system.
 
-### 💡 Why Choose Teacher Assistant AI?
+### 💡 Key Highlights
 
-Unlike traditional teaching tools that often consist of "point-to-point" feature堆砌, Teacher Assistant AI achieves the following through **Agent Orchestration**:
+<table>
+<tr>
+<td width="50%">
 
-- 🧠 **Autonomous Reasoning & Decision Making**: The system can automatically select tools and paths based on teacher requirements
-- 🔄 **Dynamic Workflows**: Complex task orchestration based on LangGraph state machines
-- 🔌 **Infinite Extensibility**: Easy integration of new AI capabilities through the MCP protocol
-- 🎯 **Precise Personalization**: Customized learning recommendations for each student
-- 📚 **Knowledge Graph Support**: Deep semantic retrieval based on LightRAG knowledge base
+🧠 **Autonomous Reasoning & Decision Making**
+- Intelligent intent analysis, automatic tool chain selection
+- Dynamic workflow orchestration, complex task decomposition
 
-### 🎯 Core Value
+</td>
+<td width="50%">
 
-| 🎓 **For Teachers** | 📚 **For Students** | 🏫 **For Schools** |
+🔄 **Multimodal Processing Capabilities**
+- OCR visual recognition, accurate handwritten test grading
+- Code semantic analysis, Socratic teaching guidance
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+📚 **Knowledge Graph Driven**
+- LightRAG deep semantic retrieval
+- Five retrieval modes for flexible adaptation
+
+</td>
+<td width="50%">
+
+🔌 **Infinite Extension Ecosystem**
+- MCP protocol standardized tool interface
+- One-click integration of new AI capabilities
+
+</td>
+</tr>
+</table>
+
+### 🎯 Core Value Proposition
+
+| 🎓 For Teachers | 📚 For Students | 🏫 For Schools |
 |:---:|:---:|:---:|
-| Save 60% grading time | Get personalized learning paths | Data-driven decision support |
-| Intelligent teaching material generation | 24/7 online Q&A | Improve overall teaching quality |
+| Save **60%** grading time | Personalized learning paths | Data-driven decisions |
+| Intelligent teaching material generation | **24/7** online Q&A | Improve teaching quality |
 | Comprehensive learning analytics | Instant feedback & improvement | Reduce operational costs |
 
 ---
@@ -48,107 +84,71 @@ Unlike traditional teaching tools that often consist of "point-to-point" feature
 
 ### 🧠 1. Intelligent Quiz Generation System (Agentic Quiz Generation)
 
-An advanced quiz generation engine based on **LangGraph workflow orchestration**, **LightRAG knowledge graph**, and **MCP protocol**:
+An advanced quiz generation engine powered by **LangGraph workflow orchestration** + **LightRAG knowledge graph** + **MCP protocol**.
 
 #### 🔍 Core Capabilities
-- **Smart Router**
-  - Automatically analyzes user intent (e.g., "latest tech trends" vs "basic concept review")
-  - Intelligently switches between "web search" and "local RAG knowledge base"
-  - Supports hybrid strategies: using multiple data sources simultaneously to enhance answer quality
 
-- **LightRAG Knowledge Graph Engine**
-  - Uses [LightRAG](https://github.com/HKUDS/LightRAG) to build knowledge graphs
-  - Supports multiple retrieval modes: local, global, hybrid, mix, and naive
-  - Deep semantic association retrieval based on graph structure
-  - Supports vectorized storage and fast recall
-
-- **MCP Tool Ecosystem**
-  - Knowledge base server encapsulated based on FastMCP
-  - Standardized tool calling interfaces
-  - Supports web search, PDF conversion, and other tools
-
-- **Multi-format Output**
-  - Automatically generates structured Markdown quizzes
-  - One-click conversion to PDF format
-  - Supports Word/Excel and other export formats
+| Feature Module | Description |
+|:---|:---|
+| **Smart Router** | Automatically analyzes user intent, intelligently switches between web search and local RAG |
+| **LightRAG Engine** | Supports local/global/hybrid/mix/naive retrieval modes |
+| **MCP Tool Ecosystem** | Standardized tool calling interface, supports WebSearch, PDF conversion, etc. |
+| **Multi-format Output** | Auto-generates Markdown, one-click conversion to PDF/Word |
 
 #### 📊 Workflow
 
 ```mermaid
 graph LR
     A[User Input Topic] --> B{Intent Analysis}
-    B -->|Needs Latest Info| C[Call Web Search]
-    B -->|Search Known Knowledge| D[Query LightRAG Knowledge Base]
+    B -->|Needs Latest Info| C[WebSearch]
+    B -->|Search Known Knowledge| D[LightRAG Query]
     C --> E[Content Aggregation]
     D --> E
     E --> F[LLM Generates Questions]
-    F --> G[Format Conversion Agent]
+    F --> G[Format Conversion]
     G --> H[Output PDF/Word]
 ```
 
 ---
 
-### 📝 2. Multimodal Intelligent Grading (Multimodal Grading)
+### 📝 2. Multimodal Intelligent Grading
 
-An automated grading system utilizing **Qwen-VL-OCR** visual large models:
+An automated grading system utilizing **Qwen-VL-OCR** visual large models.
 
 #### 👁️ Visual Recognition Capabilities
-- **Handwriting Recognition**: Accurately recognizes various handwriting styles
-- **Multiple Choice Extraction**: Automatically identifies A/B/C/D option markings
-- **Table Recognition**: Supports complex formats like fill-in-the-blank and calculation questions
-- **Graphics Understanding**: Can analyze geometric figures, function graphs, etc.
+
+| Capability | Description | Accuracy |
+|:---|:---|:---:|
+| Handwriting Recognition | Accurately recognizes various handwriting styles | >95% |
+| Multiple Choice Extraction | Automatically identifies A/B/C/D option markings | >98% |
+| Table Recognition | Supports complex formats like fill-in-the-blank, calculation questions | >90% |
+| Graphics Understanding | Analyzes geometric figures, function graphs, etc. | >85% |
 
 #### 📄 Dual-Stream Input System
-1. **Standard Answer Stream**: Supports `.docx`, `.txt`, `.pdf` formats
-2. **Student Answer Stream**: Supports `.jpg`, `.png`, `.pdf` (scanned documents)
 
-#### 📊 Structured Output Reports
+```
+Standard Answer Stream (.docx/.txt/.pdf)  +  Student Answer Stream (.jpg/.png/.pdf)
+                    ↓
+              Qwen-VL-OCR
+                    ↓
+           Structured Grading Report
+```
 
-Generated grading reports include three main modules:
+#### 📊 Grading Report Structure
 
-<table>
-<tr>
-<td width="33%" align="center">
-
-**📈 Score Dashboard**
-
-Total score, average score<br>
-Ranking and distribution charts
-
-</td>
-<td width="33%" align="center">
-
-**📝 Detailed Grading**
-
-Score details for each question<br>
-Analysis of point loss reasons
-
-</td>
-<td width="33%" align="center">
-
-**💡 Improvement Suggestions**
-
-Weak knowledge points<br>
-Personalized learning paths
-
-</td>
-</tr>
-</table>
-
-#### 🎯 Application Scenarios
-- ✅ Automatic multiple-choice grading (accuracy >98%)
-- ✅ Intelligent fill-in-the-blank comparison (supports multiple answer formats)
-- ✅ Short answer semantic analysis (keyword extraction + logic judgment)
-- 🚧 Essay automatic scoring (planned: LLM-based writing quality analysis)
+| 📈 Score Dashboard | 📝 Detailed Grading | 💡 Improvement Suggestions |
+|:---:|:---:|:---:|
+| Total score, average, ranking distribution | Score details per question, point loss analysis | Weak knowledge points, learning paths |
 
 ---
 
-### 💻 3. Intelligent Code Review (AI Code Review)
+### 💻 3. AI Coding Mentor
 
-A code tutoring and review tool designed specifically for programming education:
+A Socratic AI mentor designed specifically for programming education, using guided teaching rather than direct answers.
 
 #### 🛠️ Supported Programming Languages
-Python | Java | C++ | JavaScript | TypeScript | Go | Rust | PHP
+
+`Python` `Java` `C++` `JavaScript` `TypeScript` `Go` `Rust` `PHP`
 
 #### 🔍 Review Dimensions
 
@@ -156,72 +156,55 @@ Python | Java | C++ | JavaScript | TypeScript | Go | Rust | PHP
 |:---:|:---|:---|
 | **Syntax Check** | Syntax errors, type errors, missing imports | `NameError: name 'pd' is not defined` |
 | **Logic Analysis** | Infinite loops, unhandled exceptions, boundary conditions | Duplicate `if` statement logic |
-| **Performance Optimization** | Time complexity, memory leaks, unnecessary loops | `O(n²)` → `O(n)` optimization suggestions |
+| **Performance Optimization** | Time complexity, memory leaks | `O(n²)` → `O(n)` optimization suggestions |
 | **Code Style** | PEP8/Google Style, naming conventions | Variable name `a1` → `student_count` |
-| **Security** | SQL injection, XSS vulnerabilities, sensitive info leakage | Detect unencrypted password storage |
+| **Security** | SQL injection, XSS vulnerabilities | Detect unencrypted password storage |
 
 #### 🎓 Teaching Mode
-- **Guided Repair**: Doesn't directly give answers, but poses thinking questions
-- **Learn by Analogy**: Provides comparison cases of similar errors
-- **Advanced Challenges**: Recommends advanced exercises after basic fixes
+
+```
+1st Help Request → Only provide metaphors and guiding questions
+2nd Help Request → More specific hints, no complete code
+3rd+ Requests   → Code snippet hints with key points annotated
+```
 
 ---
 
 ### 📊 4. Learning Analytics Engine (Data Insight Engine)
 
-A data insight system based on **Pandas** and **LLM** that transforms cold numbers into actionable teaching recommendations.
+A data insight system based on **Pandas** + **LLM** that transforms data into actionable teaching recommendations.
 
 #### 📈 Visualization Charts
 
-<table>
-<tr>
-<td align="center">
-
-**Score Trend Chart**<br>
-Line chart showing<br>
-Progress curves for each subject
-
-</td>
-<td align="center">
-
-**Subject Radar Chart**<br>
-Hexagonal radar<br>
-Multi-dimensional ability analysis
-
-</td>
-<td align="center">
-
-**Progress/Regression Bar Chart**<br>
-Horizontal comparison<br>
-Class ranking changes
-
-</td>
-</tr>
-</table>
+| Score Trend Chart | Subject Radar Chart | Progress/Regression Bar Chart |
+|:---:|:---:|:---:|
+| Progress curves for each subject | Multi-dimensional ability analysis | Class ranking changes |
 
 #### 🤖 AI Advisor Features
 
-The system automatically generates based on data:
+- **Short-term Learning Plan** (1-3 months): Targeted training for weak knowledge points
+- **Long-term Growth Path** (6-12 months): Subject balance strategies, competition development suggestions
+- **Career Planning Suggestions**: Major selection tendency analysis, career interest matching
 
-1. **Short-term Learning Plan** (1-2 weeks)
-   - Targeted training for weak knowledge points
-   - Daily learning task breakdown
-   - Progress tracking and adjustment suggestions
+---
 
-2. **Long-term Growth Path** (1 semester - 1 year)
-   - Subject balance strategies
-   - Competition/specialty development suggestions
-   - College entrance goal matching analysis
+### 🎯 5. Prompt Arena
 
-3. **Career Planning Suggestions**
-   - Major selection tendency analysis
-   - Career interest matching
-   - Competency model building
+An interactive learning platform for training Prompt engineering skills.
 
-#### 📥 Data Source Support
-- 📊 Excel/CSV batch import
-- ✏️ Manual score entry
-- 🔗 Educational system API integration (planned)
+#### 🎮 Core Gameplay
+
+```
+Generate Quest → Write Prompt → AI Simulates Response → Multi-dimensional Scoring → Improvement Suggestions
+```
+
+#### 📊 Scoring Dimensions
+
+| Dimension | Description |
+|:---|:---|
+| **Clarity** | Is the task description clear and understandable |
+| **Constraints** | Are there explicit limitations and requirements |
+| **Logic** | Is the requirement description logically ordered |
 
 ---
 
@@ -231,69 +214,27 @@ The system automatically generates based on data:
 
 #### 🖥️ Backend Technology Stack (Python)
 
-<table>
-<tr>
-<td><b>Framework</b></td>
-<td>Flask (Microservices Architecture)</td>
-</tr>
-<tr>
-<td><b>AI Orchestration</b></td>
-<td>LangChain, LangGraph</td>
-</tr>
-<tr>
-<td><b>Knowledge Graph</b></td>
-<td>LightRAG</td>
-</tr>
-<tr>
-<td><b>Protocol</b></td>
-<td>Model Context Protocol (FastMCP)</td>
-</tr>
-<tr>
-<td><b>LLM Service</b></td>
-<td>Aliyun DashScope (Qwen Series)</td>
-</tr>
-<tr>
-<td><b>Data Processing</b></td>
-<td>Pandas, NumPy, Matplotlib</td>
-</tr>
-<tr>
-<td><b>Vector Storage</b></td>
-<td>LightRAG Built-in Storage</td>
-</tr>
-</table>
+| Category | Technology |
+|:---:|:---|
+| Web Framework | Flask (Microservices) + FastAPI (Streaming Services) |
+| AI Orchestration | LangChain + LangGraph |
+| Knowledge Graph | LightRAG |
+| Protocol Layer | Model Context Protocol (FastMCP) |
+| LLM Service | Aliyun DashScope (Qwen Series) |
+| Data Processing | Pandas + NumPy + Matplotlib |
+| Database | MongoDB (User Authentication) |
 
 #### 🎨 Frontend Technology Stack (Vue 3)
 
-<table>
-<tr>
-<td><b>Core Framework</b></td>
-<td>Vue 3 (Composition API + <code>&lt;script setup&gt;</code>)</td>
-</tr>
-<tr>
-<td><b>Build Tool</b></td>
-<td>Vite</td>
-</tr>
-<tr>
-<td><b>State Management</b></td>
-<td>Pinia</td>
-</tr>
-<tr>
-<td><b>Routing</b></td>
-<td>Vue Router 4</td>
-</tr>
-<tr>
-<td><b>UI Components</b></td>
-<td>Custom Components + Responsive Layout</td>
-</tr>
-<tr>
-<td><b>HTTP Client</b></td>
-<td>Axios</td>
-</tr>
-<tr>
-<td><b>Styling</b></td>
-<td>Scoped CSS, Flexbox/Grid</td>
-</tr>
-</table>
+| Category | Technology |
+|:---:|:---|
+| Core Framework | Vue 3 (Composition API + `<script setup>`) |
+| Build Tool | Vite 6.x |
+| State Management | Pinia |
+| Routing | Vue Router 4 |
+| HTTP Client | Axios |
+| Chart Library | ECharts |
+| Styling | Scoped CSS + Flexbox/Grid |
 
 ### 🏛️ System Architecture Diagram
 
@@ -304,34 +245,37 @@ graph TD
     end
 
     subgraph "⚙️ Backend Microservices Layer"
-        B1[🔐 Auth Service<br/>Port 5000<br/>Flask + JWT]
-        B2[📝 Grading Service<br/>Port 5001<br/>Qwen-VL + OCR]
-        B3[🧠 Quiz Agent<br/>Port 5002<br/>LangGraph + MCP]
-        B4[📊 Data Analysis<br/>Port 5003<br/>Pandas + Charts]
-        B5[💻 Code Review<br/>Port 5004<br/>Code Analysis]
+        B1[🔐 Auth Service<br/>Port 5000<br/>Flask + MongoDB]
+        B2[📝 Grading Service<br/>Port 5001<br/>Qwen-VL-OCR]
+        B3[🧠 Quiz Service<br/>Port 5002<br/>LangGraph + MCP]
+        B4[📊 Analytics Service<br/>Port 5003<br/>Pandas + Charts]
+        B5[💻 Code Mentor<br/>Port 5004<br/>FastAPI + Streaming]
+        B6[🎯 Arena<br/>Port 5005<br/>Flask + Qwen]
     end
 
     subgraph "🔌 MCP Tool Ecosystem"
-        C1[🌐 Web Search<br/>Aliyun Search<br/>SSE Protocol]
-        C2[📄 PDF Agent<br/>Docx/PDF Conversion<br/>HTTP Stream]
-        C3[📚 LightRAG<br/>Knowledge Graph Retrieval<br/>Stdio]
+        C1[🌐 WebSearch<br/>Aliyun Search<br/>SSE Protocol]
+        C2[📄 PDF Agent<br/>Document Conversion<br/>HTTP Stream]
+        C3[📚 LightRAG<br/>Knowledge Graph<br/>Stdio]
     end
 
     subgraph "☁️ Model Layer"
         D1[👁️ Qwen-VL-OCR<br/>Visual Recognition]
         D2[🤖 Qwen-Plus/Flash<br/>Reasoning Generation]
-        D3[🔢 Text-Embedding-V2<br/>Vectorization]
+        D3[🔢 Text-Embedding-V3<br/>Vectorization 1024-dim]
     end
 
-    A -->|HTTP POST| B1
-    A -->|HTTP POST| B2
-    A -->|HTTP POST| B3
-    A -->|HTTP POST| B4
-    A -->|HTTP POST| B5
+    A -->|HTTP| B1
+    A -->|HTTP| B2
+    A -->|HTTP| B3
+    A -->|HTTP| B4
+    A -->|SSE| B5
+    A -->|HTTP| B6
 
     B2 --> D1
     B2 --> D2
     B5 --> D2
+    B6 --> D2
 
     B3 --> C1
     B3 --> C2
@@ -347,57 +291,58 @@ graph TD
 
 ```
 Teacher_Assistant_AI/
-├── 📁 backend/                    # Backend Services
-│   ├── 📁 Achievement_analysis/   # Learning Analytics Module
-│   │   ├── data_analyzer.py       # Data Analysis Service (Port 5003)
-│   │   └── requirements.txt
+├── 📁 backend/                      # Backend Services
+│   ├── 📁 Login/                    # Authentication Module
+│   │   └── login.py                 # Auth Service (Port 5000)
 │   │
-│   ├── 📁 Code_correction/        # Code Review Module
-│   │   └── Code_correction.py     # Code Review Service (Port 5004)
+│   ├── 📁 Paper_marking/            # Intelligent Grading Module
+│   │   └── marking.py               # Grading Service (Port 5001)
 │   │
-│   ├── 📁 Login/                  # Authentication Module
-│   │   └── login.py               # Auth Service (Port 5000)
+│   ├── 📁 Paper_composition/        # Intelligent Quiz Module
+│   │   ├── main.py                  # Quiz Main Service (Port 5002)
+│   │   ├── RAG_MCP_LightRAG.py      # LightRAG MCP Server
+│   │   ├── lightrag_config.py       # LightRAG Configuration
+│   │   └── lightrag_storage/        # Knowledge Base Storage
 │   │
-│   ├── 📁 Paper_composition/      # Intelligent Quiz Module
-│   │   ├── main.py                # Quiz Main Entry (Port 5002)
-│   │   ├── RAG_MCP_LightRAG.py    # LightRAG MCP Server
-│   │   ├── lightrag_config.py     # LightRAG Configuration
-│   │   └── lightrag_storage/      # LightRAG Knowledge Base Storage
+│   ├── 📁 Achievement_analysis/     # Learning Analytics Module
+│   │   └── data_analyzer.py         # Analytics Service (Port 5003)
 │   │
-│   ├── 📁 Paper_marking/          # Intelligent Grading Module
-│   │   └── marking.py             # Grading Service (Port 5001)
+│   ├── 📁 Code_correction/          # Code Review Module
+│   │   └── Code_correction.py       # Coding Mentor Service (Port 5004)
 │   │
-│   ├── 📁 logs/                   # Log Storage
-│   │   └── lightrag.log           # LightRAG Runtime Logs
+│   ├── 📁 Prompt_arena/             # Prompt Arena
+│   │   ├── main.py                  # Arena Service (Port 5005)
+│   │   └── services.py              # Business Logic
 │   │
-│   ├── main.py                    # Service Launcher
-│   └── requirements.txt           # Python Dependencies
+│   ├── 📁 logs/                     # Log Storage
+│   ├── main.py                      # Unified Startup Script
+│   └── requirements.txt             # Python Dependencies
 │
-├── 📁 frontend/                   # Frontend Project
+├── 📁 frontend/                     # Frontend Project
 │   ├── src/
-│   │   ├── views/                 # Page Components
-│   │   │   ├── LoginPage.vue
-│   │   │   ├── HomePage.vue
-│   │   │   ├── QuizGeneration.vue
-│   │   │   ├── GradingPage.vue
-│   │   │   ├── DataAnalysis.vue
-│   │   │   └── CodeReview.vue
-│   │   ├── stores/                # Pinia State Management
-│   │   ├── router/                # Vue Router
-│   │   ├── assets/                # Static Resources
-│   │   └── App.vue
+│   │   ├── components/              # Page Components
+│   │   │   ├── Login.vue            # Login Page
+│   │   │   ├── Index.vue            # Home Page
+│   │   │   ├── intelligent-quiz.vue # Intelligent Quiz
+│   │   │   ├── intelligent-correction.vue # Intelligent Grading
+│   │   │   ├── score-analysis.vue   # Score Analysis
+│   │   │   ├── code-review.vue      # Code Review
+│   │   │   └── PromptArena.vue      # Prompt Arena
+│   │   ├── config/api.js            # API Configuration
+│   │   ├── router/index.js          # Router Configuration
+│   │   ├── store/user.js            # User State
+│   │   └── App.vue                  # Root Component
+│   ├── static/                      # Static Resources
+│   ├── index.html
 │   ├── package.json
 │   └── vite.config.js
 │
-├── 📁 Files/                       # Static Resources
-├── 📁 智能批改/                    # Grading Module Resources
-├── 📁 成绩分析/                    # Analysis Module Resources
-├── 📁 智能组卷/                    # Quiz Module Resources
-│
-├── .env.example                   # Environment Variables Template
-├── .gitignore                     # Git Ignore Configuration
-├── LICENSE                        # License
-└── README.md                      # Project Documentation
+├── 📁 Files/                        # Sample Files
+├── .env.example                     # Environment Variables Template
+├── .gitignore
+├── LICENSE
+├── README.md                        # Chinese Documentation
+└── README_EN.md                     # English Documentation
 ```
 
 ---
@@ -406,38 +351,20 @@ Teacher_Assistant_AI/
 
 ### 📋 Prerequisites
 
-Before starting, ensure your system meets the following requirements:
-
-<table>
-<tr>
-<td><b>Python</b></td>
-<td>3.10 or higher</td>
-<td><a href="https://www.python.org/downloads/">Download</a></td>
-</tr>
-<tr>
-<td><b>Node.js</b></td>
-<td>16.x or higher</td>
-<td><a href="https://nodejs.org/">Download</a></td>
-</tr>
-<tr>
-<td><b>API Key</b></td>
-<td>Aliyun DashScope API Key</td>
-<td><a href="https://dashscope.aliyun.com/">Get Key</a></td>
-</tr>
-<tr>
-<td><b>Operating System</b></td>
-<td>Windows, Linux, macOS</td>
-<td>-</td>
-</tr>
-</table>
+| Dependency | Version Required | Download Link |
+|:---:|:---:|:---:|
+| Python | 3.10+ | [Download](https://www.python.org/downloads/) |
+| Node.js | 16.x+ | [Download](https://nodejs.org/) |
+| MongoDB | 4.x+ | [Download](https://www.mongodb.com/) |
+| DashScope API Key | - | [Get Key](https://dashscope.aliyun.com/) |
 
 ### 📥 1. Clone the Project
 
 ```bash
-# Using HTTPS
+# HTTPS
 git clone https://github.com/abaiar/Teacher_Assistant_AI.git
 
-# Or using SSH (recommended)
+# SSH (Recommended)
 git clone git@github.com:abaiar/Teacher_Assistant_AI.git
 
 cd Teacher_Assistant_AI
@@ -445,139 +372,105 @@ cd Teacher_Assistant_AI
 
 ### 🐍 2. Backend Environment Setup
 
-#### 2.1 Create Virtual Environment (Recommended)
+#### 2.1 Create Virtual Environment
 
 ```bash
-# Using Conda (recommended)
+# Conda (Recommended)
 conda create -n teacher_ai python=3.10
 conda activate teacher_ai
 
-# Or using venv
+# venv
 python -m venv venv
-# Windows:
+# Windows
 venv\Scripts\activate
-# Linux/macOS:
+# Linux/macOS
 source venv/bin/activate
 ```
 
-#### 2.2 Install Python Dependencies
+#### 2.2 Install Dependencies
 
 ```bash
 pip install -r backend/requirements.txt
-```
 
-**Troubleshooting**:
-- If you encounter network issues, use Tsinghua mirror:
-  ```bash
-  pip install -r backend/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-  ```
+# China mirror acceleration
+pip install -r backend/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
 
 #### 2.3 Configure Environment Variables
 
-1. Copy the environment variables template:
-   ```bash
-   cp .env.example .env
-   ```
+```bash
+# Copy template
+cp .env.example .env
+```
 
-2. Edit the `.env` file and add your API Key:
-   ```env
-   # .env file content
-   DASHSCOPE_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxx
-   ```
+Edit the `.env` file:
 
-3. **Important Security Notes**:
-   - ⚠️ Never commit the `.env` file to version control
-   - ✅ Ensure `.gitignore` includes `.env` entry
-   - 🔒 Keep your API Key secure
+```env
+# Required
+DASHSCOPE_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxx
+
+# Optional
+ALI_MODEL_NAME=qwen-plus
+USE_LIGHTRAG=true
+```
 
 #### 2.4 Start Backend Services
 
-**Option 1: Using Main Launcher (Recommended)**
+**Option 1: Unified Startup (Recommended)**
 
 ```bash
 cd backend
 python main.py
 ```
 
-The main launcher will automatically start all microservices:
-- Auth Service (Port 5000)
-- Grading Service (Port 5001)
-- Quiz Service (Port 5002)
-- Data Analysis Service (Port 5003)
-- Code Review Service (Port 5004)
-
-**Option 2: Manual Start (Development/Debugging)**
-
-Open multiple terminal windows and execute:
+**Option 2: Start Services Individually**
 
 ```bash
-# Terminal 1: Auth Service (Port 5000)
+# Auth Service (Port 5000)
 python backend/Login/login.py
 
-# Terminal 2: Grading Service (Port 5001)
+# Grading Service (Port 5001)
 python backend/Paper_marking/marking.py
 
-# Terminal 3: Quiz Service (Port 5002)
+# Quiz Service (Port 5002)
 python backend/Paper_composition/main.py
 
-# Terminal 4: Data Analysis Service (Port 5003)
+# Analytics Service (Port 5003)
 python backend/Achievement_analysis/data_analyzer.py
 
-# Terminal 5: Code Review Service (Port 5004)
+# Code Mentor (Port 5004)
 python backend/Code_correction/Code_correction.py
+
+# Arena (Port 5005)
+python backend/Prompt_arena/main.py
 ```
 
-#### 2.5 Verify Backend Services
-
-Visit the following endpoints to confirm services are running:
+#### 2.5 Verify Services
 
 ```bash
-# Check quiz service
 curl http://localhost:5002/health
-
-# Check data analysis service
-curl http://localhost:5003/health
+curl http://localhost:5003/test
+curl http://localhost:5004/health
+curl http://localhost:5005/api/prompt_arena/health
 ```
 
 ### 🎨 3. Frontend Environment Setup
 
-#### 3.1 Enter Frontend Directory
-
 ```bash
 cd frontend
-```
 
-#### 3.2 Install Dependencies
-
-```bash
-# Using npm
+# Install dependencies
 npm install
-
-# Or using yarn
+# or
 yarn install
-
-# Or using pnpm
+# or
 pnpm install
-```
 
-#### 3.3 Start Development Server
-
-```bash
+# Start development server
 npm run dev
 ```
 
-After successful startup, you will see output similar to:
-
-```
-  VITE v6.0.5  ready in 523 ms
-
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: http://192.168.1.100:5173/
-```
-
-#### 3.4 Access the Application
-
-Open `http://localhost:5173` in your browser to see the login page.
+Visit `http://localhost:5173` to access the application.
 
 **Default Test Account**:
 - Username: `teacher`
@@ -585,197 +478,363 @@ Open `http://localhost:5173` in your browser to see the login page.
 
 ---
 
-## 📚 Project Documentation
+## 📚 API Documentation
 
-### 🧪 Usage Examples
+### 🔐 Authentication Service (Port 5000)
 
-#### Example 1: Generate Comprehensive Quiz
+#### User Login
 
-**Scenario**: A math teacher needs to generate a comprehensive midterm exam covering "functions", "trigonometric functions", and "sequences".
+```http
+POST /login
+Content-Type: application/x-www-form-urlencoded
 
-**Steps**:
+username=teacher&password=123456
+```
 
-1. **Login to System**
-   - Visit `http://localhost:5173`
-   - Enter teacher account credentials
+**Response**
 
-2. **Configure Quiz Parameters**
-   - Topic: High School Math: Functions, Trigonometry, Sequences Comprehensive Test
-   - Difficulty: Medium
-   - Number of Questions: 20
-   - Question Distribution: 10 multiple choice, 5 fill-in-the-blank, 5 problem-solving
+```json
+{
+  "success": true,
+  "message": "Login successful",
+  "user": {
+    "username": "teacher",
+    "role": "teacher",
+    "token": "jwt-token"
+  }
+}
+```
 
-3. **Generate and Download**
-   - System generates quiz within 30 seconds
-   - Download Markdown source or PDF printable version
+#### User Registration
 
-#### Example 2: Batch Grading Programming Assignments
+```http
+POST /register
+Content-Type: application/x-www-form-urlencoded
 
-**Scenario**: A computer science teacher needs to grade 50 Python assignments.
-
-**Efficiency Comparison**:
-
-| Comparison Item | Traditional Manual Grading | Teacher Assistant AI |
-|:---:|:---:|:---:|
-| **Average Time per Assignment** | 10 minutes | 30 seconds |
-| **Total Time** | 8.3 hours | 25 minutes |
-| **Efficiency Improvement** | - | **20x** |
-
-#### Example 3: Learning Analytics
-
-**Scenario**: A class teacher needs to prepare learning analytics reports for 40 students for a parent-teacher conference.
-
-**Steps**:
-
-1. **Export Grade Data** (Excel format)
-2. **Upload to System**
-   - Navigate to "Learning Analytics" page
-   - Upload Excel file
-   - System automatically recognizes headers and data
-3. **Generate Analysis Report**
-   - Class overall report (grade distribution, ranking analysis)
-   - Individual growth report (trend charts, radar charts, AI recommendations)
+username=newuser&password=password123
+```
 
 ---
 
-### 🔧 Advanced Configuration
+### 📝 Grading Service (Port 5001)
 
-#### Custom LightRAG Knowledge Base
+#### Intelligent Grading
 
-If you want to add your own teaching materials to the knowledge base:
+```http
+POST /correct
+Content-Type: multipart/form-data
 
-1. **Prepare Documents**
-   - Supported formats: `.txt`, `.md`, `.pdf`, `.docx`
-   - Recommended: each document <5000 words
-
-2. **Call Insert Interface**
-   ```python
-   # Use LightRAG MCP tool to insert documents
-   await insert_document("Your document content", "Document Title")
-   ```
-
-3. **Verify Retrieval**
-   - Use query interface to test knowledge base retrieval
-   - Supports multiple retrieval modes: local, global, hybrid, mix, naive
-
-#### Configure Log Path
-
-LightRAG logs are stored in `backend/logs/lightrag.log` by default. To modify:
-
-Edit `backend/Paper_composition/RAG_MCP_LightRAG.py`:
-
-```python
-# Modify log directory
-log_dir = Path(__file__).parent.parent / "your_custom_logs"
+standard_answer: <Word file>
+student_answer: <Image file>
 ```
+
+**Response**
+
+```markdown
+# 📝 Intelligent Grading Report
+
+## 📊 Score Dashboard
+| Dimension | Data | Notes |
+| :--- | :--- | :--- |
+| **Estimated Score** | 85 / 100 | - |
+| **Correct Answers** | 17 / 20 | - |
+
+## 🔍 Detailed Grading
+### Question 1
+- **Status**: ✅
+- **Student Answer**: A
+- **Correct Answer**: A
+- **Comment**: Correctly understood the concept...
+```
+
+---
+
+### 🧠 Quiz Service (Port 5002)
+
+#### Generate Quiz
+
+```http
+POST /generate_quiz
+Content-Type: application/json
+
+{
+  "query": "High School Math: Applications of Derivatives, include 10 multiple choice questions"
+}
+```
+
+**Response**
+
+```json
+{
+  "quiz_markdown": "## I. Multiple Choice\n\n1. Given function f(x) = x³ - 3x...",
+  "pdf_url": "https://example.com/quiz.pdf"
+}
+```
+
+---
+
+### 📊 Analytics Service (Port 5003)
+
+#### Learning Analytics
+
+```http
+POST /analyze
+Content-Type: multipart/form-data
+
+dataType: json
+students: [{"name": "John", "scores": {"Math": 85, "English": 90}}]
+```
+
+**Response**
+
+```json
+[
+  {
+    "name": "John",
+    "analysis": "This student has a solid foundation in mathematics...",
+    "shortPlan": "Short-term suggestion: strengthen function chapter practice...",
+    "longPlan": "Long-term planning: recommend participating in math competitions...",
+    "careerAdvice": "Suitable majors: Computer Science, Financial Engineering...",
+    "encouragement": "Keep it up, you're doing great!",
+    "charts": {
+      "bar_chart": "base64...",
+      "radar_chart": "base64...",
+      "trend_chart": "base64..."
+    }
+  }
+]
+```
+
+---
+
+### 💻 Code Mentor Service (Port 5004)
+
+#### Socratic Dialogue (Streaming)
+
+```http
+POST /api/mentor/chat
+Content-Type: application/json
+
+{
+  "code": "for i in range(10)\n    print(i)",
+  "error_message": "SyntaxError: invalid syntax",
+  "language": "Python",
+  "session_id": "user-123",
+  "user_message": "Help me find what's wrong"
+}
+```
+
+**Response** (SSE Streaming)
+
+```
+🤔 **Teacher Assistant found a problem**
+
+Your code is like forgetting to add a period when speaking...
+
+💡 **Hint**
+Python's for loop needs a colon after it!
+
+🎯 **Next Step**
+Try adding a colon `:` after `range(10)`
+```
+
+#### Code Story Explanation
+
+```http
+POST /api/mentor/explain
+Content-Type: application/json
+
+{
+  "code": "for i in range(5):\n    print(i)",
+  "language": "Python"
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "success",
+  "data": [
+    {"line": 1, "desc": "We're starting a magical loop journey, like running laps on a track, we'll run 5 laps..."},
+    {"line": 2, "desc": "After each lap, we shout out which lap we're on..."}
+  ]
+}
+```
+
+---
+
+### 🎯 Arena Service (Port 5005)
+
+#### Generate New Quest
+
+```http
+POST /api/prompt_arena/new_quest
+Content-Type: application/json
+
+{
+  "use_ai": true
+}
+```
+
+**Response**
+
+```json
+{
+  "success": true,
+  "quest": {
+    "quest_id": "quest_001",
+    "category": "Code Generation",
+    "scenario": "You need AI to help you write a sorting function",
+    "objective": "Generate a Python quicksort function",
+    "constraints": ["Must include comments", "Time complexity O(n log n)"],
+    "difficulty": "Medium"
+  }
+}
+```
+
+#### Evaluate Response
+
+```http
+POST /api/prompt_arena/judge
+Content-Type: application/json
+
+{
+  "prompt": "Please write a quicksort function...",
+  "response": "def quicksort(arr): ...",
+  "quest_context": {...}
+}
+```
+
+---
+
+## 🔧 Development Guide
+
+### Code Standards
+
+- **Python**: Follow PEP8, use type annotations
+- **Vue**: Composition API + `<script setup>` syntax
+- **Commit Messages**: Follow [Conventional Commits](https://www.conventionalcommits.org/)
+
+### Local Development
+
+```bash
+# Backend development mode
+cd backend
+python main.py --log-level DEBUG
+
+# Frontend development mode
+cd frontend
+npm run dev
+```
+
+### Adding New MCP Tools
+
+1. Create a new MCP Server in `backend/Paper_composition/`
+2. Register it in the `mcp_servers` configuration in `main.py`
+3. Restart the quiz service
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Frequently Asked Questions (FAQ)
+### Frequently Asked Questions
 
-#### Q1: "DASHSCOPE_API_KEY not found" Error
+<details>
+<summary><b>Q1: DASHSCOPE_API_KEY not found</b></summary>
 
-**Cause**: Environment variables not properly configured.
-
-**Solution**:
-1. Confirm `.env` file exists and contains correct API Key
-2. Check if virtual environment is activated
-3. Try manually setting environment variable:
-   ```bash
-   # Windows
-   set DASHSCOPE_API_KEY=your-key-here
-   # Linux/macOS
-   export DASHSCOPE_API_KEY=your-key-here
-   ```
-
-#### Q2: Port Already in Use (Address already in use)
-
-**Cause**: Ports 5000-5004 are occupied by other programs.
+**Cause**: Environment variable not properly configured
 
 **Solution**:
-1. Find the occupying process:
-   ```bash
-   # Windows
-   netstat -ano | findstr :5000
-   # Linux/macOS
-   lsof -i :5000
-   ```
-2. Terminate the occupying process or modify service port configuration
+```bash
+# Check .env file
+cat .env
 
-#### Q3: LightRAG Initialization Failed
+# Set manually
+export DASHSCOPE_API_KEY=your-key-here  # Linux/macOS
+set DASHSCOPE_API_KEY=your-key-here     # Windows
+```
+</details>
 
-**Cause**: Knowledge base directory permission issues or missing dependencies.
+<details>
+<summary><b>Q2: Port Already in Use</b></summary>
+
+**Solution**:
+```bash
+# Windows
+netstat -ano | findstr :5000
+taskkill /PID <PID> /F
+
+# Linux/macOS
+lsof -i :5000
+kill -9 <PID>
+```
+</details>
+
+<details>
+<summary><b>Q3: LightRAG Initialization Failed</b></summary>
 
 **Solution**:
 1. Check permissions for `backend/Paper_composition/lightrag_storage/` directory
-2. Ensure all dependencies are installed: `pip install lightrag`
-3. Check `backend/logs/lightrag.log` for detailed error information
+2. Ensure installed: `pip install lightrag`
+3. Check logs: `backend/logs/lightrag.log`
+</details>
 
-#### Q4: Frontend Cannot Connect to Backend (Network Error)
-
-**Cause**: CORS configuration issues or backend services not running.
+<details>
+<summary><b>Q4: Frontend Cannot Connect to Backend</b></summary>
 
 **Solution**:
 1. Confirm all backend services are running
-2. Check CORS configuration for each service allows frontend domain
-3. Check browser console for specific error messages
+2. Check CORS configuration
+3. Check browser console for error messages
+</details>
 
 ---
 
 ## 📊 Performance Benchmarks
 
-**Test Environment**:
-- CPU: Intel i7-10700K
-- RAM: 16GB DDR4
-- OS: Windows 10/11
+**Test Environment**: Intel i7-10700K / 16GB DDR4 / Windows 10/11
 
-| Feature Module | Average Response Time | Concurrency | Notes |
+| Module | Average Response Time | Concurrency | Notes |
 |:---:|:---:|:---:|:---|
-| Intelligent Quiz Generation | 15-30 seconds | 10 QPS | Depends on question count |
-| LightRAG Query | 2-5 seconds | 20 QPS | Depends on knowledge base size |
-| Image Grading | 5-10 seconds/image | 5 QPS | Resolution affects performance |
-| Code Review | 3-8 seconds | 15 QPS | Depends on code lines |
-| Data Analysis | 10-20 seconds | 8 QPS | Depends on student count |
+| Intelligent Quiz | 15-30s | 10 QPS | Depends on question count |
+| LightRAG Query | 2-5s | 20 QPS | Depends on knowledge base size |
+| Image Grading | 5-10s/image | 5 QPS | Resolution affects performance |
+| Code Review | 3-8s | 15 QPS | Streaming output |
+| Data Analysis | 10-20s | 8 QPS | Depends on student count |
+| Arena | 3-5s | 15 QPS | - |
 
 ---
 
 ## 🤝 Contributing
 
-We welcome all forms of contributions, whether new features, bug fixes, or documentation improvements.
+We welcome all forms of contributions!
 
 ### Contribution Process
 
-1. **Fork the Project**
-   ```bash
-   git clone https://github.com/your-username/Teacher_Assistant_AI.git
-   ```
+```bash
+# 1. Fork and clone
+git clone https://github.com/your-username/Teacher_Assistant_AI.git
 
-2. **Create Branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
+# 2. Create branch
+git checkout -b feature/your-feature
 
-3. **Commit Changes**
-   ```bash
-   git add .
-   git commit -m "feat: add your feature description"
-   ```
+# 3. Commit changes
+git commit -m "feat: add new feature"
 
-4. **Push Branch**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+# 4. Push branch
+git push origin feature/your-feature
 
-5. **Create Pull Request**
+# 5. Create Pull Request
+```
 
-### Code Standards
+### Contribution Types
 
-- Follow PEP8 Python code style guidelines
-- Use type annotations to improve code readability
-- Write clear commit messages (follow Conventional Commits)
-- Add necessary unit tests
+- 🐛 Bug fixes
+- ✨ New feature development
+- 📝 Documentation improvements
+- 🌐 Translation contributions
+- 💡 Feature suggestions
 
 ---
 
@@ -803,15 +862,24 @@ copies or substantial portions of the Software.
 
 ## 🙏 Acknowledgments
 
-Thanks to the following open-source projects and tools:
+Thanks to the following open-source projects for their support:
 
-- [LangChain](https://www.langchain.com/) - AI Application Development Framework
-- [LangGraph](https://www.langchain.com/langgraph) - Workflow Orchestration Engine
-- [LightRAG](https://github.com/HKUDS/LightRAG) - Knowledge Graph Retrieval Framework
-- [FastMCP](https://modelcontextprotocol.io/) - MCP Protocol Implementation
-- [DashScope](https://dashscope.aliyun.com/) - Alibaba Cloud LLM Service
-- [Vue.js](https://vuejs.org/) - Frontend Framework
-- [Flask](https://flask.palletsprojects.com/) - Web Framework
+| Project | Description |
+|:---:|:---|
+| [LangChain](https://www.langchain.com/) | AI Application Development Framework |
+| [LangGraph](https://www.langchain.com/langgraph) | Workflow Orchestration Engine |
+| [LightRAG](https://github.com/HKUDS/LightRAG) | Knowledge Graph Retrieval Framework |
+| [FastMCP](https://modelcontextprotocol.io/) | MCP Protocol Implementation |
+| [DashScope](https://dashscope.aliyun.com/) | Alibaba Cloud LLM Service |
+| [Vue.js](https://vuejs.org/) | Progressive Frontend Framework |
+| [Flask](https://flask.palletsprojects.com/) | Python Web Framework |
+
+---
+
+## 📞 Contact
+
+- **GitHub**: [abaiar/Teacher_Assistant_AI](https://github.com/abaiar/Teacher_Assistant_AI)
+- **Issues**: [GitHub Issues](https://github.com/abaiar/Teacher_Assistant_AI/issues)
 
 ---
 
@@ -820,5 +888,7 @@ Thanks to the following open-source projects and tools:
 **[⬆ Back to Top](#-teacher-assistant-ai-师小助)**
 
 Made with ❤️ by Teacher Assistant AI Team
+
+⭐ If this project helps you, please give it a Star!
 
 </div>
