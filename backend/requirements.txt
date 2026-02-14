@@ -16,4 +16,7 @@ pandas==2.1.4
 pydantic==2.12.3
 python-dotenv==1.2.1
 python_docx==1.0.1
-uvicorn==0.32.0
+uvicorn==0.35.0
+lightrag==0.1.0b6
+lightrag-hku==1.4.9.11
+pymongo==4.16.0
