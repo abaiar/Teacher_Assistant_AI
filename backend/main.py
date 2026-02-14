@@ -10,12 +10,6 @@ Teacher Assistant AI - 统一启动脚本
     python main.py --log-level DEBUG  # 设置日志级别
     python main.py --sequential       # 顺序启动而非并行
 
-服务列表:
-    1. 登录服务 (Login)                   - 端口 5000
-    2. 试卷批改服务 (Paper_marking)       - 端口 5001
-    3. 智能组卷服务 (Paper_composition)   - 端口 5002
-    4. 成绩分析服务 (achievement_analysis) - 端口 5003
-    5. 代码批改服务 (Code_correction)     - 端口 5004
 """
 
 import os
