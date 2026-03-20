@@ -40,6 +40,9 @@ class ServiceConfig:
     pid: Optional[int] = None
     error_message: Optional[str] = None
     log_file: Optional[str] = None  # 服务日志文件路径
+    command_type: str = "python"  # python 或 node
+    working_dir: Optional[str] = None  # 工作目录（用于Node.js项目）
+    startup_command: Optional[List[str]] = None  # 自定义启动命令
 
 
 @dataclass
@@ -96,6 +99,15 @@ class ServiceLauncher:
             display_name="提示词竞技场服务",
             file_path=_get_service_path.__func__("Prompt_arena", "main.py"),
             port=5005
+        ),
+        ServiceConfig(
+            name="openmaic",
+            display_name="OpenMAIC智能课堂服务",
+            file_path=_get_service_path.__func__("OpenMAIC"),
+            port=5006,
+            command_type="node",
+            working_dir=_get_service_path.__func__("OpenMAIC"),
+            startup_command=["set", "PORT=5006", "&&", "npx", "pnpm", "dev"]
         ),
     ]
 
@@ -271,25 +283,30 @@ class ServiceLauncher:
         """启动单个服务"""
         service_name = config.display_name
 
-        # 验证文件
-        is_valid, error_msg = self._validate_service_file(config)
-        if not is_valid:
-            config.status = "failed"
-            config.error_message = error_msg
-            self.logger.error(f"[{service_name}] 验证失败: {error_msg}")
-            self._log_event(service_name, "VALIDATION_FAILED", error_msg)
-            return config
+        # 根据服务类型选择验证和启动方式
+        if config.command_type == "node":
+            # Node.js项目验证
+            is_valid, error_msg = self._validate_node_service(config)
+            if not is_valid:
+                config.status = "failed"
+                config.error_message = error_msg
+                self.logger.error(f"[{service_name}] 验证失败: {error_msg}")
+                self._log_event(service_name, "VALIDATION_FAILED", error_msg)
+                return config
+        else:
+            # Python服务验证
+            is_valid, error_msg = self._validate_service_file(config)
+            if not is_valid:
+                config.status = "failed"
+                config.error_message = error_msg
+                self.logger.error(f"[{service_name}] 验证失败: {error_msg}")
+                self._log_event(service_name, "VALIDATION_FAILED", error_msg)
+                return config
 
         try:
             config.status = "starting"
             config.start_time = datetime.now()
             self._log_event(service_name, "STARTING", f"Port: {config.port}")
-
-            # 使用当前Python解释器启动服务
-            python_exe = sys.executable
-
-            # 构建启动命令
-            cmd = [python_exe, config.file_path]
 
             # 为每个服务创建独立的日志文件，避免管道阻塞问题
             log_dir = Path(__file__).parent / "logs" / "services"
@@ -298,23 +315,43 @@ class ServiceLauncher:
 
             # 打开日志文件用于写入子进程输出
             with open(service_log_file, 'w', encoding='utf-8') as log_file:
+                # 根据服务类型构建启动命令
+                if config.command_type == "node" and config.startup_command:
+                    # Node.js项目使用自定义启动命令，需要shell=True来正确找到npm/npx
+                    cmd = ' '.join(config.startup_command)
+                    startup_info = f"命令: {cmd}, 工作目录: {config.working_dir}"
+                    self.logger.info(f"[{service_name}] 启动命令: {startup_info}")
+                    use_shell = True
+                else:
+                    # Python服务使用Python解释器
+                    python_exe = sys.executable
+                    cmd = [python_exe, config.file_path]
+                    use_shell = False
+
                 # 启动子进程，将输出重定向到文件而非管道
-                process = subprocess.Popen(
-                    cmd,
-                    stdout=log_file,
-                    stderr=subprocess.STDOUT,  # 将stderr也重定向到stdout
-                    text=True,
-                    encoding='utf-8',
-                    errors='replace',
-                    creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if sys.platform == 'win32' else 0
-                )
+                popen_kwargs = {
+                    'stdout': log_file,
+                    'stderr': subprocess.STDOUT,
+                    'text': True,
+                    'encoding': 'utf-8',
+                    'errors': 'replace',
+                    'cwd': config.working_dir if config.command_type == "node" else None
+                }
+                
+                if use_shell:
+                    popen_kwargs['shell'] = True
+                popen_kwargs['args'] = cmd
+                if not use_shell and sys.platform == 'win32':
+                    popen_kwargs['creationflags'] = subprocess.CREATE_NEW_PROCESS_GROUP
+                
+                process = subprocess.Popen(**popen_kwargs)
 
                 config.process = process
                 config.pid = process.pid
                 config.status = "running"
 
                 # 等待一小段时间检查进程是否立即崩溃
-                time.sleep(1)
+                time.sleep(2)
                 if process.poll() is not None:
                     # 进程已退出，读取日志文件获取错误信息
                     error_msg = "进程立即退出，请检查日志文件"
@@ -322,7 +359,7 @@ class ServiceLauncher:
                         with open(service_log_file, 'r', encoding='utf-8') as f:
                             log_content = f.read()
                             if log_content:
-                                error_msg = log_content[-500:]  # 获取最后500字符
+                                error_msg = log_content[-1000:]
                     except:
                         pass
                     config.status = "failed"
@@ -344,6 +381,11 @@ class ServiceLauncher:
                 # 启动进程监控线程
                 self._start_output_monitor(config)
 
+        except FileNotFoundError as e:
+            config.status = "failed"
+            config.error_message = f"命令未找到，请确保已安装 Node.js/pnpm: {str(e)}"
+            self.logger.error(f"[{service_name}] 启动失败: {config.error_message}")
+            self._log_event(service_name, "COMMAND_NOT_FOUND", config.error_message)
         except Exception as e:
             config.status = "failed"
             config.error_message = str(e)
@@ -351,6 +393,37 @@ class ServiceLauncher:
             self._log_event(service_name, "EXCEPTION", str(e))
 
         return config
+
+    def _validate_node_service(self, config: ServiceConfig) -> Tuple[bool, str]:
+        """验证Node.js服务配置"""
+        if not config.working_dir:
+            return False, "Node.js服务未指定工作目录"
+
+        working_path = Path(config.working_dir)
+        if not working_path.exists():
+            return False, f"工作目录不存在: {config.working_dir}"
+
+        if not working_path.is_dir():
+            return False, f"工作目录路径不是目录: {config.working_dir}"
+
+        # 检查package.json是否存在
+        package_json = working_path / "package.json"
+        if not package_json.exists():
+            return False, f"package.json不存在: {package_json}"
+
+        # 检查pnpm-lock.yaml或package-lock.json或yarn.lock
+        lock_files = ["pnpm-lock.yaml", "package-lock.json", "yarn.lock"]
+        has_lock_file = any((working_path / lock).exists() for lock in lock_files)
+        if not has_lock_file:
+            self.logger.warning(
+                f"[{config.display_name}] 未检测到锁文件，可能需要先运行 pnpm install"
+            )
+
+        # 检查启动命令
+        if not config.startup_command:
+            return False, "Node.js服务未指定启动命令"
+
+        return True, ""
 
     def _start_output_monitor(self, config: ServiceConfig):
         """启动输出监控线程

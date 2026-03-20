@@ -141,11 +141,16 @@
           <svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1891">
             <path d="M629.333333 202.666667v213.333333h277.333334v448h-512v-213.333333h-277.333334v-448h512z m213.333334 277.333333h-213.333334v170.666667h-170.666666v149.333333h384v-320z m-277.333334-213.333333h-384v320h213.333334v-170.666667h170.666666v-149.333333z m0 213.333333h-106.666666v106.666667h106.666666v-106.666667z"  p-id="1892"></path>
           </svg>
-          人工智能通识教育 
+          智慧课堂 
         </div>
         <div class="projectList">
-          <a class="projectItem ai-course-item" target="_self" href="https://www.bilibili.com/video/BV1Je44zFEtJ/?spm_id_from=333.1387.homepage.video_card.click&vd_source=d0a9d0769d591135f53266e046b649ff">
-            <div class="ai-course-content gradientText">The Future Is Now, Step In</div>
+          <!-- AI通识教育入口 - 点击跳转到OpenMAIC智能课堂服务 (localhost:5006) -->
+          <a 
+            class="projectItem ai-course-item" 
+            @click.prevent="navigateToOpenMAIC"
+            href="http://localhost:5006"
+          >
+            <img src="../../static/img/logo-openmaic.png" alt="OpenMAIC" class="ai-course-logo">
           </a>
         </div>
         <div class="title">
@@ -224,7 +229,6 @@ export default {
   name: 'Index',
   methods: {
     pop(imagePath) {
-      // 这里实现图片弹窗功能
       const tc = document.querySelector('.tc')
       const tcImg = document.querySelector('.tc-img')
       tcImg.src = imagePath
@@ -233,32 +237,34 @@ export default {
     toggleMode() {
       const html = document.documentElement;
       const tanChiSheImg = document.getElementById('tanChiShe');
-      // 判断当前是否已经是夜间模式
       if (html.getAttribute('data-theme') === 'Dark') {
-        // 如果是，切换回白天模式
         html.removeAttribute('data-theme');
         html.classList.remove('Dark');
-        // 切换为白天模式图片
         if (tanChiSheImg) {
           tanChiSheImg.src = '../../static/svg/snake-Light.svg';
         }
       } else {
-        // 如果不是，切换到夜间模式
         html.setAttribute('data-theme', 'Dark');
         html.classList.add('Dark');
-        // 切换为夜间模式图片
         if (tanChiSheImg) {
           tanChiSheImg.src = '../../static/svg/snake-Dark.svg';
         }
       }
     },
     handleLogout() {
-      // 确认是否退出登录
       if (confirm('确定要退出登录吗？')) {
-        // 退出登录
         const userStore = useUserStore()
         userStore.logout()
         this.$router.push('/login')
+      }
+    },
+    navigateToOpenMAIC() {
+      const targetUrl = 'http://localhost:5006'
+      try {
+        window.location.href = targetUrl
+      } catch (error) {
+        console.error('导航到OpenMAIC服务失败:', error)
+        window.location.href = targetUrl
       }
     }
   },
@@ -352,18 +358,15 @@ header {
   border-color: rgba(255,255,255,0.2) !important;
 }
 
-.ai-course-content {
-  font-size: 42px;
-  font-weight: 700;
-  text-align: center;
-  letter-spacing: 2px;
-  font-family: "title", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  /* gradientText 样式由全局 CSS 提供 */
+.ai-course-logo {
+  max-width: 80%;
+  max-height: 70px;
+  object-fit: contain;
+  transition: transform 0.4s ease;
 }
 
-.ai-course-item:hover .ai-course-content {
+.ai-course-item:hover .ai-course-logo {
   transform: scale(1.05);
-  transition: transform 0.4s ease;
 }
 
 /* 响应式适配 */

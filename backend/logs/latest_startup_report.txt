@@ -1,31 +1,34 @@
 ============================================================
 Teacher Assistant AI 启动报告
 ============================================================
-生成时间: 2026-02-14 14:00:47
+生成时间: 2026-03-20 13:25:35
 Python版本: 3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]
 ------------------------------------------------------------
 
 服务状态:
 服务名称                 端口       PID        状态         日志文件
 --------------------------------------------------------------------------------
-登录服务               5000     21300      running    D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\login_20260214_140046.log
-试卷批改服务             5001     23468      running    D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\paper_marking_20260214_140046.log
-智能组卷服务             5002     17764      running    D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\paper_composition_20260214_140046.log
-成绩分析服务             5003     3400       running    D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\achievement_analysis_20260214_140046.log
-代码批改服务             5004     25772      running    D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\code_correction_20260214_140046.log
-提示词竞技场服务           5005     26848      running    D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\prompt_arena_20260214_140046.log
+登录服务               5000     29264      running    d:\Teacher_Assistant_AI\backend\logs\services\login_20260320_132533.log
+试卷批改服务             5001     27892      running    d:\Teacher_Assistant_AI\backend\logs\services\paper_marking_20260320_132533.log
+智能组卷服务             5002     22100      running    d:\Teacher_Assistant_AI\backend\logs\services\paper_composition_20260320_132533.log
+成绩分析服务             5003     18124      running    d:\Teacher_Assistant_AI\backend\logs\services\achievement_analysis_20260320_132533.log
+代码批改服务             5004     37500      running    d:\Teacher_Assistant_AI\backend\logs\services\code_correction_20260320_132533.log
+提示词竞技场服务           5005     13676      running    d:\Teacher_Assistant_AI\backend\logs\services\prompt_arena_20260320_132533.log
+OpenMAIC智能课堂服务     5006     37684      running    d:\Teacher_Assistant_AI\backend\logs\services\openmaic_20260320_132533.log
 
 ------------------------------------------------------------
 详细日志:
-[14:00:46] [登录服务] STARTING: Port: 5000
-[14:00:46] [试卷批改服务] STARTING: Port: 5001
-[14:00:46] [智能组卷服务] STARTING: Port: 5002
-[14:00:46] [成绩分析服务] STARTING: Port: 5003
-[14:00:46] [代码批改服务] STARTING: Port: 5004
-[14:00:46] [提示词竞技场服务] STARTING: Port: 5005
-[14:00:47] [试卷批改服务] RUNNING: PID: 23468, Port: 5001, Log: D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\paper_marking_20260214_140046.log
-[14:00:47] [智能组卷服务] RUNNING: PID: 17764, Port: 5002, Log: D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\paper_composition_20260214_140046.log
-[14:00:47] [成绩分析服务] RUNNING: PID: 3400, Port: 5003, Log: D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\achievement_analysis_20260214_140046.log
-[14:00:47] [登录服务] RUNNING: PID: 21300, Port: 5000, Log: D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\login_20260214_140046.log
-[14:00:47] [代码批改服务] RUNNING: PID: 25772, Port: 5004, Log: D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\code_correction_20260214_140046.log
-[14:00:47] [提示词竞技场服务] RUNNING: PID: 26848, Port: 5005, Log: D:\T_A_ai\Teacher_Assistant_AI\backend\logs\services\prompt_arena_20260214_140046.log
+[13:25:33] [登录服务] STARTING: Port: 5000
+[13:25:33] [试卷批改服务] STARTING: Port: 5001
+[13:25:33] [智能组卷服务] STARTING: Port: 5002
+[13:25:33] [成绩分析服务] STARTING: Port: 5003
+[13:25:33] [代码批改服务] STARTING: Port: 5004
+[13:25:33] [提示词竞技场服务] STARTING: Port: 5005
+[13:25:33] [OpenMAIC智能课堂服务] STARTING: Port: 5006
+[13:25:35] [试卷批改服务] RUNNING: PID: 27892, Port: 5001, Log: d:\Teacher_Assistant_AI\backend\logs\services\paper_marking_20260320_132533.log
+[13:25:35] [登录服务] RUNNING: PID: 29264, Port: 5000, Log: d:\Teacher_Assistant_AI\backend\logs\services\login_20260320_132533.log
+[13:25:35] [OpenMAIC智能课堂服务] RUNNING: PID: 37684, Port: 5006, Log: d:\Teacher_Assistant_AI\backend\logs\services\openmaic_20260320_132533.log
+[13:25:35] [成绩分析服务] RUNNING: PID: 18124, Port: 5003, Log: d:\Teacher_Assistant_AI\backend\logs\services\achievement_analysis_20260320_132533.log
+[13:25:35] [提示词竞技场服务] RUNNING: PID: 13676, Port: 5005, Log: d:\Teacher_Assistant_AI\backend\logs\services\prompt_arena_20260320_132533.log
+[13:25:35] [智能组卷服务] RUNNING: PID: 22100, Port: 5002, Log: d:\Teacher_Assistant_AI\backend\logs\services\paper_composition_20260320_132533.log
+[13:25:35] [代码批改服务] RUNNING: PID: 37500, Port: 5004, Log: d:\Teacher_Assistant_AI\backend\logs\services\code_correction_20260320_132533.log

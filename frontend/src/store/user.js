@@ -11,20 +11,31 @@ export const useUserStore = defineStore('user', {
       this.user = userData
       this.isAuthenticated = true
       localStorage.setItem('user', JSON.stringify(userData))
+      localStorage.setItem('isAuthenticated', 'true')
     },
     
     logout() {
       this.user = null
       this.isAuthenticated = false
       localStorage.removeItem('user')
+      localStorage.removeItem('isAuthenticated')
     },
     
     checkAuth() {
-      // 强制用户每次打开页面都需要重新登录
-      // 不自动从localStorage中恢复用户状态
-      this.user = null
-      this.isAuthenticated = false
-      localStorage.removeItem('user')
+      const savedUser = localStorage.getItem('user')
+      const isAuthenticated = localStorage.getItem('isAuthenticated')
+      
+      if (savedUser && isAuthenticated === 'true') {
+        try {
+          this.user = JSON.parse(savedUser)
+          this.isAuthenticated = true
+        } catch (e) {
+          this.user = null
+          this.isAuthenticated = false
+          localStorage.removeItem('user')
+          localStorage.removeItem('isAuthenticated')
+        }
+      }
     }
   }
 })

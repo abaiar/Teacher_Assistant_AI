@@ -18,6 +18,7 @@ import {
   Monitor,
   BotOff,
   ChevronUp,
+  Home,
 } from 'lucide-react';
 import { useI18n } from '@/lib/hooks/use-i18n';
 import { createLogger } from '@/lib/logger';
@@ -329,6 +330,20 @@ function HomePage() {
         ref={toolbarRef}
         className="fixed top-4 right-4 z-50 flex items-center gap-1 bg-white/60 dark:bg-gray-800/60 backdrop-blur-md px-2 py-1.5 rounded-full border border-gray-100/50 dark:border-gray-700/50 shadow-sm"
       >
+        {/* Back to Home Button */}
+        <button
+          onClick={() => {
+            window.location.href = 'http://localhost:3000';
+          }}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200 hover:shadow-sm transition-all"
+          title="返回首页"
+        >
+          <Home className="w-4 h-4" />
+          首页
+        </button>
+
+        <div className="w-[1px] h-4 bg-gray-200 dark:bg-gray-700" />
+
         {/* Language Selector */}
         <div className="relative">
           <button
