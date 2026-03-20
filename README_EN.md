@@ -208,6 +208,48 @@ Generate Quest → Write Prompt → AI Simulates Response → Multi-dimensional 
 
 ---
 
+### 🎓 6. Interactive AI Classroom (OpenMAIC)
+
+An AI-powered interactive classroom platform based on **multi-agent collaboration**, capable of transforming any topic or document into rich interactive learning experiences.
+
+#### 🌟 Core Capabilities
+
+| Feature Module | Description |
+|:---|:---|
+| **One-click Classroom Generation** | Describe a topic or attach learning materials, AI builds a complete classroom in minutes |
+| **Multi-agent Collaboration** | AI teachers and agent classmates teach, discuss, and interact in real-time |
+| **Rich Scene Types** | Slides, quizzes, HTML interactive simulations, Project-Based Learning (PBL) |
+| **Whiteboard & Voice** | Agents draw diagrams, write formulas, and explain with voice in real-time |
+| **Flexible Export** | Download editable `.pptx` slides or interactive `.html` pages |
+
+#### 📚 Classroom Components
+
+| Component | Description |
+|:---:|:---|
+| **🎓 Slides** | AI teacher lectures with spotlight and laser pointer animations |
+| **🧪 Quiz** | Interactive quizzes (single/multiple choice, short answer) with real-time AI grading |
+| **🔬 Interactive Simulation** | HTML-based interactive experiments, physics simulators, flowcharts, etc. |
+| **🏗️ Project-Based Learning** | Choose a role and collaborate with AI agents on structured projects |
+
+#### 🔄 Multi-agent Interaction Modes
+
+- **Classroom Discussion** — Agents proactively initiate discussions, users can join anytime or get called on
+- **Roundtable Debate** — Multiple agents with different personas discuss topics with whiteboard illustrations
+- **Q&A Mode** — Ask questions freely, AI teacher responds with slides, diagrams, or whiteboard drawings
+- **Whiteboard Collaboration** — AI agents draw on shared whiteboard in real-time, solving equations step by step
+
+#### 🛠️ Technical Architecture
+
+| Category | Technology |
+|:---:|:---|
+| Core Framework | Next.js 16 + React 19 + TypeScript 5 |
+| Multi-agent Orchestration | LangGraph 1.1 |
+| State Management | Zustand 5 |
+| Slide Rendering | Canvas + ProseMirror |
+| LLM Services | OpenAI / Anthropic / Google Gemini / DeepSeek, etc. |
+
+---
+
 ## 🏗️ System Architecture
 
 ### Technology Stack Overview
@@ -236,12 +278,25 @@ Generate Quest → Write Prompt → AI Simulates Response → Multi-dimensional 
 | Chart Library | ECharts |
 | Styling | Scoped CSS + Flexbox/Grid |
 
+#### 🎓 OpenMAIC Technology Stack (Next.js)
+
+| Category | Technology |
+|:---:|:---|
+| Core Framework | Next.js 16 + React 19 + TypeScript 5 |
+| Multi-agent Orchestration | LangGraph 1.1 |
+| State Management | Zustand 5 |
+| Slide Rendering | Canvas + ProseMirror |
+| Whiteboard Drawing | SVG + Canvas |
+| LLM Services | OpenAI / Anthropic / Google Gemini / DeepSeek, etc. |
+| Styling | Tailwind CSS 4 |
+
 ### 🏛️ System Architecture Diagram
 
 ```mermaid
 graph TD
     subgraph "💻 Client Layer"
         A[Vue 3 SPA<br/>Vite + Pinia + Router]
+        A2[OpenMAIC Classroom<br/>Next.js + React]
     end
 
     subgraph "⚙️ Backend Microservices Layer"
@@ -251,6 +306,7 @@ graph TD
         B4[📊 Analytics Service<br/>Port 5003<br/>Pandas + Charts]
         B5[💻 Code Mentor<br/>Port 5004<br/>FastAPI + Streaming]
         B6[🎯 Arena<br/>Port 5005<br/>Flask + Qwen]
+        B7[🎓 AI Classroom<br/>Port 3000<br/>OpenMAIC + LangGraph]
     end
 
     subgraph "🔌 MCP Tool Ecosystem"
@@ -263,6 +319,7 @@ graph TD
         D1[👁️ Qwen-VL-OCR<br/>Visual Recognition]
         D2[🤖 Qwen-Plus/Flash<br/>Reasoning Generation]
         D3[🔢 Text-Embedding-V3<br/>Vectorization 1024-dim]
+        D4[🌐 Multi-model Support<br/>OpenAI/Anthropic/Gemini]
     end
 
     A -->|HTTP| B1
@@ -271,11 +328,13 @@ graph TD
     A -->|HTTP| B4
     A -->|SSE| B5
     A -->|HTTP| B6
+    A2 -->|HTTP/SSE| B7
 
     B2 --> D1
     B2 --> D2
     B5 --> D2
     B6 --> D2
+    B7 --> D4
 
     B3 --> C1
     B3 --> C2
@@ -313,6 +372,29 @@ Teacher_Assistant_AI/
 │   ├── 📁 Prompt_arena/             # Prompt Arena
 │   │   ├── main.py                  # Arena Service (Port 5005)
 │   │   └── services.py              # Business Logic
+│   │
+│   ├── 📁 OpenMAIC/                 # Interactive AI Classroom Module
+│   │   ├── 📁 app/                  # Next.js App Router
+│   │   │   ├── 📁 api/              # Server API Routes
+│   │   │   │   ├── 📁 generate/     # Scene Generation Pipeline
+│   │   │   │   ├── 📁 chat/         # Multi-agent Discussion
+│   │   │   │   ├── 📁 pbl/          # Project-Based Learning Endpoints
+│   │   │   │   └── ...              # Other API Endpoints
+│   │   │   ├── 📁 classroom/        # Classroom Playback Page
+│   │   │   └── page.tsx             # Home Page
+│   │   ├── 📁 lib/                  # Core Business Logic
+│   │   │   ├── 📁 generation/       # Two-stage Classroom Generation Pipeline
+│   │   │   ├── 📁 orchestration/    # LangGraph Multi-agent Orchestration
+│   │   │   ├── 📁 playback/         # Playback State Machine
+│   │   │   ├── 📁 action/           # Action Execution Engine
+│   │   │   └── ...                  # Other Core Modules
+│   │   ├── 📁 components/           # React UI Components
+│   │   │   ├── 📁 slide-renderer/   # Slide Editor and Renderer
+│   │   │   ├── 📁 scene-renderers/  # Scene Renderers
+│   │   │   ├── 📁 whiteboard/       # Whiteboard Drawing Components
+│   │   │   └── ...                  # Other Components
+│   │   ├── package.json             # Node.js Dependencies
+│   │   └── .env.example             # Environment Variables Template
 │   │
 │   ├── 📁 logs/                     # Log Storage
 │   ├── main.py                      # Unified Startup Script
@@ -475,6 +557,75 @@ Visit `http://localhost:5173` to access the application.
 **Default Test Account**:
 - Username: `teacher`
 - Password: `123456`
+
+---
+
+### 🎓 4. OpenMAIC Interactive Classroom Setup
+
+#### 4.1 Prerequisites
+
+| Dependency | Version Required |
+|:---:|:---:|
+| Node.js | >= 20 |
+| pnpm | >= 10 |
+
+#### 4.2 Install Dependencies
+
+```bash
+cd backend/OpenMAIC
+pnpm install
+```
+
+#### 4.3 Configure Environment Variables
+
+```bash
+cp .env.example .env.local
+```
+
+Edit the `.env.local` file and configure at least one LLM provider API key:
+
+```env
+# OpenAI
+OPENAI_API_KEY=sk-...
+
+# Anthropic
+ANTHROPIC_API_KEY=sk-ant-...
+
+# Google Gemini
+GOOGLE_API_KEY=...
+
+# DeepSeek
+DEEPSEEK_API_KEY=...
+
+# Aliyun Qwen
+QWEN_API_KEY=...
+```
+
+> **Recommended Model**: **Gemini 3 Flash** — best balance of quality and speed. For highest quality, try **Gemini 3.1 Pro**.
+
+#### 4.4 Start Services
+
+**Development Mode**:
+```bash
+pnpm dev
+```
+
+**Production Mode**:
+```bash
+pnpm build && pnpm start
+```
+
+Visit `http://localhost:3000` to access the interactive classroom.
+
+#### 4.5 Optional Configuration
+
+| Configuration | Description |
+|:---|:---|
+| **TTS (Text-to-Speech)** | Supports OpenAI, Azure, GLM, Qwen voice services |
+| **ASR (Speech Recognition)** | Supports OpenAI, Qwen speech recognition services |
+| **Image Generation** | Supports Seedream, Qwen Image generation services |
+| **Video Generation** | Supports Seedance, Kling, Veo video generation services |
+| **PDF Parsing** | Supports MinerU enhanced document parsing |
 
 ---
 
@@ -708,6 +859,86 @@ Content-Type: application/json
 
 ---
 
+### 🎓 Interactive Classroom Service (Port 3000)
+
+#### Generate Classroom
+
+```http
+POST /api/generate-classroom
+Content-Type: application/json
+
+{
+  "topic": "Introduction to Quantum Physics",
+  "materials": ["Optional: PDF file URL or text content"],
+  "language": "en-US",
+  "sceneTypes": ["slides", "quiz", "interactive", "pbl"]
+}
+```
+
+**Response**
+
+```json
+{
+  "jobId": "classroom_001",
+  "status": "pending",
+  "message": "Classroom generation task submitted"
+}
+```
+
+#### Query Generation Status
+
+```http
+GET /api/generate-classroom/{jobId}
+```
+
+**Response**
+
+```json
+{
+  "jobId": "classroom_001",
+  "status": "completed",
+  "classroomUrl": "/classroom/classroom_001",
+  "scenes": [
+    {"type": "slides", "title": "Introduction to Quantum Mechanics"},
+    {"type": "quiz", "title": "Knowledge Quiz"},
+    {"type": "interactive", "title": "Double-slit Experiment Simulation"}
+  ]
+}
+```
+
+#### Multi-agent Chat
+
+```http
+POST /api/chat
+Content-Type: application/json
+
+{
+  "classroomId": "classroom_001",
+  "message": "Please explain wave-particle duality",
+  "sessionId": "user-123"
+}
+```
+
+**Response** (SSE Streaming)
+
+```
+data: {"type": "speech", "agent": "teacher", "content": "Wave-particle duality is a core concept in quantum mechanics..."}
+
+data: {"type": "whiteboard", "action": "draw", "content": {"path": "..."}}
+
+data: {"type": "slide", "action": "navigate", "slideIndex": 3}
+```
+
+#### Export Classroom
+
+```http
+GET /api/classroom/{id}/export?format=pptx
+```
+
+**Response**: Download `.pptx` or `.html` file
+
+---
+
 ## 🔧 Development Guide
 
 ### Code Standards
@@ -803,6 +1034,8 @@ kill -9 <PID>
 | Code Review | 3-8s | 15 QPS | Streaming output |
 | Data Analysis | 10-20s | 8 QPS | Depends on student count |
 | Arena | 3-5s | 15 QPS | - |
+| OpenMAIC Classroom Generation | 2-5min | 5 QPS | Depends on scene count |
+| OpenMAIC Multi-agent Chat | 1-3s | 20 QPS | SSE streaming output |
 
 ---
 
@@ -873,6 +1106,24 @@ Thanks to the following open-source projects for their support:
 | [DashScope](https://dashscope.aliyun.com/) | Alibaba Cloud LLM Service |
 | [Vue.js](https://vuejs.org/) | Progressive Frontend Framework |
 | [Flask](https://flask.palletsprojects.com/) | Python Web Framework |
+
+### 🎓 OpenMAIC Acknowledgments
+
+The Interactive AI Classroom module is developed based on the [OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) open-source project. Special thanks to the Tsinghua University MAIC team for their outstanding contributions:
+
+- **Project URL**: https://github.com/THU-MAIC/OpenMAIC
+- **Paper**: [From MOOC to MAIC: Reimagine Online Teaching and Learning through LLM-driven Agents](https://jcst.ict.ac.cn/en/article/doi/10.1007/s11390-025-6000-0)
+- **License**: AGPL-3.0
+
+```bibtex
+@Article{JCST-2509-16000,
+  title = {From MOOC to MAIC: Reimagine Online Teaching and Learning through LLM-driven Agents},
+  journal = {Journal of Computer Science and Technology},
+  year = {2026},
+  doi = {10.1007/s11390-025-6000-0},
+  author = {Ji-Fan Yu and Daniel Zhang-Li and Zhe-Yuan Zhang and others}
+}
+```
 
 ---
 

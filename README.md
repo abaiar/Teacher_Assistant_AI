@@ -208,6 +208,48 @@ graph LR
 
 ---
 
+### 🎓 6. 智能互动课堂 (OpenMAIC)
+
+基于 **多智能体协作** 的 AI 互动课堂平台，能够将任何主题或文档转化为丰富的互动学习体验。
+
+#### 🌟 核心能力
+
+| 功能模块 | 描述 |
+|:---|:---|
+| **一键生成课堂** | 描述主题或附上学习材料，AI 几分钟内构建完整课堂 |
+| **多智能体协作** | AI 老师和智能体同学实时授课、讨论、互动 |
+| **丰富场景类型** | 幻灯片、测验、HTML 交互式模拟、项目制学习（PBL） |
+| **白板 & 语音** | 智能体实时绘制图表、书写公式、语音讲解 |
+| **灵活导出** | 下载可编辑的 `.pptx` 幻灯片或交互式 `.html` 网页 |
+
+#### 📚 课堂组件
+
+| 组件 | 功能描述 |
+|:---:|:---|
+| **🎓 幻灯片** | AI 老师配合聚光灯和激光笔动作进行语音讲解 |
+| **🧪 测验** | 交互式测验（单选/多选/简答），支持 AI 实时判分和反馈 |
+| **🔬 交互式模拟** | 基于 HTML 的交互实验，物理模拟器、流程图等 |
+| **🏗️ 项目制学习** | 选择角色与 AI 智能体协作完成结构化项目 |
+
+#### 🔄 多智能体互动模式
+
+- **课堂讨论** — 智能体主动发起讨论话题，用户可随时加入或被点名互动
+- **圆桌辩论** — 多个不同人设的智能体围绕话题展开讨论，配合白板讲解
+- **自由问答** — 随时提问，AI 老师通过幻灯片、图表或白板进行解答
+- **白板协作** — AI 智能体在共享白板上实时绘图、逐步推导方程
+
+#### 🛠️ 技术架构
+
+| 类别 | 技术选型 |
+|:---:|:---|
+| 核心框架 | Next.js 16 + React 19 + TypeScript 5 |
+| 多智能体编排 | LangGraph 1.1 |
+| 状态管理 | Zustand 5 |
+| 幻灯片渲染 | Canvas + ProseMirror |
+| LLM 服务 | OpenAI / Anthropic / Google Gemini / DeepSeek 等 |
+
+---
+
 ## 🏗️ 系统架构
 
 ### 技术栈概览
@@ -236,12 +278,25 @@ graph LR
 | 图表库 | ECharts |
 | 样式 | Scoped CSS + Flexbox/Grid |
 
+#### 🎓 OpenMAIC 技术栈 (Next.js)
+
+| 类别 | 技术选型 |
+|:---:|:---|
+| 核心框架 | Next.js 16 + React 19 + TypeScript 5 |
+| 多智能体编排 | LangGraph 1.1 |
+| 状态管理 | Zustand 5 |
+| 幻灯片渲染 | Canvas + ProseMirror |
+| 白板绘图 | SVG + Canvas |
+| LLM 服务 | OpenAI / Anthropic / Google Gemini / DeepSeek 等 |
+| 样式 | Tailwind CSS 4 |
+
 ### 🏛️ 系统架构图
 
 ```mermaid
 graph TD
     subgraph "💻 客户端层"
         A[Vue 3 SPA<br/>Vite + Pinia + Router]
+        A2[OpenMAIC 课堂<br/>Next.js + React]
     end
 
     subgraph "⚙️ 后端微服务层"
@@ -251,6 +306,7 @@ graph TD
         B4[📊 分析服务<br/>Port 5003<br/>Pandas + Charts]
         B5[💻 代码导师<br/>Port 5004<br/>FastAPI + Streaming]
         B6[🎯 竞技场<br/>Port 5005<br/>Flask + Qwen]
+        B7[🎓 智能课堂<br/>Port 3000<br/>OpenMAIC + LangGraph]
     end
 
     subgraph "🔌 MCP 工具生态"
@@ -263,6 +319,7 @@ graph TD
         D1[👁️ Qwen-VL-OCR<br/>视觉识别]
         D2[🤖 Qwen-Plus/Flash<br/>推理生成]
         D3[🔢 Text-Embedding-V3<br/>向量化 1024维]
+        D4[🌐 多模型支持<br/>OpenAI/Anthropic/Gemini]
     end
 
     A -->|HTTP| B1
@@ -271,11 +328,13 @@ graph TD
     A -->|HTTP| B4
     A -->|SSE| B5
     A -->|HTTP| B6
+    A2 -->|HTTP/SSE| B7
 
     B2 --> D1
     B2 --> D2
     B5 --> D2
     B6 --> D2
+    B7 --> D4
 
     B3 --> C1
     B3 --> C2
@@ -313,6 +372,29 @@ Teacher_Assistant_AI/
 │   ├── 📁 Prompt_arena/             # 提示词竞技场
 │   │   ├── main.py                  # 竞技场服务 (Port 5005)
 │   │   └── services.py              # 业务逻辑
+│   │
+│   ├── 📁 OpenMAIC/                 # 智能互动课堂模块
+│   │   ├── 📁 app/                  # Next.js App Router
+│   │   │   ├── 📁 api/              # 服务端 API 路由
+│   │   │   │   ├── 📁 generate/     # 场景生成流水线
+│   │   │   │   ├── 📁 chat/         # 多智能体讨论
+│   │   │   │   ├── 📁 pbl/          # 项目制学习端点
+│   │   │   │   └── ...              # 其他 API 端点
+│   │   │   ├── 📁 classroom/        # 课堂回放页面
+│   │   │   └── page.tsx             # 首页
+│   │   ├── 📁 lib/                  # 核心业务逻辑
+│   │   │   ├── 📁 generation/       # 两阶段课堂生成流水线
+│   │   │   ├── 📁 orchestration/    # LangGraph 多智能体编排
+│   │   │   ├── 📁 playback/         # 回放状态机
+│   │   │   ├── 📁 action/           # 动作执行引擎
+│   │   │   └── ...                  # 其他核心模块
+│   │   ├── 📁 components/           # React UI 组件
+│   │   │   ├── 📁 slide-renderer/   # 幻灯片编辑器和渲染器
+│   │   │   ├── 📁 scene-renderers/  # 场景渲染器
+│   │   │   ├── 📁 whiteboard/       # 白板绘图组件
+│   │   │   └── ...                  # 其他组件
+│   │   ├── package.json             # Node.js 依赖
+│   │   └── .env.example             # 环境变量模板
 │   │
 │   ├── 📁 logs/                     # 日志存储
 │   ├── main.py                      # 统一启动脚本
@@ -475,6 +557,75 @@ npm run dev
 **默认测试账号**：
 - 用户名：`teacher`
 - 密码：`123456`
+
+---
+
+### 🎓 4. OpenMAIC 智能课堂配置
+
+#### 4.1 环境要求
+
+| 依赖 | 版本要求 |
+|:---:|:---:|
+| Node.js | >= 20 |
+| pnpm | >= 10 |
+
+#### 4.2 安装依赖
+
+```bash
+cd backend/OpenMAIC
+pnpm install
+```
+
+#### 4.3 配置环境变量
+
+```bash
+cp .env.example .env.local
+```
+
+编辑 `.env.local` 文件，至少配置一个 LLM 服务商的 API Key：
+
+```env
+# OpenAI
+OPENAI_API_KEY=sk-...
+
+# Anthropic
+ANTHROPIC_API_KEY=sk-ant-...
+
+# Google Gemini
+GOOGLE_API_KEY=...
+
+# DeepSeek
+DEEPSEEK_API_KEY=...
+
+# 阿里云 Qwen
+QWEN_API_KEY=...
+```
+
+> **推荐模型**：**Gemini 3 Flash** — 效果与速度的最佳平衡。如需最高质量可选 **Gemini 3.1 Pro**。
+
+#### 4.4 启动服务
+
+**开发模式**：
+```bash
+pnpm dev
+```
+
+**生产模式**：
+```bash
+pnpm build && pnpm start
+```
+
+访问 `http://localhost:3000` 即可使用智能课堂功能。
+
+#### 4.5 可选配置
+
+| 配置项 | 说明 |
+|:---|:---|
+| **TTS 语音合成** | 支持 OpenAI、Azure、GLM、Qwen 等语音服务 |
+| **ASR 语音识别** | 支持 OpenAI、Qwen 等语音识别服务 |
+| **图片生成** | 支持 Seedream、Qwen Image 等图片生成服务 |
+| **视频生成** | 支持 Seedance、Kling、Veo 等视频生成服务 |
+| **PDF 解析** | 支持 MinerU 增强文档解析 |
 
 ---
 
@@ -708,6 +859,86 @@ Content-Type: application/json
 
 ---
 
+### 🎓 智能课堂服务 (Port 3000)
+
+#### 生成课堂
+
+```http
+POST /api/generate-classroom
+Content-Type: application/json
+
+{
+  "topic": "量子物理基础",
+  "materials": ["可选：PDF文件URL或文本内容"],
+  "language": "zh-CN",
+  "sceneTypes": ["slides", "quiz", "interactive", "pbl"]
+}
+```
+
+**响应**
+
+```json
+{
+  "jobId": "classroom_001",
+  "status": "pending",
+  "message": "课堂生成任务已提交"
+}
+```
+
+#### 查询生成状态
+
+```http
+GET /api/generate-classroom/{jobId}
+```
+
+**响应**
+
+```json
+{
+  "jobId": "classroom_001",
+  "status": "completed",
+  "classroomUrl": "/classroom/classroom_001",
+  "scenes": [
+    {"type": "slides", "title": "量子力学导论"},
+    {"type": "quiz", "title": "知识点测验"},
+    {"type": "interactive", "title": "双缝实验模拟"}
+  ]
+}
+```
+
+#### 多智能体对话
+
+```http
+POST /api/chat
+Content-Type: application/json
+
+{
+  "classroomId": "classroom_001",
+  "message": "请解释一下波粒二象性",
+  "sessionId": "user-123"
+}
+```
+
+**响应** (SSE 流式)
+
+```
+data: {"type": "speech", "agent": "teacher", "content": "波粒二象性是量子力学中的核心概念..."}
+
+data: {"type": "whiteboard", "action": "draw", "content": {"path": "..."}}
+
+data: {"type": "slide", "action": "navigate", "slideIndex": 3}
+```
+
+#### 导出课堂
+
+```http
+GET /api/classroom/{id}/export?format=pptx
+```
+
+**响应**: 下载 `.pptx` 或 `.html` 文件
+
+---
+
 ## 🔧 开发指南
 
 ### 代码规范
@@ -803,6 +1034,8 @@ kill -9 <PID>
 | 代码审查 | 3-8s | 15 QPS | 流式输出 |
 | 数据分析 | 10-20s | 8 QPS | 学生数量影响 |
 | 竞技场 | 3-5s | 15 QPS | - |
+| OpenMAIC 课堂生成 | 2-5min | 5 QPS | 取决于场景数量 |
+| OpenMAIC 多智能体对话 | 1-3s | 20 QPS | SSE 流式输出 |
 
 ---
 
@@ -873,6 +1106,24 @@ copies or substantial portions of the Software.
 | [DashScope](https://dashscope.aliyun.com/) | 阿里云大模型服务 |
 | [Vue.js](https://vuejs.org/) | 渐进式前端框架 |
 | [Flask](https://flask.palletsprojects.com/) | Python Web 框架 |
+
+### 🎓 OpenMAIC 致谢
+
+智能互动课堂模块基于 [OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) 开源项目开发，特别感谢清华大学 MAIC 团队的杰出贡献：
+
+- **项目地址**: https://github.com/THU-MAIC/OpenMAIC
+- **论文**: [From MOOC to MAIC: Reimagine Online Teaching and Learning through LLM-driven Agents](https://jcst.ict.ac.cn/en/article/doi/10.1007/s11390-025-6000-0)
+- **许可证**: AGPL-3.0
+
+```bibtex
+@Article{JCST-2509-16000,
+  title = {From MOOC to MAIC: Reimagine Online Teaching and Learning through LLM-driven Agents},
+  journal = {Journal of Computer Science and Technology},
+  year = {2026},
+  doi = {10.1007/s11390-025-6000-0},
+  author = {Ji-Fan Yu and Daniel Zhang-Li and Zhe-Yuan Zhang and others}
+}
+```
 
 ---
 
