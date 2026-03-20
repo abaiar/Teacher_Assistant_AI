@@ -306,7 +306,7 @@ graph TD
         B4[📊 Analytics Service<br/>Port 5003<br/>Pandas + Charts]
         B5[💻 Code Mentor<br/>Port 5004<br/>FastAPI + Streaming]
         B6[🎯 Arena<br/>Port 5005<br/>Flask + Qwen]
-        B7[🎓 AI Classroom<br/>Port 3000<br/>OpenMAIC + LangGraph]
+        B7[🎓 AI Classroom<br/>Port 5006<br/>OpenMAIC + LangGraph]
     end
 
     subgraph "🔌 MCP Tool Ecosystem"
@@ -534,6 +534,7 @@ curl http://localhost:5002/health
 curl http://localhost:5003/test
 curl http://localhost:5004/health
 curl http://localhost:5005/api/prompt_arena/health
+curl http://localhost:5006/api/health
 ```
 
 ### 🎨 3. Frontend Environment Setup
@@ -605,17 +606,35 @@ QWEN_API_KEY=...
 
 #### 4.4 Start Services
 
-**Development Mode**:
+**Option 1: One-click Startup (Recommended)**
+
+OpenMAIC service is integrated into the main startup script. Execute the following command to automatically start all services (including OpenMAIC):
+
 ```bash
+cd backend
+python main.py
+```
+
+After startup, visit `http://localhost:5006` to access the interactive classroom.
+
+**Option 2: Start OpenMAIC Service Individually**
+
+To start OpenMAIC service separately:
+
+```bash
+cd backend/OpenMAIC
+
+# Development mode
+set PORT=5006
 pnpm dev
+
+# Or production mode
+set PORT=5006
+pnpm build
+pnpm start
 ```
 
-**Production Mode**:
-```bash
-pnpm build && pnpm start
-```
-
-Visit `http://localhost:3000` to access the interactive classroom.
+> **Note**: On Windows, use `set PORT=5006` to set environment variable. On Linux/macOS, use `export PORT=5006`.
 
 #### 4.5 Optional Configuration
 
@@ -859,7 +878,7 @@ Content-Type: application/json
 
 ---
 
-### 🎓 Interactive Classroom Service (Port 3000)
+### 🎓 Interactive Classroom Service (Port 5006)
 
 #### Generate Classroom
 

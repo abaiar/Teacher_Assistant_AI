@@ -306,7 +306,7 @@ graph TD
         B4[📊 分析服务<br/>Port 5003<br/>Pandas + Charts]
         B5[💻 代码导师<br/>Port 5004<br/>FastAPI + Streaming]
         B6[🎯 竞技场<br/>Port 5005<br/>Flask + Qwen]
-        B7[🎓 智能课堂<br/>Port 3000<br/>OpenMAIC + LangGraph]
+        B7[🎓 智能课堂<br/>Port 5006<br/>OpenMAIC + LangGraph]
     end
 
     subgraph "🔌 MCP 工具生态"
@@ -534,6 +534,7 @@ curl http://localhost:5002/health
 curl http://localhost:5003/test
 curl http://localhost:5004/health
 curl http://localhost:5005/api/prompt_arena/health
+curl http://localhost:5006/api/health
 ```
 
 ### 🎨 3. 前端环境配置
@@ -605,17 +606,35 @@ QWEN_API_KEY=...
 
 #### 4.4 启动服务
 
-**开发模式**：
+**方式一：一键启动（推荐）**
+
+OpenMAIC 服务已集成到主启动脚本中，执行以下命令将自动启动所有服务（包括 OpenMAIC）：
+
 ```bash
+cd backend
+python main.py
+```
+
+启动后访问 `http://localhost:5006` 即可使用智能课堂功能。
+
+**方式二：单独启动 OpenMAIC 服务**
+
+如需单独启动 OpenMAIC 服务：
+
+```bash
+cd backend/OpenMAIC
+
+# 开发模式
+set PORT=5006
 pnpm dev
+
+# 或生产模式
+set PORT=5006
+pnpm build
+pnpm start
 ```
 
-**生产模式**：
-```bash
-pnpm build && pnpm start
-```
-
-访问 `http://localhost:3000` 即可使用智能课堂功能。
+> **注意**：Windows 系统下设置环境变量需使用 `set PORT=5006`，Linux/macOS 使用 `export PORT=5006`。
 
 #### 4.5 可选配置
 
@@ -859,7 +878,7 @@ Content-Type: application/json
 
 ---
 
-### 🎓 智能课堂服务 (Port 3000)
+### 🎓 智能课堂服务 (Port 5006)
 
 #### 生成课堂
 
