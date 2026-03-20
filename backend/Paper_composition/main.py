@@ -60,6 +60,7 @@ mcp_servers = {
         "transport": "streamable_http",
         "url": "https://mcp.api-inference.modelscope.net/b16a0cecccc149/mcp"
     },
+    
 }
 
 # 3. 本地 RAG 工具 - 根据配置选择 LightRAG 或旧版 RAG
