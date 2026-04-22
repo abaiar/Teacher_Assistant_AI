@@ -2,8 +2,8 @@
   <div class="zyyo-filter"></div>
   <div class="zyyo-main">
     <div class="zyyo-left">
-      <div class="logo" style="background-image: url('../../static/img/touxiang.png');">
-        <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
+      <div class="logo" :style="{ backgroundImage: `url(${touxiangImg})` }">
+        <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" :src="logokuangImg">
       </div>
       <div class="left-div left-des">
         <div class="left-des-item">
@@ -82,8 +82,8 @@
           </svg>
           退出
         </button>
-        <div class="index-logo" style="background-image: url('../../static/img/logo.png');">
-          <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
+        <div class="index-logo" :style="{ backgroundImage: `url(${touxiangImg})` }">
+          <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" :src="logokuangImg">
         </div>
         <div class="welcome">
           Hello I' m <span class="gradientText">师小助 </span>
@@ -116,7 +116,7 @@
             </svg>
             <div class="iconTip">Mail</div>
           </a>
-          <a class="iconItem" @click="pop('../../static/img/qq.jpg')" href="javascript:void(0)">
+          <a class="iconItem" @click="pop(qqImg)" href="javascript:void(0)">
             <svg t="1712319361023" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1861">
               <path d="M824.8 613.2c-16-51.4-34.4-94.6-62.7-165.3C766.5 262.2 689.3 112 511.5 112 331.7 112 256.2 265.2 261 447.9c-28.4 70.8-46.7 113.7-62.7 165.3-34 109.5-23 154.8-14.6 155.8 18 2.2 70.1-82.4 70.1-82.4 0 49 25.2 112.9 79.8 159-26.4 8.1-85.7 29.9-71.6 53.8 11.4 19.3 196.2 12.3 249.5 6.3 53.3 6 238.1 13 249.5-6.3 14.1-23.8-45.3-45.7-71.6-53.8 54.6-46.2 79.8-110.1 79.8-159 0 0 52.1 84.6 70.1 82.4 8.5-1.1 19.5-46.4-14.5-155.8z" p-id="1862"></path>
             </svg>
@@ -133,10 +133,10 @@
           </a>
         </div>
         <div class="tanChiShe">
-          <img id="tanChiShe" src="../../static/svg/snake-Light.svg" alt="">
+          <img id="tanChiShe" :src="snakeLightSvg" alt="">
         </div>
       </header>
-      <content>
+      <main>
         <div class="title">
           <svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1891">
             <path d="M629.333333 202.666667v213.333333h277.333334v448h-512v-213.333333h-277.333334v-448h512z m213.333334 277.333333h-213.333334v170.666667h-170.666666v149.333333h384v-320z m-277.333334-213.333333h-384v320h213.333334v-170.666667h170.666666v-149.333333z m0 213.333333h-106.666666v106.666667h106.666666v-106.666667z"  p-id="1892"></path>
@@ -144,18 +144,18 @@
           智慧课堂 
         </div>
         <div class="projectList">
-          <!-- AI通识教育入口 - 点击跳转到OpenMAIC智能课堂服务 (localhost:5006) -->
+          <!-- AI通识教育入口 - 点击跳转到OpenMAIC智能课堂服务 -->
           <a 
             class="projectItem ai-course-item" 
             @click.prevent="navigateToOpenMAIC"
-            href="http://localhost:5006"
+            href="javascript:void(0)"
           >
-            <img src="../../static/img/logo-openmaic.png" alt="OpenMAIC" class="ai-course-logo">
+            <img :src="logoOpenmaicImg" alt="OpenMAIC" class="ai-course-logo">
           </a>
         </div>
         <div class="title">
           <svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1891">
-            <path d="M629.333333 202.666667v213.333333h277.333334v448h-512v-213.333333h-277.333334v-448h512z m213.333334 277.333333h-213.333334v170.666667h-170.666666v149.333333h384v-320z m-277.333334-213.333333h-384v320h213.333334v-170.666667h170.666666v-149.333333z m0 213.333333h-106.666666v106.666667h106.666666v-106.666667z" p-id="1892"></path>
+            <path d="M629.333333 202.666667v213.333333h277.333334v448h-512v-213.333333h-277.333334v-448h512z m213.333334 277.333333h-213.333334v170.666667h-170.666666v149.333333h384v-320z m-277.333334-213.333333h-384v320h213.333334v-170.666667h170.666666v-149.333333z m0 213.333333h-106.666666v106.666667h106.666666v-106.666667z"  p-id="1892"></path>
           </svg>
           基础功能 
         </div>
@@ -167,7 +167,7 @@
               <p>一键批改学生试题并给出分析结果</p>
             </div>
             <div class="projectItemRight">
-              <img src="../../static/img/i1.png" alt="">
+              <img :src="i1Img" alt="">
             </div>
           </router-link>
           <!-- 成绩分析项目 - 使用Vue Router跳转 -->
@@ -177,7 +177,7 @@
               <p>分析学生成绩，给出建议及发展规划</p>
             </div>
             <div class="projectItemRight">
-              <img src="../../static/img/i2.png" alt="">
+              <img :src="i2Img" alt="">
             </div>
           </router-link>
           <!-- 智能组卷项目 - 使用Vue Router跳转 -->
@@ -187,7 +187,7 @@
               <p>根据用户需求，自动组卷</p>
             </div>
             <div class="projectItemRight">
-              <img src="../../static/img/i3.png" alt="">
+              <img :src="i3Img" alt="">
             </div>
           </router-link>
           <!-- 代码批改项目 - 使用Vue Router跳转 -->
@@ -197,7 +197,7 @@
               <p>评测学生代码，进行打分</p>
             </div>
             <div class="projectItemRight">
-              <img src="../../static/img/i4.png" alt="">
+              <img :src="i4Img" alt="">
             </div>
           </router-link>
           <!-- 提示词竞技场项目 - 使用Vue Router跳转 -->
@@ -207,11 +207,11 @@
               <p>训练提示词编写能力，提升AI交互效果</p>
             </div>
             <div class="projectItemRight">
-              <img src="../../static/img/i5.png" alt="">
+              <img :src="i5Img" alt="">
             </div>
           </router-link>
         </div>
-      </content>
+      </main>
     </div>
   </div>
   <div class="tc">
@@ -224,9 +224,35 @@
 <script>
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../store/user'
+import touxiangImg from '../../static/img/touxiang.png'
+import logokuangImg from '../../static/img/logokuang.png'
+import qqImg from '../../static/img/qq.jpg'
+import snakeLightSvg from '../../static/svg/snake-Light.svg'
+import snakeDarkSvg from '../../static/svg/snake-Dark.svg'
+import logoOpenmaicImg from '../../static/img/logo-openmaic.png'
+import i1Img from '../../static/img/i1.png'
+import i2Img from '../../static/img/i2.png'
+import i3Img from '../../static/img/i3.png'
+import i4Img from '../../static/img/i4.png'
+import i5Img from '../../static/img/i5.png'
 
 export default {
   name: 'Index',
+  data() {
+    return {
+      touxiangImg,
+      logokuangImg,
+      qqImg,
+      snakeLightSvg,
+      snakeDarkSvg,
+      logoOpenmaicImg,
+      i1Img,
+      i2Img,
+      i3Img,
+      i4Img,
+      i5Img
+    }
+  },
   methods: {
     pop(imagePath) {
       const tc = document.querySelector('.tc')
@@ -241,13 +267,13 @@ export default {
         html.removeAttribute('data-theme');
         html.classList.remove('Dark');
         if (tanChiSheImg) {
-          tanChiSheImg.src = '../../static/svg/snake-Light.svg';
+          tanChiSheImg.src = this.snakeLightSvg;
         }
       } else {
         html.setAttribute('data-theme', 'Dark');
         html.classList.add('Dark');
         if (tanChiSheImg) {
-          tanChiSheImg.src = '../../static/svg/snake-Dark.svg';
+          tanChiSheImg.src = this.snakeDarkSvg;
         }
       }
     },
@@ -259,7 +285,7 @@ export default {
       }
     },
     navigateToOpenMAIC() {
-      const targetUrl = 'http://localhost:5006'
+      const targetUrl = `http://${window.location.hostname}:5006`
       try {
         window.location.href = targetUrl
       } catch (error) {

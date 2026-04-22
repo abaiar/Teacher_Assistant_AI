@@ -9,6 +9,7 @@ import { ThemeProvider } from '@/lib/hooks/use-theme';
 import { I18nProvider } from '@/lib/hooks/use-i18n';
 import { Toaster } from '@/components/ui/sonner';
 import { ServerProvidersInit } from '@/components/server-providers-init';
+import { AccessCodeGuard } from '@/components/access-code-guard';
 
 const inter = localFont({
   src: '../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2',
@@ -17,9 +18,9 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  title: '师小助',
+  title: 'OpenMAIC',
   description:
-    '一款为教师提供智能批改、成绩分析、智能组卷、代码分析功能提高教学效率的教师辅助工具。',
+    'The open-source AI interactive classroom. Upload a PDF to instantly generate an immersive, multi-agent learning experience.',
 };
 
 export default function RootLayout({
@@ -36,7 +37,7 @@ export default function RootLayout({
         <ThemeProvider>
           <I18nProvider>
             <ServerProvidersInit />
-            {children}
+            <AccessCodeGuard>{children}</AccessCodeGuard>
             <Toaster position="top-center" />
           </I18nProvider>
         </ThemeProvider>

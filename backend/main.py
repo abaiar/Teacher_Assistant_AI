@@ -85,7 +85,7 @@ class ServiceLauncher:
         ServiceConfig(
             name="achievement_analysis",
             display_name="成绩分析服务",
-            file_path=_get_service_path.__func__("Achievement_analysis", "data_analyzer.py"),
+            file_path=_get_service_path.__func__("achievement_analysis", "data_analyzer.py"),
             port=5003
         ),
         ServiceConfig(
@@ -107,7 +107,7 @@ class ServiceLauncher:
             port=5006,
             command_type="node",
             working_dir=_get_service_path.__func__("OpenMAIC"),
-            startup_command=["set", "PORT=5006", "&&", "npx", "pnpm", "dev"]
+            startup_command=["export PORT=5006 && npx pnpm dev"]
         ),
     ]
 

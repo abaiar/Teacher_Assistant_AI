@@ -2,8 +2,8 @@
   <div class="zyyo-filter"></div>
   <div class="zyyo-main">
     <div class="zyyo-left">
-      <div class="logo" style="background-image: url('../../static/img/touxiang.png');">
-        <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
+      <div class="logo" :style="{ backgroundImage: `url(${touxiangImg})` }">
+        <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" :src="logokuangImg">
       </div>
       <div class="left-div left-des">
         <div class="left-des-item">
@@ -38,8 +38,8 @@
   </svg>
   首页
 </button>
-        <div class="index-logo" style="background-image: url('../../static/img/logo.png');">
-          <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
+        <div class="index-logo" :style="{ backgroundImage: `url(${touxiangImg})` }">
+          <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" :src="logokuangImg">
         </div>
         <div class="welcome">
           Hello I' m <span class="gradientText">师小助 </span>
@@ -48,7 +48,7 @@
           💻 <span class="purpleText">智能组卷</span> 功能可以帮助您快速生成各种类型的试卷，支持自定义主题和自动转换为PDF格式。
         </div>
       </header>
-      <content>
+      <main>
         <div class="title">
           <svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1891">
             <path d="M629.333333 202.666667v213.333333h277.333334v448h-512v-213.333333h-277.333334v-448h512z m213.333334 277.333333h-213.333334v170.666667h-170.666666v149.333333h384v-320z m-277.333334-213.333333h-384v320h213.333334v-170.666667h170.666666v-149.333333z m0 213.333333h-106.666666v106.666667h106.666666v-106.666667z" p-id="1892"></path>
@@ -95,7 +95,7 @@
             </a>
           </div>
         </div>
-      </content>
+      </main>
     </div>
   </div>
 </template>
@@ -104,6 +104,8 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { getServiceUrl } from '../config/api';
+import touxiangImg from '../../static/img/touxiang.png'
+import logokuangImg from '../../static/img/logokuang.png'
 
 const router = useRouter();
 const PAPER_COMPOSITION_URL = getServiceUrl('PAPER_COMPOSITION_SERVICE');

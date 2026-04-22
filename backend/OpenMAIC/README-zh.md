@@ -18,7 +18,7 @@
   <a href="#-openclaw-集成"><img src="https://img.shields.io/badge/OpenClaw-集成-F4511E?style=flat-square" alt="OpenClaw 集成"/></a>
   <a href="https://github.com/THU-MAIC/OpenMAIC/stargazers"><img src="https://img.shields.io/github/stars/THU-MAIC/OpenMAIC?style=flat-square" alt="Stars"/></a>
   <br/>
-  <a href="https://discord.gg/PtZaaTbH"><img src="https://img.shields.io/badge/Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"/></a>
+  <a href="https://discord.gg/p8Pf2r3SaG"><img src="https://img.shields.io/badge/Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"/></a>
   &nbsp;
   <a href="community/feishu.md"><img src="https://img.shields.io/badge/Feishu-飞书交流群-00D6B9?style=for-the-badge&logo=bytedance&logoColor=white" alt="飞书群"/></a>
   <br/>
@@ -35,6 +35,12 @@
   <a href="https://open.maic.chat/">在线体验</a> · <a href="#-快速开始">快速开始</a> · <a href="#-功能特性">功能特性</a> · <a href="#-使用场景">使用场景</a> · <a href="#-openclaw-集成">OpenClaw</a>
 </p>
 
+
+## 🗞️ 动态
+
+- **2026-04-20** — **v0.2.0 发布！** 深度交互模式 — 3D 可视化、模拟实验、游戏、思维导图、在线编程，动手学习新体验。详见[功能特性](#-功能特性)。
+- **2026-04-14** — [v0.1.1 发布！](https://github.com/THU-MAIC/OpenMAIC/releases/tag/v0.1.1) 自动语言推断、ACCESS_CODE 站点认证、课堂 ZIP 导入导出、自定义 TTS/ASR、Ollama 支持等。查看[更新日志](CHANGELOG.md)。
+- **2026-03-26** — [v0.1.0 发布！](https://github.com/THU-MAIC/OpenMAIC/releases/tag/v0.1.0) 讨论语音、沉浸模式、键盘快捷键、白板增强、新 provider 等。查看[更新日志](CHANGELOG.md)。
 
 ## 📖 项目简介
 
@@ -97,6 +103,7 @@ cp .env.example .env.local
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...
 GOOGLE_API_KEY=...
+GROK_API_KEY=xai-...
 ```
 
 也可以通过 `server-providers.yml` 配置服务商：
@@ -109,11 +116,44 @@ providers:
     apiKey: sk-ant-...
 ```
 
-支持的服务商：**OpenAI**、**Anthropic**、**Google Gemini**、**DeepSeek** 以及任何兼容 OpenAI API 的服务。
+支持的服务商：**OpenAI**、**Anthropic**、**Google Gemini**、**DeepSeek**、**MiniMax**、**Grok (xAI)**、**豆包**、**智谱 GLM**、**Ollama**（本地）以及任何兼容 OpenAI API 的服务。
+
+MiniMax 快速示例：
+
+```env
+MINIMAX_API_KEY=...
+MINIMAX_BASE_URL=https://api.minimaxi.com/anthropic/v1
+DEFAULT_MODEL=minimax:MiniMax-M2.7-highspeed
+
+TTS_MINIMAX_API_KEY=...
+TTS_MINIMAX_BASE_URL=https://api.minimaxi.com
+
+IMAGE_MINIMAX_API_KEY=...
+IMAGE_MINIMAX_BASE_URL=https://api.minimaxi.com
+
+VIDEO_MINIMAX_API_KEY=...
+VIDEO_MINIMAX_BASE_URL=https://api.minimaxi.com
+```
+
+智谱 GLM 快速示例：
+
+```env
+# 国内站（默认）
+GLM_API_KEY=...
+GLM_BASE_URL=https://open.bigmodel.cn/api/paas/v4
+
+# 国际站（z.ai）
+GLM_API_KEY=...
+GLM_BASE_URL=https://api.z.ai/api/paas/v4
+
+DEFAULT_MODEL=glm:glm-5.1
+```
 
 > **推荐模型：** **Gemini 3 Flash** — 效果与速度的最佳平衡。追求最高质量可选 **Gemini 3.1 Pro**（速度较慢）。
 >
 > 如果希望 OpenMAIC 服务端默认走 Gemini，还需要额外设置 `DEFAULT_MODEL=google:gemini-3-flash-preview`。
+>
+> 如果希望默认走 MiniMax，可设置 `DEFAULT_MODEL=minimax:MiniMax-M2.7-highspeed`。
 
 ### 3. 启动
 
@@ -128,6 +168,16 @@ pnpm dev
 ```bash
 pnpm build && pnpm start
 ```
+
+### 可选：ACCESS_CODE（共享部署）
+
+为部署添加站点级密码保护，在 `.env.local` 中设置：
+
+```env
+ACCESS_CODE=your-secret-code
+```
+
+设置后，访客需要输入密码才能使用，所有 API 路由也会受到保护。不设置则无影响。
 
 ### Vercel 部署
 
@@ -157,6 +207,114 @@ docker compose up --build
 ---
 
 ## ✨ 功能特性
+
+### 深度交互模式（新功能）
+
+**被动听讲？❌  动手探索！✅**
+
+爱因斯坦说过：*"玩耍是最高形式的研究。"*
+
+**标准模式**快速生成课堂内容，而**深度交互模式**更进一步——创建交互式、可探索、动手的学习体验。学生不只是观看知识，而是调整实验、观察模拟、主动探索原理。
+
+#### 五种交互界面
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**🌐 3D 可视化**
+
+三维可视化呈现，让抽象结构更直观。
+
+<img src="assets/interactive_mode/3D_interactive.gif" width="100%"/>
+
+</td>
+<td width="50%" valign="top">
+
+**⚙️ 模拟实验**
+
+流程模拟和实验环境，观察动态变化和结果。
+
+<img src="assets/interactive_mode/simulation_interactive.gif" width="100%"/>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+**🎮 游戏**
+
+知识小游戏，通过交互挑战加深理解和记忆。
+
+<img src="assets/interactive_mode/game_interactive.gif" width="100%"/>
+
+</td>
+<td width="50%" valign="top">
+
+**🧭 思维导图**
+
+结构化知识组织，帮助学习者建立整体概念框架。
+
+<img src="assets/interactive_mode/mindmap_interactive.gif" width="100%"/>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+**💻 在线编程**
+
+浏览器内编码和即时运行，边写边学边迭代。
+
+<img src="assets/interactive_mode/code_interactive.gif" width="100%"/>
+
+</td>
+<td width="50%" valign="top">
+
+</td>
+</tr>
+</table>
+
+#### AI 教师引导
+
+AI 教师可以主动操作界面引导学生——高亮关键区域、设置条件、提供提示、在恰当时机引导注意力。
+
+<img src="assets/interactive_mode/teacher_action_interative.gif" width="100%"/>
+
+#### 多设备适配
+
+所有生成的交互界面完全响应式——桌面、平板、手机均可使用。
+
+<table>
+<tr>
+<td width="50%" align="center">
+
+**桌面**
+
+<img src="assets/interactive_mode/desktop_interactive.png" width="90%"/>
+
+</td>
+<td width="50%" align="center" rowspan="2">
+
+**手机**
+
+<img src="assets/interactive_mode/phone_interactive.png" width="45%"/>
+
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+
+**iPad**
+
+<img src="assets/interactive_mode/ipad_interactive.png" width="90%"/>
+
+</td>
+</tr>
+</table>
+
+#### 需要更完整、更专业的 UI 生成体验？
+如果你希望获得功能维度更丰富、交互能力更强，并面向高质量教育界面生产进行深度优化的完整版本，欢迎访问 [MAIC-UI](https://github.com/THU-MAIC/MAIC-UI)。
 
 ### 课堂生成
 
@@ -315,13 +473,14 @@ cp -R /path/to/OpenMAIC/skills/openmaic ~/.openclaw/skills/openmaic
 |------|------|
 | **PowerPoint (.pptx)** | 可编辑的幻灯片，包含图片、图表和 LaTeX 公式 |
 | **交互式 HTML** | 自包含的网页，包含交互式模拟实验 |
+| **课堂 ZIP** | 完整课堂导出（课程结构 + 媒体文件），可备份或分享 |
 
 ### 更多功能
 
 - **语音合成（TTS）** — 多种语音服务商，支持自定义音色
 - **语音识别** — 通过麦克风与 AI 老师对话
 - **网络搜索** — 智能体在课堂中搜索网络获取最新信息
-- **国际化** — 界面支持中文和英文
+- **国际化** — 界面支持中文、英文、日文和俄文
 - **暗色模式** — 深夜学习更护眼
 
 ---

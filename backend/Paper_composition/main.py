@@ -153,7 +153,7 @@ async def mcp_fetch_node(state: QuizWorkflowState) -> dict:
 
         try:
             result = await asyncio.wait_for(
-                agent_app.ainvoke(inputs, config={"recursion_limit": 50}),
+                agent_app.ainvoke(inputs, config={"recursion_limit": 100}),
                 timeout=180
             )
         except asyncio.TimeoutError:
@@ -289,7 +289,7 @@ async def markdown_to_pdf_node(state: QuizWorkflowState) -> dict:
         }
         
         result = await asyncio.wait_for(
-            agent_app.ainvoke(inputs, config={"recursion_limit": 50}),
+            agent_app.ainvoke(inputs, config={"recursion_limit": 100}),
             timeout=180
         )
 
@@ -381,6 +381,10 @@ def generate_quiz():
         traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "ok", "message": "智能组卷服务运行中"})
+
 # ============= 主函数 =============
 async def main():
     # 测试提示：
@@ -414,7 +418,7 @@ async def main():
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         # 添加 use_reloader=False 即使在 debug=True 时也禁止自动重启
-        app.run(host='0.0.0.0', port=5002, debug=True, use_reloader=False)
+        app.run(host='0.0.0.0', port=5002, debug=False)
     else:
         # 如果是通过命令行参数运行，执行测试
         asyncio.run(main())

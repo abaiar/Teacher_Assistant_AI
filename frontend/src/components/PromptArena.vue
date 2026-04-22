@@ -2,8 +2,8 @@
   <div class="zyyo-filter"></div>
   <div class="zyyo-main">
     <div class="zyyo-left">
-      <div class="logo" style="background-image: url('../../static/img/touxiang.png');">
-        <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
+      <div class="logo" :style="{ backgroundImage: `url(${touxiangImg})` }">
+        <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" :src="logokuangImg">
       </div>
       <div class="left-div left-des">
         <div class="left-des-item">
@@ -38,8 +38,8 @@
           </svg>
           首页
         </button>
-        <div class="index-logo" style="background-image: url('../../static/img/logo.png');">
-          <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
+        <div class="index-logo" :style="{ backgroundImage: `url(${touxiangImg})` }">
+          <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" :src="logokuangImg">
         </div>
         <div class="welcome">
           Hello I' m <span class="gradientText">提示词竞技场</span>
@@ -49,7 +49,7 @@
         </div>
       </header>
       
-      <content class="arena-content">
+      <main class="arena-content">
         <div class="arena-layout">
           <!-- 左侧主区域：任务目标 + 提示词输入 -->
           <div class="arena-panel main-panel">
@@ -187,15 +187,17 @@
             </div>
           </div>
         </div>
-      </content>
+      </main>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { getServiceUrl } from '../config/api';
+import touxiangImg from '../../static/img/touxiang.png'
+import logokuangImg from '../../static/img/logokuang.png'
 
 const router = useRouter();
 const PROMPT_ARENA_URL = getServiceUrl('PROMPT_ARENA_SERVICE');

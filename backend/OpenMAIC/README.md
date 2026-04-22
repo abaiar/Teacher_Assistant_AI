@@ -18,7 +18,7 @@
   <a href="#-openclaw-integration"><img src="https://img.shields.io/badge/OpenClaw-Integration-F4511E?style=flat-square" alt="OpenClaw Integration"/></a>
   <a href="https://github.com/THU-MAIC/OpenMAIC/stargazers"><img src="https://img.shields.io/github/stars/THU-MAIC/OpenMAIC?style=flat-square" alt="Stars"/></a>
   <br/>
-  <a href="https://discord.gg/PtZaaTbH"><img src="https://img.shields.io/badge/Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"/></a>
+  <a href="https://discord.gg/p8Pf2r3SaG"><img src="https://img.shields.io/badge/Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"/></a>
   &nbsp;
   <a href="community/feishu.md"><img src="https://img.shields.io/badge/Feishu-飞书交流群-00D6B9?style=for-the-badge&logo=bytedance&logoColor=white" alt="Feishu"/></a>
   <br/>
@@ -35,6 +35,12 @@
   <a href="https://open.maic.chat/">Live Demo</a> · <a href="#-quick-start">Quick Start</a> · <a href="#-features">Features</a> · <a href="#-use-cases">Use Cases</a> · <a href="#-openclaw-integration">OpenClaw</a>
 </p>
 
+
+## 🗞️ News
+
+- **2026-04-20** — **v0.2.0 released!** Deep Interactive Mode — 3D visualization, simulations, games, mind maps, and online programming for hands-on learning. See [features](#-features) for details.
+- **2026-04-14** — [v0.1.1 released!](https://github.com/THU-MAIC/OpenMAIC/releases/tag/v0.1.1) Automatic language inference, ACCESS_CODE authentication, classroom ZIP export/import, custom TTS/ASR providers, Ollama support, and more. See [changelog](CHANGELOG.md).
+- **2026-03-26** — [v0.1.0 released!](https://github.com/THU-MAIC/OpenMAIC/releases/tag/v0.1.0) Discussion TTS, immersive mode, keyboard shortcuts, whiteboard enhancements, new providers, and more. See [changelog](CHANGELOG.md).
 
 ## 📖 Overview
 
@@ -97,6 +103,7 @@ Fill in at least one LLM provider key:
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...
 GOOGLE_API_KEY=...
+GROK_API_KEY=xai-...
 ```
 
 You can also configure providers via `server-providers.yml`:
@@ -109,11 +116,44 @@ providers:
     apiKey: sk-ant-...
 ```
 
-Supported providers: **OpenAI**, **Anthropic**, **Google Gemini**, **DeepSeek**, and any OpenAI-compatible API.
+Supported providers: **OpenAI**, **Anthropic**, **Google Gemini**, **DeepSeek**, **MiniMax**, **Grok (xAI)**, **Doubao**, **GLM (Zhipu)**, **Ollama** (local), and any OpenAI-compatible API.
+
+MiniMax quick examples:
+
+```env
+MINIMAX_API_KEY=...
+MINIMAX_BASE_URL=https://api.minimaxi.com/anthropic/v1
+DEFAULT_MODEL=minimax:MiniMax-M2.7-highspeed
+
+TTS_MINIMAX_API_KEY=...
+TTS_MINIMAX_BASE_URL=https://api.minimaxi.com
+
+IMAGE_MINIMAX_API_KEY=...
+IMAGE_MINIMAX_BASE_URL=https://api.minimaxi.com
+
+VIDEO_MINIMAX_API_KEY=...
+VIDEO_MINIMAX_BASE_URL=https://api.minimaxi.com
+```
+
+GLM (Zhipu) quick examples:
+
+```env
+# China (default)
+GLM_API_KEY=...
+GLM_BASE_URL=https://open.bigmodel.cn/api/paas/v4
+
+# International (z.ai)
+GLM_API_KEY=...
+GLM_BASE_URL=https://api.z.ai/api/paas/v4
+
+DEFAULT_MODEL=glm:glm-5.1
+```
 
 > **Recommended model:** **Gemini 3 Flash** — best balance of quality and speed. For highest quality (at slower speed), try **Gemini 3.1 Pro**.
 >
 > If you want OpenMAIC server APIs to use Gemini by default, also set `DEFAULT_MODEL=google:gemini-3-flash-preview`.
+>
+> If you want to use MiniMax as the default server model, set `DEFAULT_MODEL=minimax:MiniMax-M2.7-highspeed`.
 
 ### 3. Run
 
@@ -128,6 +168,16 @@ Open **http://localhost:3000** and start learning!
 ```bash
 pnpm build && pnpm start
 ```
+
+### Optional: ACCESS_CODE (Shared Deployments)
+
+To protect your deployment with a site-level password, set `ACCESS_CODE` in `.env.local`:
+
+```env
+ACCESS_CODE=your-secret-code
+```
+
+When set, visitors see a password prompt before accessing the app. All API routes are also protected. If not set, the app works as before.
 
 ### Vercel Deployment
 
@@ -158,6 +208,114 @@ Set `PDF_MINERU_BASE_URL` (and `PDF_MINERU_API_KEY` if needed) in `.env.local`.
 
 ## ✨ Features
 
+### Deep Interactive Mode (New!)
+
+**Passive listening? ❌  Hands-on exploration! ✅**
+
+As Einstein said: *"Play is the highest form of research."*
+
+While **Standard Mode** focuses on quickly generating classroom content, **Deep Interactive Mode** goes further — creating interactive, explorable, hands-on learning experiences. Students don't just watch knowledge; they adjust experiments, observe simulations, and actively explore how things work.
+
+#### Five Types of Interactive UI
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**🌐 3D Visualization**
+
+Three-dimensional visual representations that make abstract structures more intuitive.
+
+<img src="assets/interactive_mode/3D_interactive.gif" width="100%"/>
+
+</td>
+<td width="50%" valign="top">
+
+**⚙️ Simulation**
+
+Process simulations and experimental environments for observing dynamic changes and outcomes.
+
+<img src="assets/interactive_mode/simulation_interactive.gif" width="100%"/>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+**🎮 Game**
+
+Knowledge-based mini-games that reinforce understanding and memory through interactive challenges.
+
+<img src="assets/interactive_mode/game_interactive.gif" width="100%"/>
+
+</td>
+<td width="50%" valign="top">
+
+**🧭 Mind Map**
+
+Structured knowledge organization to help learners build an overall conceptual framework.
+
+<img src="assets/interactive_mode/mindmap_interactive.gif" width="100%"/>
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+**💻 Online Programming**
+
+In-browser coding and instant execution for learning by writing, testing, and iterating.
+
+<img src="assets/interactive_mode/code_interactive.gif" width="100%"/>
+
+</td>
+<td width="50%" valign="top">
+
+</td>
+</tr>
+</table>
+
+#### AI Teacher Guidance
+
+The AI teacher can actively operate the UI to guide students — highlighting key areas, setting conditions, providing hints, and directing attention at the right moments.
+
+<img src="assets/interactive_mode/teacher_action_interative.gif" width="100%"/>
+
+#### Available on Any Device
+
+All generated interactive UI is fully responsive — desktop, tablet, or mobile.
+
+<table>
+<tr>
+<td width="50%" align="center">
+
+**Desktop**
+
+<img src="assets/interactive_mode/desktop_interactive.png" width="90%"/>
+
+</td>
+<td width="50%" align="center" rowspan="2">
+
+**Mobile**
+
+<img src="assets/interactive_mode/phone_interactive.png" width="45%"/>
+
+</td>
+</tr>
+<tr>
+<td width="50%" align="center">
+
+**iPad**
+
+<img src="assets/interactive_mode/ipad_interactive.png" width="90%"/>
+
+</td>
+</tr>
+</table>
+
+#### Need a More Complete and Professional UI Generation Experience?
+If you are looking for a version with richer functionality, stronger interactivity, and deeper optimization for high-quality educational UI production, please visit [MAIC-UI](https://github.com/THU-MAIC/MAIC-UI).
+
 ### Lesson Generation
 
 Describe what you want to learn or attach reference materials. OpenMAIC's two-stage pipeline handles the rest:
@@ -169,6 +327,8 @@ Describe what you want to learn or attach reference materials. OpenMAIC's two-st
 
 <!-- PLACEHOLDER: generation pipeline GIF -->
 <!-- <img src="assets/generation-pipeline.gif" width="100%"/> -->
+
+
 
 ### Classroom Components
 
@@ -315,13 +475,14 @@ Optional config in `~/.openclaw/openclaw.json`:
 |--------|-------------|
 | **PowerPoint (.pptx)** | Fully editable slides with images, charts, and LaTeX formulas |
 | **Interactive HTML** | Self-contained web pages with interactive simulations |
+| **Classroom ZIP** | Full classroom export (course structure + media) for backup or sharing |
 
 ### And More
 
 - **Text-to-Speech** — Multiple voice providers with customizable voices
 - **Speech Recognition** — Talk to your AI teacher using your microphone
 - **Web Search** — Agents search the web for up-to-date information during class
-- **i18n** — Interface supports Chinese and English
+- **i18n** — Interface supports Chinese, English, Japanese, and Russian
 - **Dark Mode** — Easy on the eyes for late-night study sessions
 
 ---
@@ -478,3 +639,4 @@ If you find OpenMAIC useful in your research, please consider citing:
 ## 📄 License
 
 This project is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+

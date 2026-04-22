@@ -1,23 +1,25 @@
+const API_HOST = window.location.hostname
+
 const API_CONFIG = {
   LOGIN_SERVICE: {
-    BASE_URL: 'http://127.0.0.1:5000',
+    BASE_URL: `http://${API_HOST}:5000`,
     LOGIN: '/login',
     REGISTER: '/register'
   },
   PAPER_MARKING_SERVICE: {
-    BASE_URL: 'http://127.0.0.1:5001',
+    BASE_URL: `http://${API_HOST}:5001`,
     CORRECT: '/correct'
   },
   PAPER_COMPOSITION_SERVICE: {
-    BASE_URL: 'http://127.0.0.1:5002',
+    BASE_URL: `http://${API_HOST}:5002`,
     GENERATE_QUIZ: '/generate_quiz'
   },
   ACHIEVEMENT_ANALYSIS_SERVICE: {
-    BASE_URL: 'http://127.0.0.1:5003',
+    BASE_URL: `http://${API_HOST}:5003`,
     ANALYZE: '/analyze'
   },
   CODE_CORRECTION_SERVICE: {
-    BASE_URL: 'http://127.0.0.1:5004',
+    BASE_URL: `http://${API_HOST}:5004`,
     REVIEW_CODE: '/review_code',
     ENDPOINTS: {
       CHAT: '/api/mentor/chat',
@@ -28,7 +30,7 @@ const API_CONFIG = {
     }
   },
   PROMPT_ARENA_SERVICE: {
-    BASE_URL: 'http://127.0.0.1:5005',
+    BASE_URL: `http://${API_HOST}:5005`,
     ENDPOINTS: {
       NEW_QUEST: '/api/prompt_arena/new_quest',
       SIMULATE: '/api/prompt_arena/simulate',

@@ -3,8 +3,8 @@
     <div class="login-box">
       <div class="login-header">
         <div class="logo-container">
-          <div class="logo-bg" style="background-image: url('../../static/img/touxiang.png');"></div>
-          <img src="../../static/img/logokuang.png" alt="Logo" class="logo-frame">
+          <div class="logo-bg" :style="{ backgroundImage: `url(${touxiangImg})` }"></div>
+          <img :src="logokuangImg" alt="Logo" class="logo-frame">
         </div>
         <h2>教师助手系统</h2>
         <p class="subtitle">{{ isLoginMode ? '账号登录' : '新用户注册' }}</p>
@@ -79,6 +79,8 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '../store/user'
 import axios from 'axios'
 import { getServiceUrl } from '../config/api'
+import touxiangImg from '../../static/img/touxiang.png'
+import logokuangImg from '../../static/img/logokuang.png'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -126,7 +128,6 @@ const handleSubmit = async () => {
     
     if (response.data.success) {
       if (isLoginMode.value) {
-        console.log('登录成功:', response.data.user)
         userStore.login(response.data.user)
         router.push('/') 
       } else {
@@ -159,9 +160,7 @@ const handleSubmit = async () => {
   justify-content: center;
   align-items: center;
   /* 使用你的背景图 */
-  background-image: url('../../assets/background.jpg'); 
-  background-size: cover;
-  background-position: center;
+  background-color: #1a1a2e;
 }
 
 .login-box {

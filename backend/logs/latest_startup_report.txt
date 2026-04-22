@@ -1,34 +1,34 @@
 ============================================================
 Teacher Assistant AI 启动报告
 ============================================================
-生成时间: 2026-03-20 13:25:35
-Python版本: 3.10.19 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 16:41:31) [MSC v.1929 64 bit (AMD64)]
+生成时间: 2026-04-21 06:33:12
+Python版本: 3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]
 ------------------------------------------------------------
 
 服务状态:
 服务名称                 端口       PID        状态         日志文件
 --------------------------------------------------------------------------------
-登录服务               5000     29264      running    d:\Teacher_Assistant_AI\backend\logs\services\login_20260320_132533.log
-试卷批改服务             5001     27892      running    d:\Teacher_Assistant_AI\backend\logs\services\paper_marking_20260320_132533.log
-智能组卷服务             5002     22100      running    d:\Teacher_Assistant_AI\backend\logs\services\paper_composition_20260320_132533.log
-成绩分析服务             5003     18124      running    d:\Teacher_Assistant_AI\backend\logs\services\achievement_analysis_20260320_132533.log
-代码批改服务             5004     37500      running    d:\Teacher_Assistant_AI\backend\logs\services\code_correction_20260320_132533.log
-提示词竞技场服务           5005     13676      running    d:\Teacher_Assistant_AI\backend\logs\services\prompt_arena_20260320_132533.log
-OpenMAIC智能课堂服务     5006     37684      running    d:\Teacher_Assistant_AI\backend\logs\services\openmaic_20260320_132533.log
+登录服务               5000     4709       running    /root/Teacher_Assistant_AI/backend/logs/services/login_20260421_063310.log
+试卷批改服务             5001     4710       running    /root/Teacher_Assistant_AI/backend/logs/services/paper_marking_20260421_063310.log
+智能组卷服务             5002     4711       running    /root/Teacher_Assistant_AI/backend/logs/services/paper_composition_20260421_063310.log
+成绩分析服务             5003     4714       running    /root/Teacher_Assistant_AI/backend/logs/services/achievement_analysis_20260421_063310.log
+代码批改服务             5004     4715       running    /root/Teacher_Assistant_AI/backend/logs/services/code_correction_20260421_063310.log
+提示词竞技场服务           5005     4717       running    /root/Teacher_Assistant_AI/backend/logs/services/prompt_arena_20260421_063310.log
+OpenMAIC智能课堂服务     5006     4719       running    /root/Teacher_Assistant_AI/backend/logs/services/openmaic_20260421_063310.log
 
 ------------------------------------------------------------
 详细日志:
-[13:25:33] [登录服务] STARTING: Port: 5000
-[13:25:33] [试卷批改服务] STARTING: Port: 5001
-[13:25:33] [智能组卷服务] STARTING: Port: 5002
-[13:25:33] [成绩分析服务] STARTING: Port: 5003
-[13:25:33] [代码批改服务] STARTING: Port: 5004
-[13:25:33] [提示词竞技场服务] STARTING: Port: 5005
-[13:25:33] [OpenMAIC智能课堂服务] STARTING: Port: 5006
-[13:25:35] [试卷批改服务] RUNNING: PID: 27892, Port: 5001, Log: d:\Teacher_Assistant_AI\backend\logs\services\paper_marking_20260320_132533.log
-[13:25:35] [登录服务] RUNNING: PID: 29264, Port: 5000, Log: d:\Teacher_Assistant_AI\backend\logs\services\login_20260320_132533.log
-[13:25:35] [OpenMAIC智能课堂服务] RUNNING: PID: 37684, Port: 5006, Log: d:\Teacher_Assistant_AI\backend\logs\services\openmaic_20260320_132533.log
-[13:25:35] [成绩分析服务] RUNNING: PID: 18124, Port: 5003, Log: d:\Teacher_Assistant_AI\backend\logs\services\achievement_analysis_20260320_132533.log
-[13:25:35] [提示词竞技场服务] RUNNING: PID: 13676, Port: 5005, Log: d:\Teacher_Assistant_AI\backend\logs\services\prompt_arena_20260320_132533.log
-[13:25:35] [智能组卷服务] RUNNING: PID: 22100, Port: 5002, Log: d:\Teacher_Assistant_AI\backend\logs\services\paper_composition_20260320_132533.log
-[13:25:35] [代码批改服务] RUNNING: PID: 37500, Port: 5004, Log: d:\Teacher_Assistant_AI\backend\logs\services\code_correction_20260320_132533.log
+[06:33:10] [登录服务] STARTING: Port: 5000
+[06:33:10] [试卷批改服务] STARTING: Port: 5001
+[06:33:10] [智能组卷服务] STARTING: Port: 5002
+[06:33:10] [成绩分析服务] STARTING: Port: 5003
+[06:33:10] [代码批改服务] STARTING: Port: 5004
+[06:33:10] [提示词竞技场服务] STARTING: Port: 5005
+[06:33:10] [OpenMAIC智能课堂服务] STARTING: Port: 5006
+[06:33:12] [试卷批改服务] RUNNING: PID: 4710, Port: 5001, Log: /root/Teacher_Assistant_AI/backend/logs/services/paper_marking_20260421_063310.log
+[06:33:12] [登录服务] RUNNING: PID: 4709, Port: 5000, Log: /root/Teacher_Assistant_AI/backend/logs/services/login_20260421_063310.log
+[06:33:12] [智能组卷服务] RUNNING: PID: 4711, Port: 5002, Log: /root/Teacher_Assistant_AI/backend/logs/services/paper_composition_20260421_063310.log
+[06:33:12] [成绩分析服务] RUNNING: PID: 4714, Port: 5003, Log: /root/Teacher_Assistant_AI/backend/logs/services/achievement_analysis_20260421_063310.log
+[06:33:12] [代码批改服务] RUNNING: PID: 4715, Port: 5004, Log: /root/Teacher_Assistant_AI/backend/logs/services/code_correction_20260421_063310.log
+[06:33:12] [提示词竞技场服务] RUNNING: PID: 4717, Port: 5005, Log: /root/Teacher_Assistant_AI/backend/logs/services/prompt_arena_20260421_063310.log
+[06:33:12] [OpenMAIC智能课堂服务] RUNNING: PID: 4719, Port: 5006, Log: /root/Teacher_Assistant_AI/backend/logs/services/openmaic_20260421_063310.log

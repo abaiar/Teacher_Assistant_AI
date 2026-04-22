@@ -32,7 +32,7 @@ export function BaseVideoElement({ elementInfo }: BaseVideoElementProps) {
 
   // Only subscribe to media store when inside a classroom (stageId provided via context).
   const stageId = useMediaStageId();
-  const isPlaceholder = !!stageId && isMediaPlaceholder(elementInfo.src);
+  const isPlaceholder = isMediaPlaceholder(elementInfo.src);
   const task = useMediaGenerationStore((s) => {
     if (!isPlaceholder) return undefined;
     const t = s.tasks[elementInfo.src];
@@ -92,7 +92,7 @@ export function BaseVideoElement({ elementInfo }: BaseVideoElementProps) {
 
   return (
     <div
-      className="absolute"
+      className="element-content absolute"
       data-video-element
       style={{
         top: `${elementInfo.top}px`,

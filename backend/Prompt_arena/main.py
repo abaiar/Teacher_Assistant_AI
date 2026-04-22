@@ -228,4 +228,4 @@ if __name__ == "__main__":
     print("端口: 5005")
     print("=" * 50 + "\n")
     
-    app.run(host='0.0.0.0', port=5005, debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=5005, debug=False)

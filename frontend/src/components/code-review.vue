@@ -2,8 +2,8 @@
   <div class="zyyo-filter"></div>
   <div class="zyyo-main">
     <div class="zyyo-left">
-      <div class="logo" style="background-image: url('../../static/img/touxiang.png');">
-        <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
+      <div class="logo" :style="{ backgroundImage: `url(${touxiangImg})` }">
+        <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" :src="logokuangImg">
       </div>
       <div class="left-div left-des">
         <div class="left-des-item">
@@ -38,8 +38,8 @@
           </svg>
           首页
         </button>
-        <div class="index-logo" style="background-image: url('../../static/img/logo.png');">
-          <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" src="../../static/img/logokuang.png">
+        <div class="index-logo" :style="{ backgroundImage: `url(${touxiangImg})` }">
+          <img style="position: absolute;top:-15%;left:-10%;width: 120%; aspect-ratio: 1/1;" :src="logokuangImg">
         </div>
         <div class="welcome">
           Hello I' m <span class="gradientText">师小助 </span>
@@ -124,13 +124,13 @@
                      :class="['message', msg.role]">
                   <div class="message-avatar">
                     <template v-if="msg.role === 'user'">👤</template>
-                    <img v-else src="../../static/img/touxiang.png" alt="小助老师" class="avatar-img">
+                    <img v-else :src="touxiangImg" alt="小助老师" class="avatar-img">
                   </div>
                   <div class="message-content" v-html="formatMessage(msg.content)"></div>
                 </div>
                 <div v-if="isTyping" class="message assistant typing">
                   <div class="message-avatar">
-                    <img src="../../static/img/touxiang.png" alt="小助老师" class="avatar-img">
+                    <img :src="touxiangImg" alt="小助老师" class="avatar-img">
                   </div>
                   <div class="message-content">
                     <span class="typing-indicator">
@@ -214,6 +214,8 @@
 import { ref, computed, nextTick, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { getServiceUrl } from '../config/api';
+import touxiangImg from '../../static/img/touxiang.png'
+import logokuangImg from '../../static/img/logokuang.png'
 
 const router = useRouter();
 const MENTOR_URL = getServiceUrl('CODE_CORRECTION_SERVICE');
